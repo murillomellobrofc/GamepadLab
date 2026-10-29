@@ -1,0 +1,49 @@
+{
+  "disconnected": {
+    "title": "Controle desconectado",
+    "action": "Reconecte o cabo ou ligue o controle de novo segurando o botão central."
+  },
+  "permissionDenied": {
+    "title": "Sem permissão para ler o controle",
+    "action": "macOS: libere em Privacidade e Segurança > Monitoramento de Entrada. Linux: instale a regra udev do GamepadLab. Windows: feche apps que prendem o controle (DS4Windows, Steam)."
+  },
+  "driverMissing": {
+    "title": "Driver do controle não encontrado",
+    "action": "Atualize o sistema e reconecte. No Windows, controles Xbox antigos precisam do driver oficial."
+  },
+  "backendUnavailable": {
+    "title": "Leitura de controles indisponível",
+    "action": "Reinicie o app. No Linux, confira se o udev está rodando e se você está no grupo input."
+  },
+  "rumbleUnsupported": {
+    "title": "Este controle não aceita esse comando",
+    "action": "Vibração, LED ou gatilhos adaptativos não existem neste controle ou nesta conexão."
+  },
+  "hidAccess": {
+    "title": "Falha ao conversar com o controle",
+    "action": "Desconecte e reconecte. Se estiver no Bluetooth, tente pelo cabo USB."
+  },
+  "io": {
+    "title": "Não deu para ler ou salvar o arquivo",
+    "action": "Confira a pasta escolhida, as permissões e o espaço em disco."
+  },
+  "invalidInput": {
+    "title": "Dados inválidos",
+    "action": "Confira o arquivo ou os valores e tente de novo."
+  },
+  "notFound": {
+    "title": "Item não encontrado",
+    "action": "Ele pode ter sido removido. Atualize a lista."
+  },
+  "internal": {
+    "title": "Erro inesperado",
+    "action": "Copie o diagnóstico em Configurações e abra uma issue no GitHub do projeto."
+  },
+  "warnings": {
+    "steamRunning": "O Steam está aberto. O Steam Input pode remapear, esconder ou duplicar controles: feche o Steam ou desative o Steam Input para testar o controle de verdade.",
+    "inputMonitoring": "O macOS bloqueou o Monitoramento de Entrada. Alguns controles só aparecem depois de liberar o GamepadLab.",
+    "hidrawPermission": "Sem permissão para o hidraw: giroscópio, touchpad, LED e gatilhos ficam indisponíveis até instalar a regra udev do GamepadLab.",
+    "virtualDevice": "Há um controle virtual conectado (Steam Input, ViGEm…). Ele espelha um controle real e pode aparecer como cópia.",
+    "openSettings": "Abrir ajustes"
+  }
+}

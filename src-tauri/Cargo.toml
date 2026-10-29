@@ -20,3 +20,6 @@ tauri-plugin-process = "2.4"
 serde.workspace = true
 serde_json.workspace = true
 log.workspace = true
+gamepadlab-input.workspace = true
+gamepadlab-calibration.workspace = true
+sysinfo = { version = "0.40", default-features = false, features = ["system"] }

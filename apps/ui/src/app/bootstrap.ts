@@ -1,11 +1,36 @@
 import { api, events } from '@/api/client';
 import { getTransport } from '@/api/transport';
 import { translate } from '@/i18n';
-import { useApp } from '@/state/app';
+import { useApp, type Toast } from '@/state/app';
 import { live } from '@/state/live';
 import { useSettings } from '@/state/settings';
 
 let started = false;
+
+const KNOWN_CODES = [
+  'disconnected',
+  'permissionDenied',
+  'driverMissing',
+  'backendUnavailable',
+  'rumbleUnsupported',
+  'hidAccess',
+  'io',
+  'invalidInput',
+  'notFound',
+  'internal',
+];
+
+/** Human, localised toast for a backend error code: what happened + what to do. */
+export function errorToast(code: string | null, detail?: string): Omit<Toast, 'id'> {
+  const locale = useSettings.getState().locale;
+  const c = code && KNOWN_CODES.includes(code) ? code : 'internal';
+  const action = translate(locale, `errors.${c}.action`);
+  return {
+    tone: c === 'rumbleUnsupported' ? 'warn' : 'bad',
+    title: translate(locale, `errors.${c}.title`),
+    body: detail ? `${action} (${detail})` : action,
+  };
+}
 
 /** Connects the transport, loads the initial state and wires backend events. */
 export async function bootstrap(): Promise<void> {
@@ -46,8 +71,9 @@ export async function bootstrap(): Promise<void> {
       s.announce(tt('app.toast.disconnected', { name: controller.name }));
     }
   });
+  await events.controllerUpdated((c) => useApp.getState().upsertController(c));
   await events.error((e) => {
-    useApp.getState().toast({ tone: 'bad', title: tt('app.toast.error'), body: e.message });
+    useApp.getState().toast(errorToast(e.code, e.message));
   });
   await events.rumble((f) => useApp.getState().setRumble(f));
 

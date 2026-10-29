@@ -1,0 +1,15 @@
+{
+  "axes": "Eixos",
+  "buttons": "Botões",
+  "name": "Nome",
+  "value": "Valor",
+  "rawCol": "Cru",
+  "min": "Mín",
+  "max": "Máx",
+  "presses": "Vezes",
+  "seq": "Relatório",
+  "timestamp": "Tempo",
+  "rate": "Taxa",
+  "reset": "Resetar",
+  "resetDone": "Mínimos e máximos zerados"
+}

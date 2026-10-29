@@ -1,0 +1,21 @@
+{
+  "waiting": "Waiting for controller data… press a button.",
+  "diagram": "Controller",
+  "genericLayout": "Automatic layout built from the detected buttons and axes",
+  "sticks": "Sticks",
+  "triggers": "Triggers",
+  "leftStick": "Left stick",
+  "rightStick": "Right stick",
+  "angle": "Angle",
+  "magnitude": "Magnitude",
+  "raw": "raw",
+  "caps": {
+    "title": "Features",
+    "rumble": "Rumble",
+    "adaptiveTriggers": "Adaptive triggers",
+    "gyro": "Gyroscope",
+    "touchpad": "Touchpad",
+    "lightbar": "Lightbar",
+    "battery": "Battery"
+  }
+}

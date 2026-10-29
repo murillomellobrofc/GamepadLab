@@ -1,53 +1,77 @@
 //! GamepadLab desktop shell: wires the input, calibration, profiles and
 //! haptics crates to the web UI through Tauri commands and events.
 
-use serde::Serialize;
+mod calibrate;
+mod commands;
+mod emitter;
+mod error;
+mod logging;
+mod platform;
+mod state;
 
-#[derive(Serialize)]
-#[serde(rename_all = "camelCase")]
-struct AppInfo {
-    version: String,
-    os: String,
-    os_version: String,
-    arch: String,
-    backends: Vec<String>,
-    updater_configured: bool,
-    data_dir: String,
-}
-
-#[tauri::command]
-fn app_info() -> AppInfo {
-    AppInfo {
-        version: env!("CARGO_PKG_VERSION").to_string(),
-        os: std::env::consts::OS.to_string(),
-        os_version: String::new(),
-        arch: std::env::consts::ARCH.to_string(),
-        backends: vec![],
-        updater_configured: false,
-        data_dir: String::new(),
-    }
-}
-
-#[tauri::command]
-fn list_controllers() -> Vec<serde_json::Value> {
-    Vec::new()
-}
-
-#[tauri::command]
-fn platform_warnings() -> Vec<serde_json::Value> {
-    Vec::new()
-}
+use gamepadlab_input::InputService;
+use state::AppState;
+use std::sync::atomic::AtomicU32;
+use std::sync::mpsc;
+use std::sync::Arc;
+use tauri::{Manager, RunEvent};
 
 pub fn run() {
-    tauri::Builder::default()
+    logging::init(log::LevelFilter::Info);
+
+    let app = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
+        .setup(|app| {
+            let handle = app.handle().clone();
+            if let Ok(dir) = handle.path().app_log_dir() {
+                logging::attach_file(&dir);
+            }
+            log::info!(
+                "GamepadLab {} starting on {} {} ({})",
+                env!("CARGO_PKG_VERSION"),
+                std::env::consts::OS,
+                platform::os_version(),
+                std::env::consts::ARCH
+            );
+            let data_dir = commands::data_dir(&handle);
+            let _ = std::fs::create_dir_all(&data_dir);
+
+            let (tx, rx) = mpsc::channel();
+            let input = InputService::start_default(tx);
+            let state = Arc::new(AppState {
+                input,
+                ui_rate: AtomicU32::new(60),
+                data_dir,
+            });
+            app.manage(state.clone());
+            emitter::spawn_event_forwarder(handle.clone(), rx);
+            emitter::spawn_frame_emitter(handle, state);
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
-            app_info,
-            list_controllers,
-            platform_warnings
+            commands::app_info,
+            commands::list_controllers,
+            commands::platform_warnings,
+            commands::set_ui_rate,
+            commands::reset_minmax,
+            commands::set_demo,
+            commands::demo_scenario,
+            commands::demo_manual,
+            commands::enable_sensors,
+            commands::diagnostics,
+            commands::set_log_level,
+            commands::log_frontend,
+            commands::open_privacy_settings,
         ])
-        .run(tauri::generate_context!())
-        .expect("error while running GamepadLab");
+        .build(tauri::generate_context!())
+        .expect("error while building GamepadLab");
+
+    app.run(|_app, event| {
+        if let RunEvent::Exit = event {
+            log::info!("GamepadLab exiting");
+            log::logger().flush();
+        }
+    });
 }

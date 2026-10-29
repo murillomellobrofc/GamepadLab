@@ -1,0 +1,61 @@
+.wrap {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: stretch;
+}
+.track {
+  position: relative;
+  width: 34px;
+  height: 170px;
+  border-radius: 10px;
+  background: var(--surface-3);
+  border: 1px solid var(--line-strong);
+  overflow: hidden;
+}
+.fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: bottom;
+  transform: scaleY(0);
+  background: linear-gradient(
+    to top,
+    var(--sig-raw),
+    color-mix(in srgb, var(--sig-raw) 50%, transparent)
+  );
+}
+.fill[data-cal] {
+  background: linear-gradient(
+    to top,
+    var(--sig-cal),
+    color-mix(in srgb, var(--sig-cal) 50%, transparent)
+  );
+}
+.ticks span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line-strong);
+  opacity: 0.6;
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+  min-width: 70px;
+}
+.label {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.pct {
+  font-size: var(--fs-xl);
+}
+.raw {
+  font-size: var(--fs-2xs);
+  color: var(--text-faint);
+}

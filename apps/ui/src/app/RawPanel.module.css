@@ -1,0 +1,112 @@
+.panel {
+  border-left: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-elev) 96%, transparent);
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 1180px) {
+  .panel {
+    position: fixed;
+    right: 0;
+    top: var(--topbar-h);
+    bottom: 0;
+    width: var(--rawpanel-w);
+    z-index: 30;
+    box-shadow: var(--shadow);
+  }
+}
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 var(--sp-3) 0 var(--sp-4);
+  height: 48px;
+  border-bottom: 1px solid var(--line);
+}
+.head h2 {
+  margin-right: auto;
+}
+.scroll {
+  overflow: auto;
+  padding: var(--sp-3) var(--sp-3) var(--sp-6);
+}
+.empty {
+  padding: var(--sp-3);
+  color: var(--text-faint);
+  font-size: var(--fs-sm);
+}
+.report {
+  margin: 0 0 var(--sp-3);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.report div {
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.report dt {
+  font-size: var(--fs-2xs);
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.report dd {
+  margin: 0;
+  font-size: var(--fs-xs);
+}
+.sub {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: var(--sp-4) 0 var(--sp-1);
+}
+.sub span {
+  font-family: var(--font-mono);
+  color: var(--text-faint);
+}
+.idx {
+  color: var(--text-faint);
+  width: 20px;
+}
+.name {
+  font-family: var(--font-ui) !important;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.val {
+  display: block;
+}
+.bar {
+  display: block;
+  position: relative;
+  height: 3px;
+  margin-top: 2px;
+  background: var(--surface-3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% + min(0, var(--v)) * 50%);
+  width: calc(abs(var(--v)) * 50%);
+  background: var(--sig-raw);
+}
+.dim {
+  color: var(--text-muted);
+}
+.btnRow[data-on] td {
+  background: var(--accent-soft);
+  color: var(--text);
+}

@@ -1,0 +1,45 @@
+.scope {
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: center;
+}
+.canvas {
+  width: min(var(--size), 100%);
+  height: auto;
+  aspect-ratio: 1;
+  display: block;
+}
+.readout {
+  width: 100%;
+  display: grid;
+  gap: 6px;
+}
+.title {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-align: center;
+}
+.readout dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px 8px;
+}
+.readout dl div {
+  text-align: center;
+}
+.readout dt {
+  font-size: var(--fs-2xs);
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.readout dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+}

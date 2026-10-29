@@ -1,0 +1,15 @@
+{
+  "axes": "Axes",
+  "buttons": "Buttons",
+  "name": "Name",
+  "value": "Value",
+  "rawCol": "Raw",
+  "min": "Min",
+  "max": "Max",
+  "presses": "Presses",
+  "seq": "Report",
+  "timestamp": "Time",
+  "rate": "Rate",
+  "reset": "Reset",
+  "resetDone": "Minimums and maximums cleared"
+}

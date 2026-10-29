@@ -4,15 +4,22 @@ import { bootstrap } from '@/app/bootstrap';
 import { EmptyState } from '@/app/EmptyState';
 import { useDocumentSettings } from '@/app/useDocumentSettings';
 import { useShortcuts } from '@/app/useShortcuts';
-import { useApp } from '@/state/app';
+import { TestView } from '@/features/test/TestView';
 import { useT } from '@/i18n';
+import { useApp, useSelectedController } from '@/state/app';
+import ui from '@/styles/ui.module.css';
 
 function MainContent() {
   const t = useT();
-  const hasControllers = useApp((s) => s.controllers.length > 0);
   const tab = useApp((s) => s.tab);
-  if (!hasControllers && tab !== 'history' && tab !== 'overlay') return <EmptyState />;
-  return <p>{t('app.common.loading')}</p>;
+  const c = useSelectedController();
+  if (!c && tab !== 'history' && tab !== 'overlay') return <EmptyState />;
+  switch (tab) {
+    case 'test':
+      return c && <TestView key={c.id} c={c} />;
+    default:
+      return <p className={ui.muted}>{t('app.common.loading')}</p>;
+  }
 }
 
 export default function App() {

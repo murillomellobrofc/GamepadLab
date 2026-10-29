@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { api } from '@/api/client';
 import { useT } from '@/i18n';
 import { useApp } from '@/state/app';
 import { useSettings } from '@/state/settings';
@@ -47,7 +48,16 @@ export function AppShell({ children }: { children: ReactNode }) {
               role="alert"
             >
               <Icon name="alert" />
-              <span>{w.message}</span>
+              <span style={{ flex: 1 }}>{t(`errors.warnings.${w.code}`)}</span>
+              {w.code === 'inputMonitoring' && (
+                <button
+                  type="button"
+                  className={`${ui.btn} ${ui.small}`}
+                  onClick={() => void api.openPrivacySettings()}
+                >
+                  {t('errors.warnings.openSettings')}
+                </button>
+              )}
             </div>
           ))}
           {children}

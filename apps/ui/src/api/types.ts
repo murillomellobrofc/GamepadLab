@@ -442,4 +442,6 @@ export type DemoScenario =
   | 'triggerRest'
   | 'triggerFull'
   | 'buttons'
-  | 'manual';
+  | 'manual'
+  | { pressButton: number }
+  | { chord: number[] };

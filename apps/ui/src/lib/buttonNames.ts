@@ -1,0 +1,120 @@
+import type { ControllerKind } from '@/api/types';
+
+const COMMON = ['L3', 'R3', '↑', '↓', '←', '→'];
+
+const NAMES: Record<ControllerKind, string[]> = {
+  xbox: [
+    'A',
+    'B',
+    'X',
+    'Y',
+    'LB',
+    'RB',
+    'LT',
+    'RT',
+    'View',
+    'Menu',
+    'LS',
+    'RS',
+    '↑',
+    '↓',
+    '←',
+    '→',
+    'Xbox',
+    '—',
+    'Share',
+    'P1',
+    'P2',
+    'P3',
+    'P4',
+  ],
+  ps5: [
+    '✕',
+    '○',
+    '□',
+    '△',
+    'L1',
+    'R1',
+    'L2',
+    'R2',
+    'Create',
+    'Options',
+    ...COMMON,
+    'PS',
+    'Touchpad',
+    'Mute',
+    'Fn L',
+    'Fn R',
+    'Back L',
+    'Back R',
+  ],
+  ps4: [
+    '✕',
+    '○',
+    '□',
+    '△',
+    'L1',
+    'R1',
+    'L2',
+    'R2',
+    'Share',
+    'Options',
+    ...COMMON,
+    'PS',
+    'Touchpad',
+    '—',
+    '—',
+    '—',
+    '—',
+    '—',
+  ],
+  switchPro: [
+    'B',
+    'A',
+    'Y',
+    'X',
+    'L',
+    'R',
+    'ZL',
+    'ZR',
+    '−',
+    '+',
+    'LS',
+    'RS',
+    '↑',
+    '↓',
+    '←',
+    '→',
+    'Home',
+    '—',
+    'Capture',
+    '—',
+    '—',
+    '—',
+    '—',
+  ],
+  generic: [],
+};
+
+/** Long names for screen readers (the glyphs above read poorly). */
+const SPOKEN: Partial<Record<string, string>> = {
+  '✕': 'Cross (X)',
+  '○': 'Circle',
+  '□': 'Square',
+  '△': 'Triangle',
+  '↑': 'D-pad up',
+  '↓': 'D-pad down',
+  '←': 'D-pad left',
+  '→': 'D-pad right',
+  '−': 'Minus',
+  '+': 'Plus',
+};
+
+export function buttonName(kind: ControllerKind, index: number): string {
+  return NAMES[kind][index] ?? `B${index}`;
+}
+
+export function buttonSpoken(kind: ControllerKind, index: number): string {
+  const n = buttonName(kind, index);
+  return SPOKEN[n] ?? n;
+}

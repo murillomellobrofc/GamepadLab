@@ -121,6 +121,8 @@ export const events = {
   frame: (cb: (f: UiFrame) => void) => transport().listen<UiFrame>('gp://frame', cb),
   connection: (cb: (e: ConnectionEvent) => void) =>
     transport().listen<ConnectionEvent>('gp://connection', cb),
+  controllerUpdated: (cb: (c: ControllerInfo) => void) =>
+    transport().listen<ControllerInfo>('gp://controller-updated', cb),
   error: (cb: (e: AppErrorEvent) => void) => transport().listen<AppErrorEvent>('gp://error', cb),
   rumble: (cb: (f: RumbleFrame) => void) => transport().listen<RumbleFrame>('gp://rumble', cb),
   overlaySettings: (cb: (s: { settings: OverlaySettings; controllerId: string | null }) => void) =>
@@ -131,6 +133,11 @@ export const events = {
 };
 
 /** Turns any thrown backend error into a human-readable string. */
+export function errorCode(e: unknown): string | null {
+  if (e && typeof e === 'object' && 'code' in e) return String((e as { code: unknown }).code);
+  return null;
+}
+
 export function errorMessage(e: unknown): string {
   if (typeof e === 'string') return e;
   if (e && typeof e === 'object' && 'message' in e)

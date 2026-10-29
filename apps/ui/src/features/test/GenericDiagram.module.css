@@ -1,0 +1,75 @@
+.wrap {
+  display: grid;
+  gap: var(--sp-4);
+}
+.empty {
+  color: var(--text-faint);
+}
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+}
+.cell {
+  height: 52px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--accent) calc(var(--v, 0) * 70%), var(--pad-btn));
+  display: grid;
+  place-items: center;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-align: center;
+  padding: 2px;
+}
+.cell[data-on='true'] {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+.axes {
+  display: grid;
+  gap: 8px;
+}
+.axis {
+  display: grid;
+  grid-template-columns: 90px 1fr 70px;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-xs);
+}
+.axisLabel {
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.track {
+  position: relative;
+  height: 10px;
+  border-radius: 6px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.track::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line-strong);
+}
+.fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% + min(0, var(--v, 0)) * 50%);
+  width: calc(abs(var(--v, 0)) * 50%);
+  background: var(--sig-raw);
+}
+.axis output {
+  text-align: right;
+}

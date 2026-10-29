@@ -251,16 +251,6 @@
   gap: var(--sp-2);
 }
 
-/* ----------------------------------------------------------------- rawpanel */
-.rawpanel {
-  border-left: 1px solid var(--line);
-  background: color-mix(in srgb, var(--bg-elev) 94%, transparent);
-  min-width: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
 /* --------------------------------------------------------------- responsive */
 @media (max-width: 1600px) {
   .tab {
@@ -273,15 +263,6 @@
 @media (max-width: 1180px) {
   .shell[data-raw='open'] {
     grid-template-columns: var(--sidebar-w) minmax(0, 1fr) 0;
-  }
-  .shell[data-raw='open'] .rawpanel {
-    position: fixed;
-    right: 0;
-    top: var(--topbar-h);
-    bottom: 0;
-    width: var(--rawpanel-w);
-    z-index: 30;
-    box-shadow: var(--shadow);
   }
 }
 @media (max-width: 1020px) {

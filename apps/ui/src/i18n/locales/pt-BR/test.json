@@ -1,0 +1,21 @@
+{
+  "waiting": "Aguardando dados do controle… aperte um botão.",
+  "diagram": "Controle",
+  "genericLayout": "Layout automático montado pelos botões e eixos detectados",
+  "sticks": "Analógicos",
+  "triggers": "Gatilhos",
+  "leftStick": "Analógico esquerdo",
+  "rightStick": "Analógico direito",
+  "angle": "Ângulo",
+  "magnitude": "Magnitude",
+  "raw": "cru",
+  "caps": {
+    "title": "Recursos",
+    "rumble": "Vibração",
+    "adaptiveTriggers": "Gatilhos adaptativos",
+    "gyro": "Giroscópio",
+    "touchpad": "Touchpad",
+    "lightbar": "LED",
+    "battery": "Bateria"
+  }
+}

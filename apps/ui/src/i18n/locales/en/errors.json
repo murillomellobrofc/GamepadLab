@@ -1,0 +1,49 @@
+{
+  "disconnected": {
+    "title": "Controller disconnected",
+    "action": "Plug the cable back in or turn the controller on again by holding the centre button."
+  },
+  "permissionDenied": {
+    "title": "No permission to read the controller",
+    "action": "macOS: allow it under Privacy & Security > Input Monitoring. Linux: install the GamepadLab udev rule. Windows: close apps that hold the controller (DS4Windows, Steam)."
+  },
+  "driverMissing": {
+    "title": "Controller driver not found",
+    "action": "Update your system and reconnect. On Windows, older Xbox controllers need the official driver."
+  },
+  "backendUnavailable": {
+    "title": "Controller input unavailable",
+    "action": "Restart the app. On Linux, check that udev is running and that you are in the input group."
+  },
+  "rumbleUnsupported": {
+    "title": "This controller does not accept that command",
+    "action": "Rumble, lights or adaptive triggers are not available on this controller or connection."
+  },
+  "hidAccess": {
+    "title": "Could not talk to the controller",
+    "action": "Unplug and reconnect it. If you are on Bluetooth, try a USB cable."
+  },
+  "io": {
+    "title": "Could not read or save the file",
+    "action": "Check the chosen folder, permissions and free disk space."
+  },
+  "invalidInput": {
+    "title": "Invalid data",
+    "action": "Check the file or the values and try again."
+  },
+  "notFound": {
+    "title": "Item not found",
+    "action": "It may have been removed. Refresh the list."
+  },
+  "internal": {
+    "title": "Unexpected error",
+    "action": "Copy the diagnostics from Settings and open an issue on the project's GitHub."
+  },
+  "warnings": {
+    "steamRunning": "Steam is open. Steam Input can remap, hide or duplicate controllers: close Steam or disable Steam Input to test the real controller.",
+    "inputMonitoring": "macOS is blocking Input Monitoring. Some controllers only show up after you allow GamepadLab.",
+    "hidrawPermission": "No hidraw permission: gyro, touchpad, lightbar and triggers stay unavailable until you install the GamepadLab udev rule.",
+    "virtualDevice": "A virtual controller is connected (Steam Input, ViGEm…). It mirrors a real one and may show up as a copy.",
+    "openSettings": "Open settings"
+  }
+}
