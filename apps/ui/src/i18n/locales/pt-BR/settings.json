@@ -16,7 +16,7 @@
   "uiRate": "Atualização da tela",
   "uiRateHint": "A leitura do controle continua na taxa real; isto só limita os quadros enviados à interface.",
   "gamepadNav": "Navegar pelo app com o controle",
-  "gamepadNavHint": "D-pad ou analógico movem o foco, A confirma, B volta, LB/RB trocam de aba. Pausa sozinho durante os testes.",
+  "gamepadNavHint": "Aperte PS/Xbox/Home (ou segure Select+Start) para ligar e desligar. D-pad ou analógico movem o foco, A confirma, B volta, LB/RB trocam de aba. Pausa sozinho durante os testes.",
   "diagnostics": "Diagnóstico",
   "logLevel": "Nível de log",
   "copyDiagnostics": "Copiar diagnóstico",

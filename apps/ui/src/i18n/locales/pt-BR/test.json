@@ -124,7 +124,8 @@
     "ghostFound": "Possível ghosting: {list} não registrou junto com os outros.",
     "noGhost": "Sem ghosting: todos registraram juntos.",
     "demoNote": "No demo há um defeito proposital: com 4 ou mais botões segurados, o □ não registra.",
-    "choose": "Escolha os botões"
+    "choose": "Escolha os botões",
+    "save": "Salvar no histórico"
   },
   "multi": {
     "all": "Todos",

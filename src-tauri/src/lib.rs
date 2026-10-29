@@ -4,11 +4,14 @@
 mod calibrate;
 mod cmd_calibration;
 mod cmd_files;
+mod cmd_history;
 mod commands;
 mod emitter;
 mod error;
 mod haptics;
+mod history;
 mod logging;
+mod overlay;
 mod platform;
 mod state;
 
@@ -26,6 +29,7 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
+        .manage(overlay::OverlayState::default())
         .setup(|app| {
             let handle = app.handle().clone();
             if let Ok(dir) = handle.path().app_log_dir() {
@@ -45,6 +49,13 @@ pub fn run() {
             let input = InputService::start_default(tx);
             let sink = Arc::new(haptics::ServiceSink(Default::default()));
             let engine = haptics::start(handle.clone(), sink.clone());
+            let history = match history::History::open(&data_dir.join("history.sqlite")) {
+                Ok(h) => Some(h),
+                Err(e) => {
+                    log::error!("history database unavailable: {e}");
+                    None
+                }
+            };
             let state = Arc::new(AppState {
                 input,
                 haptics: engine,
@@ -54,6 +65,7 @@ pub fn run() {
                 calibrations: Default::default(),
                 captures: Default::default(),
                 pending_capture: Default::default(),
+                history,
             });
             let _ = sink.0.set(Arc::downgrade(&state));
             app.manage(state.clone());
@@ -102,6 +114,15 @@ pub fn run() {
             cmd_files::save_text_file,
             cmd_files::save_binary_file,
             cmd_files::read_text_file,
+            cmd_history::history_add,
+            cmd_history::history_list,
+            cmd_history::history_delete,
+            cmd_history::history_clear,
+            overlay::overlay_open,
+            overlay::overlay_update,
+            overlay::overlay_close,
+            overlay::overlay_state,
+            overlay::overlay_is_open,
         ])
         .build(tauri::generate_context!())
         .expect("error while building GamepadLab");

@@ -1,3 +1,4 @@
+use crate::history::History;
 use gamepadlab_calibration::{CalibrationProfile, Sample};
 use gamepadlab_haptics::HapticsEngine;
 use gamepadlab_input::InputService;
@@ -22,4 +23,6 @@ pub struct AppState {
     pub calibrations: RwLock<HashMap<String, CalibrationProfile>>,
     pub captures: Mutex<HashMap<CaptureKey, Vec<Sample>>>,
     pub pending_capture: Mutex<Option<CaptureKey>>,
+    /// `None` when the database could not be opened (reported to the UI).
+    pub history: Option<History>,
 }

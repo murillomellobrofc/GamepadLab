@@ -1,0 +1,47 @@
+.local {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: var(--fs-xs);
+  color: var(--text-faint);
+  margin-bottom: var(--sp-3);
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--sp-4);
+}
+.filters [aria-checked='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.empty {
+  color: var(--text-faint);
+  padding: var(--sp-6) 0;
+  text-align: center;
+}
+.table {
+  font-size: var(--fs-sm);
+}
+.table tr[data-selected] td {
+  background: var(--accent-soft);
+}
+.ui {
+  font-family: var(--font-ui) !important;
+}
+.actions {
+  white-space: nowrap;
+  text-align: right;
+}
+.detail pre {
+  margin: 0;
+  max-height: 280px;
+  overflow: auto;
+  font-size: var(--fs-2xs);
+  background: var(--surface-2);
+  padding: var(--sp-3);
+  border-radius: var(--radius);
+  user-select: text;
+}

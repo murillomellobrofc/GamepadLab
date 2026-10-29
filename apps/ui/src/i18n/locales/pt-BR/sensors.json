@@ -1,0 +1,29 @@
+{
+  "title": "Sensores",
+  "gyro": "Giroscópio",
+  "accel": "Acelerômetro",
+  "orientation": "Orientação 3D",
+  "touchpad": "Touchpad",
+  "units": {
+    "dps": "°/s",
+    "g": "g"
+  },
+  "axes": {
+    "x": "X",
+    "y": "Y",
+    "z": "Z"
+  },
+  "none": "Este controle não informou giroscópio nem acelerômetro. DualShock 4, DualSense e Switch Pro têm sensores.",
+  "noTouch": "Este controle não tem touchpad.",
+  "tare": "Zerar orientação",
+  "tareHint": "Deixe o controle parado numa mesa e toque para zerar a deriva do giroscópio.",
+  "pressed": "Touchpad apertado",
+  "touches": "{n} toque(s)",
+  "enableSwitch": "Ativar sensores do Switch Pro (experimental)",
+  "enableSwitchHint": "Coloca o controle em modo completo pelo HID para ler o IMU. Os botões passam a ser lidos pelo GamepadLab; se o controle parar de responder em outros apps, desconecte e reconecte.",
+  "enabled": "Sensores ativados",
+  "pitch": "Inclinação",
+  "roll": "Rolagem",
+  "yaw": "Giro",
+  "hz": "Taxa dos sensores"
+}

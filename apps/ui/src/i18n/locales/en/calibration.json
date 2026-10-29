@@ -164,7 +164,8 @@
       "before": "Before",
       "after": "After"
     },
-    "hardwareNote": "Software calibration does not fix mechanical wear. If the drift is large or grows over time, the stick module needs replacing."
+    "hardwareNote": "Software calibration does not fix mechanical wear. If the drift is large or grows over time, the stick module needs replacing.",
+    "save": "Save to history"
   },
   "adjust": {
     "title": "Manual adjustments",

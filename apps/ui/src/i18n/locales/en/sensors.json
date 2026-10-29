@@ -1,0 +1,29 @@
+{
+  "title": "Sensors",
+  "gyro": "Gyroscope",
+  "accel": "Accelerometer",
+  "orientation": "3D orientation",
+  "touchpad": "Touchpad",
+  "units": {
+    "dps": "°/s",
+    "g": "g"
+  },
+  "axes": {
+    "x": "X",
+    "y": "Y",
+    "z": "Z"
+  },
+  "none": "This controller did not report a gyroscope or accelerometer. DualShock 4, DualSense and Switch Pro have sensors.",
+  "noTouch": "This controller has no touchpad.",
+  "tare": "Reset orientation",
+  "tareHint": "Leave the controller still on a table and press to zero the gyro drift.",
+  "pressed": "Touchpad pressed",
+  "touches": "{n} touch(es)",
+  "enableSwitch": "Enable Switch Pro sensors (experimental)",
+  "enableSwitchHint": "Puts the controller in full HID mode to read the IMU. Buttons are then read by GamepadLab; if the controller stops responding in other apps, unplug and reconnect it.",
+  "enabled": "Sensors enabled",
+  "pitch": "Pitch",
+  "roll": "Roll",
+  "yaw": "Yaw",
+  "hz": "Sensor rate"
+}

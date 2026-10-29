@@ -5,6 +5,8 @@ import { Icon } from '@/app/icons';
 import { useT } from '@/i18n';
 import { buttonName, buttonSpoken } from '@/lib/buttonNames';
 import { useApp } from '@/state/app';
+import { saveSession } from '@/lib/history';
+import { SaveToHistory } from '@/app/SaveToHistory';
 import { live } from '@/state/live';
 import ui from '@/styles/ui.module.css';
 import { ControllerDiagram } from './ControllerDiagram';
@@ -211,6 +213,18 @@ export function GuidedButtonTest({
             <button type="button" className={`${ui.btn} ${ui.primary}`} onClick={start}>
               <Icon name="refresh" size={16} /> {t('test.guided.restart')}
             </button>
+            <SaveToHistory
+              label={t('test.guided.save')}
+              onSave={() =>
+                saveSession(
+                  c,
+                  'buttons',
+                  results.length ? Math.round((s.pass / results.length) * 100) : null,
+                  t('test.guided.summary', { pass: s.pass, fail: s.fail, skip: s.skip }),
+                  { results },
+                )
+              }
+            />
           </div>
         </section>
       )}

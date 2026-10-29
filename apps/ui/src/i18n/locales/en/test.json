@@ -124,7 +124,8 @@
     "ghostFound": "Possible ghosting: {list} did not register together with the others.",
     "noGhost": "No ghosting: all registered together.",
     "demoNote": "The demo has a deliberate fault: with 4 or more buttons held, □ does not register.",
-    "choose": "Choose the buttons"
+    "choose": "Choose the buttons",
+    "save": "Save to history"
   },
   "multi": {
     "all": "All",

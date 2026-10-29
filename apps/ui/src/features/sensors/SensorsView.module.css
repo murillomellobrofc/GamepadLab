@@ -1,0 +1,162 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--sp-4);
+  align-items: start;
+}
+.wide {
+  grid-column: 1 / -1;
+}
+.chart {
+  width: 100%;
+  height: 130px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+.readout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: var(--sp-3);
+  font-size: var(--fs-xs);
+}
+.readout div {
+  display: grid;
+}
+.axis {
+  font-weight: 700;
+}
+.axis[data-axis='0'] {
+  color: var(--sig-raw);
+}
+.axis[data-axis='1'] {
+  color: var(--sig-cal);
+}
+.axis[data-axis='2'] {
+  color: var(--sig-alt);
+}
+.orient {
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: center;
+}
+.stage {
+  width: 100%;
+  height: 240px;
+  perspective: 700px;
+  display: grid;
+  place-items: center;
+}
+.pad {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  transform-style: preserve-3d;
+}
+.face {
+  position: absolute;
+  border: 1px solid var(--accent-line);
+  background: color-mix(in srgb, var(--surface-3) 85%, transparent);
+}
+.top {
+  inset: 0;
+  transform: translateZ(14px);
+  border-radius: 40px 40px 60px 60px;
+  background: color-mix(in srgb, var(--pad-body) 90%, var(--accent) 10%);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 18px 10px;
+}
+.top i {
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  width: 54px;
+  height: 30px;
+  margin-left: -27px;
+  border-radius: 6px;
+  border: 1px solid var(--accent-line);
+}
+.grip {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+}
+.bottom {
+  inset: 0;
+  transform: translateZ(-14px) rotateY(180deg);
+  border-radius: 40px 40px 60px 60px;
+}
+.front,
+.back {
+  left: 0;
+  width: 200px;
+  height: 28px;
+}
+.front {
+  top: 106px;
+  transform: rotateX(-90deg) translateZ(0);
+  transform-origin: top;
+}
+.back {
+  top: -14px;
+  transform: rotateX(90deg);
+  transform-origin: bottom;
+}
+.left,
+.right {
+  top: 0;
+  width: 28px;
+  height: 120px;
+}
+.left {
+  left: -14px;
+  transform: rotateY(-90deg);
+}
+.right {
+  right: -14px;
+  transform: rotateY(90deg);
+}
+.angles {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+  text-align: center;
+}
+.angles dt {
+  font-size: var(--fs-2xs);
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.angles dd {
+  margin: 0;
+  font-size: var(--fs-lg);
+}
+.touch {
+  display: grid;
+  gap: 8px;
+}
+.touchCanvas {
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 1920 / 1080;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  justify-self: center;
+}
+.touchInfo {
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

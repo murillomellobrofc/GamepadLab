@@ -12,6 +12,7 @@ import { RawPanel } from './RawPanel';
 import { SettingsDialog } from './SettingsDialog';
 import { Sidebar } from './Sidebar';
 import { Toasts } from './Toasts';
+import { useGamepadNav } from './useGamepadNav';
 import { TopBar } from './TopBar';
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -20,6 +21,9 @@ export function AppShell({ children }: { children: ReactNode }) {
   const tab = useApp((s) => s.tab);
   const transportKind = useApp((s) => s.transportKind);
   const warnings = useApp((s) => s.warnings);
+  const gpNav = useApp((s) => s.gamepadNav);
+  const navLocks = useApp((s) => s.navLocks);
+  useGamepadNav();
   return (
     <div className={css.shell} data-raw={rawOpen ? 'open' : 'closed'}>
       <a href="#main-panel" className="skip-link">
@@ -64,6 +68,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </main>
       {rawOpen ? <RawPanel /> : <span />}
+      {gpNav && (
+        <div className={css.gpBadge} role="status" data-paused={navLocks > 0 || undefined}>
+          <Icon name="gamepad" size={14} />
+          {navLocks > 0 ? t('a11y.gamepadNavPaused') : t('a11y.gamepadNavHint')}
+        </div>
+      )}
       <Toasts />
       <Announcer />
       <SettingsDialog />

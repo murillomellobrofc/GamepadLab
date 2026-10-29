@@ -1,0 +1,21 @@
+{
+  "title": "Report",
+  "dialogTitle": "Export report",
+  "format": "Format",
+  "png": "PNG image",
+  "pdf": "PDF document",
+  "json": "JSON data",
+  "generate": "Generate and save",
+  "generating": "Generating…",
+  "saved": "Report saved",
+  "heading": "GamepadLab report",
+  "generated": "Generated on {date}",
+  "device": "Controller",
+  "sessions": "Sessions",
+  "buttons": "Button checklist",
+  "calibration": "Calibration",
+  "latency": "Latency",
+  "ghosting": "Ghosting",
+  "noTelemetry": "Generated locally by GamepadLab. No data was sent to the internet.",
+  "contents": "The report includes circularity, drift and latency charts and the button checklist of the chosen sessions."
+}

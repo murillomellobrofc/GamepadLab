@@ -73,6 +73,12 @@ kbd {
   outline-offset: 2px;
 }
 
+/* Focus moved by the controller is programmatic: show it explicitly. */
+:root[data-gpnav] :focus {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
 .sr-only {
   position: absolute !important;
   width: 1px;

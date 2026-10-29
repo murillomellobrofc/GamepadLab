@@ -5,6 +5,8 @@ import { Icon } from '@/app/icons';
 import { useT, type TKey } from '@/i18n';
 import { buttonName } from '@/lib/buttonNames';
 import { useApp } from '@/state/app';
+import { saveSession } from '@/lib/history';
+import { SaveToHistory } from '@/app/SaveToHistory';
 import { live } from '@/state/live';
 import ui from '@/styles/ui.module.css';
 import css from './GhostingTest.module.css';
@@ -194,9 +196,30 @@ export function GhostingTest({ c }: { c: ControllerInfo }) {
                 })
               : t('test.ghosting.noGhost')}
           </p>
-          <button type="button" className={ui.btn} onClick={() => setPhase('setup')}>
-            <Icon name="refresh" size={16} /> {t('test.guided.restart')}
-          </button>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <button type="button" className={ui.btn} onClick={() => setPhase('setup')}>
+              <Icon name="refresh" size={16} /> {t('test.guided.restart')}
+            </button>
+            <SaveToHistory
+              label={t('test.ghosting.save')}
+              onSave={() =>
+                saveSession(
+                  c,
+                  'ghosting',
+                  Math.round((result.rollover / result.targets.length) * 100),
+                  `${t('test.ghosting.rollover')}: ${result.rollover}/${result.targets.length}`,
+                  {
+                    result: {
+                      ...result,
+                      names: Object.fromEntries(
+                        result.targets.map((b) => [b, buttonName(c.kind, b)]),
+                      ),
+                    },
+                  },
+                )
+              }
+            />
+          </div>
         </div>
       )}
     </section>

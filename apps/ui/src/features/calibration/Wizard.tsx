@@ -13,6 +13,8 @@ import { Segmented, Switch } from '@/app/controls';
 import { Icon } from '@/app/icons';
 import { useT, type TKey } from '@/i18n';
 import { useApp } from '@/state/app';
+import { downsample, saveSession } from '@/lib/history';
+import { SaveToHistory } from '@/app/SaveToHistory';
 import { live } from '@/state/live';
 import { useActiveProfile, useProfiles } from '@/state/profiles';
 import ui from '@/styles/ui.module.css';
@@ -692,6 +694,24 @@ export function Wizard({ c }: { c: ControllerInfo }) {
               >
                 {t('calibration.wizard.otherStick')}
               </button>
+              <SaveToHistory
+                label={t('calibration.report.save')}
+                onSave={() =>
+                  saveSession(
+                    c,
+                    'calibration',
+                    (after ?? report).score.score,
+                    `${t(side === 'left' ? 'calibration.wizard.left' : 'calibration.wizard.right')}: ${report.score.grade} ${report.score.score}${after ? ` → ${after.score.grade} ${after.score.score}` : ''}`,
+                    {
+                      stick: side,
+                      before: report,
+                      after,
+                      rotation: downsample(caps.rotation?.samples ?? [], 2000),
+                      triggers: trigReport,
+                    },
+                  )
+                }
+              />
               <button
                 type="button"
                 className={`${ui.btn} ${ui.ghost}`}

@@ -8,6 +8,8 @@ import ui from '@/styles/ui.module.css';
 import { ControllerHeader } from '../common/ControllerHeader';
 import css from './LatencyView.module.css';
 import { histogram, summarizeIntervals } from './latency';
+import { downsample, saveSession } from '@/lib/history';
+import { SaveToHistory } from '@/app/SaveToHistory';
 
 const WINDOW_US = 5_000_000;
 
@@ -178,6 +180,18 @@ function Measurement({ c }: { c: ControllerInfo }) {
           <Stat label={t('latency.max')} value={result.maxMs.toFixed(2)} unit="ms" />
           <Stat label={t('latency.p99')} value={result.p99Ms.toFixed(2)} unit="ms" />
           <p className={ui.faint}>{t('latency.samples', { n: result.samples })}</p>
+          <SaveToHistory
+            label={t('latency.save')}
+            onSave={() =>
+              saveSession(
+                c,
+                'latency',
+                null,
+                `${result.hz.toFixed(0)} Hz · jitter ${result.jitterMs.toFixed(2)} ms`,
+                { summary: result, intervalsUs: downsample(collected.current, 5000) },
+              )
+            }
+          />
         </div>
       ) : (
         <p className={ui.faint}>{t('latency.explain')}</p>

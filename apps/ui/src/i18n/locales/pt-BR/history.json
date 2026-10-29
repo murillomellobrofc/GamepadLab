@@ -1,0 +1,28 @@
+{
+  "title": "Histórico de testes",
+  "empty": "Nenhuma sessão salva ainda. Use \"Salvar no histórico\" ao terminar um teste, uma medição de latência ou uma calibração.",
+  "filter": "Filtrar",
+  "all": "Tudo",
+  "kinds": {
+    "test": "Teste",
+    "buttons": "Botões",
+    "calibration": "Calibração",
+    "latency": "Latência",
+    "ghosting": "Ghosting",
+    "vibration": "Vibração"
+  },
+  "date": "Data",
+  "controller": "Controle",
+  "kind": "Tipo",
+  "score": "Nota",
+  "summary": "Resumo",
+  "delete": "Excluir",
+  "clear": "Apagar tudo",
+  "confirmClear": "Apagar todo o histórico? Não dá para desfazer.",
+  "select": "Selecionar sessão {id}",
+  "selected": "{n} selecionada(s)",
+  "report": "Exportar relatório",
+  "local": "O histórico fica só neste computador (SQLite na pasta de dados do app).",
+  "saved": "Sessão salva no histórico",
+  "details": "Detalhes"
+}

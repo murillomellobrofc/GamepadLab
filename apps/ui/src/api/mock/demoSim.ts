@@ -6,7 +6,8 @@ import { BUTTONS, type DemoScenario, type InputSnapshot } from '../types';
 
 const TAU = Math.PI * 2;
 export const DIRECTIONS_DEG = [90, 45, 0, 315, 270, 225, 180, 135];
-const SHOWCASE_ORDER = [0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+// Guide (16) is left out: it toggles controller navigation in the UI.
+const SHOWCASE_ORDER = [0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18];
 const LABELS = [
   'Cross',
   'Circle',

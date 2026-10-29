@@ -151,6 +151,8 @@ export class MockBackend {
 
 export function createMockTransport(): Transport {
   const b = new MockBackend();
+  // Test hook for Playwright: lets a test "press" demo buttons.
+  (window as unknown as { __gamepadlabMock?: MockBackend }).__gamepadlabMock = b;
   const info: AppInfo = {
     version: '0.1.0',
     os: 'browser',

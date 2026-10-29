@@ -1,0 +1,107 @@
+.content {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.scaled {
+  transform: scale(var(--ov-scale, 1));
+  transform-origin: center;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  width: 340px;
+}
+.pad {
+  width: 100%;
+}
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+.row figcaption dl {
+  display: none;
+}
+.row figcaption span {
+  font-size: 9px;
+}
+.row [class*='track'] {
+  height: 110px;
+  width: 18px;
+}
+.row [class*='meta'] {
+  display: none;
+}
+
+/* Overlay window chrome */
+.window {
+  position: fixed;
+  inset: 0;
+}
+.handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  font-size: 10px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 5;
+  cursor: grab;
+}
+.window:hover .handle,
+.handle:focus-within {
+  opacity: 1;
+}
+.handle button {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+.empty {
+  color: #fff;
+  text-shadow: 0 1px 3px #000;
+  font-size: 13px;
+}
+
+/* Settings tab */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--sp-4);
+  align-items: start;
+}
+.form {
+  display: grid;
+  gap: var(--sp-4);
+}
+.previewBox {
+  height: 360px;
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--line-strong);
+  overflow: hidden;
+  background: repeating-conic-gradient(var(--surface-3) 0% 25%, var(--surface-2) 0% 50%) 0 0 / 20px
+    20px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

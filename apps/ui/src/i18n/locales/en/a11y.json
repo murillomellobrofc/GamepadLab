@@ -1,0 +1,5 @@
+{
+  "gamepadNavOn": "Controller navigation on",
+  "gamepadNavPaused": "Controller navigation paused during the test",
+  "gamepadNavHint": "D-pad/stick move focus · A confirms · B goes back · LB/RB switch tabs"
+}

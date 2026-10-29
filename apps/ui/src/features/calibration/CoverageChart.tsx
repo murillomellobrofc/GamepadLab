@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import type { CaptureSample, CircularityAnalysis, StickCalibration, Vec2 } from '@/api/types';
 import { useT } from '@/i18n';
 import { applyStick } from '@/lib/calibration';
-import { begin, graticule, useHiDpiCanvas, usePalette } from '@/lib/canvas';
+import { begin, graticule, useHiDpiCanvas, usePalette, type Palette } from '@/lib/canvas';
 import css from './CoverageChart.module.css';
 
 const SCALE = 1.3;
@@ -18,16 +18,20 @@ export function CoverageChart({
   before,
   after,
   calibration,
+  palette,
 }: {
   samples: CaptureSample[];
   center: Vec2;
   before: CircularityAnalysis | null;
   after?: CircularityAnalysis | null;
   calibration?: StickCalibration | null;
+  /** Fixed colours (used by the printable report, which is always light). */
+  palette?: Palette;
 }) {
   const t = useT();
   const { ref, size } = useHiDpiCanvas();
-  const p = usePalette();
+  const themed = usePalette();
+  const p = palette ?? themed;
 
   useEffect(() => {
     const canvas = ref.current;

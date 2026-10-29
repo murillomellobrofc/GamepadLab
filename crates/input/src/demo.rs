@@ -432,7 +432,8 @@ fn rotation_angle(secs: f32) -> f32 {
 /// Up, up-right, right, down-right, down, down-left, left, up-left.
 pub const DIRECTIONS_DEG: [f32; 8] = [90.0, 45.0, 0.0, 315.0, 270.0, 225.0, 180.0, 135.0];
 
-const SHOWCASE_ORDER: [usize; 17] = [0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+/// Guide (16) is left out: it toggles controller navigation in the UI.
+const SHOWCASE_ORDER: [usize; 16] = [0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18];
 
 const DS_BUTTON_LABELS: [(Button, &str); 19] = [
     (Button::South, "Cross"),

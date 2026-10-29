@@ -29,6 +29,8 @@ interface AppState {
   rumble: Record<string, RumbleFrame>;
   /** Shows every connected controller side by side. */
   multiView: boolean;
+  /** The controller is currently driving the UI (toggled with Guide). */
+  gamepadNav: boolean;
   announcement: { text: string; n: number };
 
   setReady: (kind: 'tauri' | 'mock', info: AppInfo | null) => void;
@@ -46,6 +48,7 @@ interface AppState {
   setRumble: (f: RumbleFrame) => void;
   announce: (text: string) => void;
   setMultiView: (on: boolean) => void;
+  setGamepadNav: (on: boolean) => void;
 }
 
 let toastSeq = 1;
@@ -66,6 +69,7 @@ export const useApp = create<AppState>()((set, get) => ({
   navLocks: 0,
   rumble: {},
   multiView: false,
+  gamepadNav: false,
   announcement: { text: '', n: 0 },
 
   setReady: (kind, info) => set({ ready: true, transportKind: kind, appInfo: info }),
@@ -117,6 +121,7 @@ export const useApp = create<AppState>()((set, get) => ({
   setRumble: (f) => set((s) => ({ rumble: { ...s.rumble, [f.controllerId]: f } })),
   announce: (text) => set((s) => ({ announcement: { text, n: s.announcement.n + 1 } })),
   setMultiView: (multiView) => set({ multiView }),
+  setGamepadNav: (gamepadNav) => set({ gamepadNav }),
 }));
 
 export function useSelectedController(): ControllerInfo | null {

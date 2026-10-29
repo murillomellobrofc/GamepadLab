@@ -164,7 +164,8 @@
       "before": "Antes",
       "after": "Depois"
     },
-    "hardwareNote": "Calibração por software não conserta desgaste mecânico. Se o drift for grande ou piorar com o tempo, o módulo do analógico precisa ser trocado."
+    "hardwareNote": "Calibração por software não conserta desgaste mecânico. Se o drift for grande ou piorar com o tempo, o módulo do analógico precisa ser trocado.",
+    "save": "Salvar no histórico"
   },
   "adjust": {
     "title": "Ajustes manuais",

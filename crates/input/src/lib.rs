@@ -13,6 +13,7 @@ pub mod registry;
 pub mod scripted;
 pub mod service;
 pub mod stats;
+pub mod virtual_device;
 
 #[cfg(feature = "gilrs")]
 pub mod gilrs_backend;
@@ -26,3 +27,4 @@ pub use service::{
     Capture, CaptureSample, CaptureTarget, FrameEntryRaw, InputService, ServiceConfig, ServiceEvent,
 };
 pub use stats::{IntervalSource, PollStats};
+pub use virtual_device::{platform_virtual_device, VirtualDevice, VirtualLayout, VirtualState};

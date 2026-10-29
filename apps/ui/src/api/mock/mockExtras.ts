@@ -1,6 +1,7 @@
 import type {
   CalibratedView,
   CalibrationProfile,
+  HistorySession,
   Profile,
   RumbleRequest,
   StickCalibration,
@@ -41,6 +42,7 @@ function playRumble(b: MockBackend, id: string, program: RumbleRequest[]) {
 }
 
 const profiles = new MockProfiles();
+const history: HistorySession[] = [];
 const DEMO_KEY = 'demo:dualsense';
 let active: CalibrationProfile | null = null;
 let pending: { kind: string; target: string } | null = null;
@@ -173,6 +175,26 @@ export const mockExtras = {
       profiles_export: (a) => profiles.export(c(a.deviceKey), c(a.profileId)),
       profiles_import: (a) => profiles.import(c(a.deviceKey), c(a.json)),
       controller_profile_key: () => DEMO_KEY,
+      history_add: (a) => {
+        const s = a.session as Omit<HistorySession, 'id' | 'createdAt'>;
+        const id = history.length ? history[0].id + 1 : 1;
+        history.unshift({ ...s, id, createdAt: new Date().toISOString() });
+        return id;
+      },
+      history_list: (a) => history.slice(0, Number(a.limit) || 200),
+      history_delete: (a) => {
+        const i = history.findIndex((h) => h.id === Number(a.id));
+        if (i < 0) throw { code: 'notFound', message: `session ${a.id}` };
+        history.splice(i, 1);
+      },
+      history_clear: () => {
+        history.length = 0;
+      },
+      overlay_open: () => undefined,
+      overlay_update: () => undefined,
+      overlay_close: () => undefined,
+      overlay_state: () => null,
+      overlay_is_open: () => false,
       save_text_file: () => undefined,
       save_binary_file: () => undefined,
       read_text_file: () => '',

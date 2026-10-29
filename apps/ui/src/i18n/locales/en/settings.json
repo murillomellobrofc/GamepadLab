@@ -16,7 +16,7 @@
   "uiRate": "Screen refresh",
   "uiRateHint": "Controller reading keeps its real rate; this only limits the frames sent to the interface.",
   "gamepadNav": "Navigate the app with the controller",
-  "gamepadNavHint": "D-pad or stick move focus, A confirms, B goes back, LB/RB switch tabs. Pauses itself during tests.",
+  "gamepadNavHint": "Press PS/Xbox/Home (or hold Select+Start) to turn it on and off. D-pad or stick move focus, A confirms, B goes back, LB/RB switch tabs. Pauses itself during tests.",
   "diagnostics": "Diagnostics",
   "logLevel": "Log level",
   "copyDiagnostics": "Copy diagnostics",

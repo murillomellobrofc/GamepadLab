@@ -1,0 +1,28 @@
+{
+  "title": "Test history",
+  "empty": "No saved sessions yet. Use \"Save to history\" after a test, a latency measurement or a calibration.",
+  "filter": "Filter",
+  "all": "All",
+  "kinds": {
+    "test": "Test",
+    "buttons": "Buttons",
+    "calibration": "Calibration",
+    "latency": "Latency",
+    "ghosting": "Ghosting",
+    "vibration": "Rumble"
+  },
+  "date": "Date",
+  "controller": "Controller",
+  "kind": "Type",
+  "score": "Score",
+  "summary": "Summary",
+  "delete": "Delete",
+  "clear": "Clear all",
+  "confirmClear": "Delete the whole history? This cannot be undone.",
+  "select": "Select session {id}",
+  "selected": "{n} selected",
+  "report": "Export report",
+  "local": "History stays on this computer only (SQLite in the app data folder).",
+  "saved": "Session saved to history",
+  "details": "Details"
+}

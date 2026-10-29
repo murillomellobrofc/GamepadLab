@@ -1,0 +1,25 @@
+{
+  "title": "Overlay para stream",
+  "intro": "Uma janela pequena, sem bordas e sempre no topo, que mostra o controle ao vivo. Capture a janela no OBS ou em outro programa de stream.",
+  "controller": "Controle mostrado",
+  "background": "Fundo",
+  "backgrounds": {
+    "transparent": "Transparente",
+    "green": "Chroma verde",
+    "blue": "Chroma azul",
+    "magenta": "Chroma magenta"
+  },
+  "scale": "Escala",
+  "showSticks": "Mostrar analógicos",
+  "showTriggers": "Mostrar gatilhos",
+  "showTrail": "Rastro dos analógicos",
+  "calibrated": "Mostrar valores calibrados",
+  "alwaysOnTop": "Sempre no topo",
+  "open": "Abrir overlay",
+  "close": "Fechar overlay",
+  "preview": "Prévia",
+  "obsTip": "No OBS: use \"Captura de janela\" e escolha \"GamepadLab Overlay\". Com fundo chroma, adicione o filtro Chroma Key com a mesma cor.",
+  "drag": "Arraste por aqui para mover",
+  "noController": "Nenhum controle conectado",
+  "browserNote": "No modo navegador o overlay abre numa janela pop-up."
+}

@@ -296,3 +296,24 @@
     padding: var(--sp-4);
   }
 }
+
+.gpBadge {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  border: 1px solid var(--accent);
+  box-shadow: var(--glow);
+  font-size: var(--fs-xs);
+}
+.gpBadge[data-paused] {
+  border-color: var(--warn);
+  box-shadow: none;
+}

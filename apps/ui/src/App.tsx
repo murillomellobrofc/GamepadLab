@@ -7,7 +7,10 @@ import { useShortcuts } from '@/app/useShortcuts';
 import { CalibrationView } from '@/features/calibration/CalibrationView';
 import { ControllerStrip } from '@/features/common/ControllerStrip';
 import { MultiView } from '@/features/common/MultiView';
+import { HistoryView } from '@/features/history/HistoryView';
 import { LatencyView } from '@/features/latency/LatencyView';
+import { OverlayView } from '@/features/overlay/OverlayView';
+import { SensorsView } from '@/features/sensors/SensorsView';
 import { TestView } from '@/features/test/TestView';
 import { useT } from '@/i18n';
 import { useApp, useSelectedController } from '@/state/app';
@@ -34,6 +37,12 @@ function MainContent() {
         return c && <LatencyView key={c.id} c={c} />;
       case 'calibration':
         return c && <CalibrationView key={c.id} c={c} />;
+      case 'history':
+        return <HistoryView />;
+      case 'sensors':
+        return c && <SensorsView key={c.id} c={c} />;
+      case 'overlay':
+        return <OverlayView />;
       default:
         return <p className={ui.muted}>{t('app.common.loading')}</p>;
     }
