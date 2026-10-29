@@ -111,6 +111,8 @@ export class DemoSim {
   private seq = 0;
   private ranges = new Map<number, [number, number]>();
   private presses = new Map<number, [boolean, number, number]>();
+  private stdPrev: boolean[] = [];
+  private stdPresses: number[] = new Array(23).fill(0);
 
   setScenario(s: DemoScenario, nowUs: number) {
     this.scenario = s;
@@ -251,6 +253,10 @@ export class DemoSim {
       this.presses.set(code, p);
       return { code, label, pressed: b.pressed, value: b.value, maxValue: p[2], pressCount: p[1] };
     });
+    buttons.forEach((b, i) => {
+      if (b.pressed && !this.stdPrev[i]) this.stdPresses[i]++;
+      this.stdPrev[i] = b.pressed;
+    });
     const showcase = this.scenario === 'showcase';
     const k = showcase ? 1 : 0.08;
     const shake = (this.rumble.weak * 0.35 + this.rumble.strong * 0.8) * gauss() * 0.15;
@@ -267,6 +273,7 @@ export class DemoSim {
       rightTrigger: rtb / 255,
       rawAxes,
       rawButtons,
+      buttonPresses: [...this.stdPresses],
       motion: {
         gyro: [
           Math.sin(abs * 1.1) * 45 * k,

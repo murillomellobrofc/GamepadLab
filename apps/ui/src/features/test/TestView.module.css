@@ -31,3 +31,10 @@
     grid-template-areas: 'diagram' 'sticks' 'triggers';
   }
 }
+.subnav {
+  margin-bottom: var(--sp-4);
+}
+.subnav [role='radiogroup'] button {
+  padding: 6px 14px;
+  font-size: var(--fs-sm);
+}

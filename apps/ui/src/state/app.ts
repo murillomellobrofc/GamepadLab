@@ -27,6 +27,8 @@ interface AppState {
   /** >0 while a test needs every button press (gamepad UI navigation pauses). */
   navLocks: number;
   rumble: Record<string, RumbleFrame>;
+  /** Shows every connected controller side by side. */
+  multiView: boolean;
   announcement: { text: string; n: number };
 
   setReady: (kind: 'tauri' | 'mock', info: AppInfo | null) => void;
@@ -43,6 +45,7 @@ interface AppState {
   lockNav: () => () => void;
   setRumble: (f: RumbleFrame) => void;
   announce: (text: string) => void;
+  setMultiView: (on: boolean) => void;
 }
 
 let toastSeq = 1;
@@ -62,6 +65,7 @@ export const useApp = create<AppState>()((set, get) => ({
   dialog: null,
   navLocks: 0,
   rumble: {},
+  multiView: false,
   announcement: { text: '', n: 0 },
 
   setReady: (kind, info) => set({ ready: true, transportKind: kind, appInfo: info }),
@@ -90,7 +94,7 @@ export const useApp = create<AppState>()((set, get) => ({
       delete rumble[id];
       return { controllers, selectedId, rumble };
     }),
-  select: (id) => set({ selectedId: id }),
+  select: (id) => set({ selectedId: id, multiView: false }),
   setTab: (tab) => set({ tab }),
   setViewMode: (viewMode) => set({ viewMode }),
   toast: (t) => {
@@ -112,6 +116,7 @@ export const useApp = create<AppState>()((set, get) => ({
   },
   setRumble: (f) => set((s) => ({ rumble: { ...s.rumble, [f.controllerId]: f } })),
   announce: (text) => set((s) => ({ announcement: { text, n: s.announcement.n + 1 } })),
+  setMultiView: (multiView) => set({ multiView }),
 }));
 
 export function useSelectedController(): ControllerInfo | null {

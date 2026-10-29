@@ -927,6 +927,7 @@ name = "gamepadlab"
 version = "0.1.0"
 dependencies = [
  "gamepadlab-calibration",
+ "gamepadlab-haptics",
  "gamepadlab-input",
  "log",
  "serde",

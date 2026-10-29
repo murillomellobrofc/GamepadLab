@@ -22,4 +22,5 @@ serde_json.workspace = true
 log.workspace = true
 gamepadlab-input.workspace = true
 gamepadlab-calibration.workspace = true
+gamepadlab-haptics.workspace = true
 sysinfo = { version = "0.40", default-features = false, features = ["system"] }

@@ -100,6 +100,7 @@ fn hotplug_states_and_polling_rate() {
     let lx = &entry.snapshot.raw_axes[0];
     assert!(lx.min <= -0.99 && lx.max > 0.99);
     assert_eq!(entry.snapshot.raw_buttons[0].press_count, 10);
+    assert_eq!(entry.snapshot.button_presses[Button::South.index()], 10);
 
     svc.reset_minmax(&pad.id);
     h[0].state(&pad.id, state(600_000, 0.5, 0.0, false));

@@ -325,6 +325,9 @@ pub struct InputSnapshot {
     pub right_trigger: f32,
     pub raw_axes: Vec<RawAxis>,
     pub raw_buttons: Vec<RawButton>,
+    /// Rising edges per standard button, counted at full report rate so a
+    /// press shorter than one UI frame is never lost.
+    pub button_presses: Vec<u32>,
     pub motion: Option<MotionSample>,
     pub touch: Option<TouchState>,
     pub battery: Option<BatteryInfo>,

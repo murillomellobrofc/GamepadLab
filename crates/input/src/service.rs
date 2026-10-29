@@ -262,6 +262,8 @@ impl Drop for InputService {
 #[derive(Default)]
 struct Tracker {
     seq: u64,
+    prev_pressed: Vec<bool>,
+    presses: Vec<u32>,
     axis_range: HashMap<u32, (f32, f32)>,
     button_max: HashMap<u32, f32>,
     button_presses: HashMap<u32, (bool, u32)>,
@@ -270,6 +272,16 @@ struct Tracker {
 impl Tracker {
     fn snapshot(&mut self, id: &ControllerId, st: &DeviceState) -> InputSnapshot {
         self.seq += 1;
+        if self.presses.len() < st.buttons.len() {
+            self.presses.resize(st.buttons.len(), 0);
+            self.prev_pressed.resize(st.buttons.len(), false);
+        }
+        for (i, b) in st.buttons.iter().enumerate() {
+            if b.pressed && !self.prev_pressed[i] {
+                self.presses[i] += 1;
+            }
+            self.prev_pressed[i] = b.pressed;
+        }
         let raw_axes = st
             .raw_axes
             .iter()
@@ -319,6 +331,7 @@ impl Tracker {
             right_trigger: st.right_trigger,
             raw_axes,
             raw_buttons,
+            button_presses: self.presses.clone(),
             motion: st.motion,
             touch: st.touch.clone(),
             battery: st.battery,

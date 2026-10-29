@@ -5,6 +5,7 @@ mod calibrate;
 mod commands;
 mod emitter;
 mod error;
+mod haptics;
 mod logging;
 mod platform;
 mod state;
@@ -40,11 +41,15 @@ pub fn run() {
 
             let (tx, rx) = mpsc::channel();
             let input = InputService::start_default(tx);
+            let sink = Arc::new(haptics::ServiceSink(Default::default()));
+            let engine = haptics::start(handle.clone(), sink.clone());
             let state = Arc::new(AppState {
                 input,
+                haptics: engine,
                 ui_rate: AtomicU32::new(60),
                 data_dir,
             });
+            let _ = sink.0.set(Arc::downgrade(&state));
             app.manage(state.clone());
             emitter::spawn_event_forwarder(handle.clone(), rx);
             emitter::spawn_frame_emitter(handle, state);
@@ -64,6 +69,13 @@ pub fn run() {
             commands::set_log_level,
             commands::log_frontend,
             commands::open_privacy_settings,
+            commands::rumble_play,
+            commands::rumble_sequence,
+            commands::rumble_motor_test,
+            commands::rumble_stop,
+            commands::set_trigger_effects,
+            commands::set_lightbar,
+            commands::set_player_leds,
         ])
         .build(tauri::generate_context!())
         .expect("error while building GamepadLab");

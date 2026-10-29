@@ -86,6 +86,10 @@ export const api = {
     call<Profile>('profiles_import', { deviceKey, json }),
 
   rumblePlay: (id: string, request: RumbleRequest) => call<void>('rumble_play', { id, request }),
+  rumbleSequence: (id: string, requests: RumbleRequest[]) =>
+    call<void>('rumble_sequence', { id, requests }),
+  rumbleMotorTest: (id: string, intensity: number) =>
+    call<void>('rumble_motor_test', { id, intensity }),
   rumbleStop: (id: string) => call<void>('rumble_stop', { id }),
   setTriggerEffects: (id: string, left: TriggerEffect, right: TriggerEffect) =>
     call<void>('set_trigger_effects', { id, left, right }),

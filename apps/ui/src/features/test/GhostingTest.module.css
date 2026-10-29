@@ -1,0 +1,100 @@
+.intro {
+  max-width: 70ch;
+  margin-bottom: var(--sp-2);
+}
+.setup,
+.running,
+.result {
+  display: grid;
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+  justify-items: start;
+}
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.presets [aria-checked='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.choose {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--sp-3);
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.choose legend {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  padding: 0 6px;
+}
+.choose label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-weight: 600;
+}
+.holdLabel {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+}
+.keys {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.keys li {
+  min-width: 64px;
+  min-height: 64px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 2px solid var(--line-strong);
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  text-align: center;
+}
+.keys li small {
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.keys li[data-on] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.keys li[data-status='ok'] {
+  border-color: color-mix(in srgb, var(--ok) 60%, transparent);
+  background: var(--ok-soft);
+}
+.keys li[data-status='suspect'] {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+}
+.keys li[data-status='never'] {
+  border-color: var(--bad);
+  background: var(--bad-soft);
+}
+.count {
+  font-size: var(--fs-2xl);
+}
+.good {
+  color: var(--ok);
+  font-weight: 600;
+}
+.bad {
+  color: var(--bad);
+  font-weight: 600;
+}

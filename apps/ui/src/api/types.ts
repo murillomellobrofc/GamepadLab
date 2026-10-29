@@ -134,6 +134,8 @@ export interface InputSnapshot {
   rightTrigger: number;
   rawAxes: RawAxis[];
   rawButtons: RawButton[];
+  /** Rising edges per standard button, counted at full report rate. */
+  buttonPresses: number[];
   motion: MotionSample | null;
   touch: TouchState | null;
   battery: BatteryInfo | null;
