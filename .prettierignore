@@ -1,0 +1,9 @@
+target
+node_modules
+dist
+src-tauri/gen
+src-tauri/icons
+apps/ui/test-results
+apps/ui/playwright-report
+package-lock.json
+*.md

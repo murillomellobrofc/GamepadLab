@@ -1,0 +1,13 @@
+[package]
+name = "gamepadlab-haptics"
+description = "Rumble patterns, motor tests and DualSense trigger effects for GamepadLab"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+serde.workspace = true
+log.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true

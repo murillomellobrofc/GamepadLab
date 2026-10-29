@@ -1,0 +1,90 @@
+.wrap {
+  max-width: 640px;
+  margin: 4vh auto 0;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: var(--sp-3);
+}
+.scope {
+  width: 168px;
+  height: 168px;
+  margin-bottom: var(--sp-2);
+}
+.scope svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-dasharray: 6 6;
+  opacity: 0.7;
+  transform-origin: 100px 100px;
+  animation: spin 30s linear infinite;
+}
+.ringInner {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+}
+.axis {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+.dot {
+  fill: var(--accent);
+}
+.ping {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  transform-origin: 100px 100px;
+  animation: ping 2.4s var(--ease) infinite;
+}
+.title {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.body {
+  color: var(--text-muted);
+  max-width: 46ch;
+}
+.actions {
+  margin-top: var(--sp-2);
+}
+.hint {
+  font-size: var(--fs-xs);
+  color: var(--text-faint);
+}
+.tips {
+  margin-top: var(--sp-6);
+  width: 100%;
+  text-align: left;
+}
+.tips ol {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: var(--sp-2);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(9);
+    opacity: 0;
+  }
+}

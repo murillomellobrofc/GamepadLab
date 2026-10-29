@@ -1,0 +1,23 @@
+[package]
+name = "gamepadlab-input"
+description = "Controller detection, hotplug, normalization and polling-rate measurement"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = ["gilrs", "hid"]
+gilrs = ["dep:gilrs"]
+hid = ["dep:hidapi"]
+
+[dependencies]
+serde.workspace = true
+thiserror.workspace = true
+log.workspace = true
+gamepadlab-calibration.workspace = true
+gamepadlab-haptics.workspace = true
+gilrs = { version = "0.11", optional = true }
+hidapi = { version = "2.6", optional = true }
+
+[dev-dependencies]
+serde_json.workspace = true

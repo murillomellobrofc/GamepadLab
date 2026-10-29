@@ -1,0 +1,10 @@
+node_modules/
+dist/
+target/
+src-tauri/gen/schemas/
+apps/ui/test-results/
+apps/ui/playwright-report/
+.DS_Store
+*.log
+.env
+*.key

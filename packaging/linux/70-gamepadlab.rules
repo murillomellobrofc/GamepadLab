@@ -1,0 +1,22 @@
+# GamepadLab udev rules
+# Grants the logged-in user (uaccess) read/write access to the raw HID
+# interface of common game controllers, so GamepadLab can read gyroscope,
+# touchpad and battery data and drive rumble, lightbar and adaptive triggers.
+#
+# Install:   sudo cp 70-gamepadlab.rules /etc/udev/rules.d/
+# Reload:    sudo udevadm control --reload-rules && sudo udevadm trigger
+# Then unplug and reconnect the controller.
+
+# Sony DualShock 4 (v1, v2, USB dongle), DualSense, DualSense Edge
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="05c4|09cc|0ba0|0ce6|0df2", MODE="0660", TAG+="uaccess"
+KERNEL=="hidraw*", KERNELS=="*054C:05C4*|*054C:09CC*|*054C:0BA0*|*054C:0CE6*|*054C:0DF2*", MODE="0660", TAG+="uaccess"
+
+# Nintendo Switch Pro Controller (USB and Bluetooth)
+KERNEL=="hidraw*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0660", TAG+="uaccess"
+KERNEL=="hidraw*", KERNELS=="*057E:2009*", MODE="0660", TAG+="uaccess"
+
+# Microsoft Xbox controllers (raw HID inspection only)
+KERNEL=="hidraw*", ATTRS{idVendor}=="045e", MODE="0660", TAG+="uaccess"
+
+# Future: virtual controller with calibration applied (uinput)
+KERNEL=="uinput", SUBSYSTEM=="misc", MODE="0660", TAG+="uaccess", OPTIONS+="static_node=uinput"

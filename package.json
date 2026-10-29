@@ -1,0 +1,29 @@
+{
+  "name": "gamepadlab",
+  "private": true,
+  "version": "0.1.0",
+  "description": "GamepadLab: test and calibrate game controllers on macOS, Linux and Windows",
+  "license": "MIT",
+  "workspaces": [
+    "apps/ui"
+  ],
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "npm run dev -w @gamepadlab/ui",
+    "build:ui": "npm run build -w @gamepadlab/ui",
+    "test": "npm run test:rust && npm run test:ui",
+    "test:rust": "cargo test --workspace",
+    "test:ui": "npm run test -w @gamepadlab/ui",
+    "test:e2e": "npm run e2e -w @gamepadlab/ui",
+    "lint": "npm run lint -w @gamepadlab/ui && npm run typecheck -w @gamepadlab/ui && cargo clippy --workspace --all-targets -- -D warnings",
+    "format": "prettier --write . && cargo fmt --all",
+    "format:check": "prettier --check . && cargo fmt --all -- --check"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.4",
+    "prettier": "^3.9.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
