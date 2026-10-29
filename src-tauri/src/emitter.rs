@@ -9,7 +9,7 @@ use std::sync::atomic::Ordering;
 use std::sync::mpsc::Receiver;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
-use tauri::{AppHandle, Emitter};
+use tauri::{AppHandle, Emitter, Runtime};
 
 pub const EV_FRAME: &str = "gp://frame";
 pub const EV_CONNECTION: &str = "gp://connection";
@@ -56,7 +56,7 @@ pub struct ErrorPayload {
     pub controller_id: Option<String>,
 }
 
-pub fn spawn_frame_emitter(app: AppHandle, state: Arc<AppState>) {
+pub fn spawn_frame_emitter<R: Runtime>(app: AppHandle<R>, state: Arc<AppState>) {
     std::thread::Builder::new()
         .name("gamepadlab-frames".into())
         .spawn(move || {
@@ -96,7 +96,11 @@ pub fn spawn_frame_emitter(app: AppHandle, state: Arc<AppState>) {
         .expect("spawn frame emitter");
 }
 
-pub fn spawn_event_forwarder(app: AppHandle, rx: Receiver<ServiceEvent>, state: Arc<AppState>) {
+pub fn spawn_event_forwarder<R: Runtime>(
+    app: AppHandle<R>,
+    rx: Receiver<ServiceEvent>,
+    state: Arc<AppState>,
+) {
     std::thread::Builder::new()
         .name("gamepadlab-events".into())
         .spawn(move || {

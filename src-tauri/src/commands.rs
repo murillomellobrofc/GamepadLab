@@ -7,11 +7,11 @@ use gamepadlab_haptics::{motor_test_program, RumbleRequest, TriggerEffect};
 use gamepadlab_input::{ControllerId, ControllerInfo, DemoScenario, ManualInput, OutputCommand};
 use std::sync::atomic::Ordering;
 use std::sync::Arc;
-use tauri::{AppHandle, Manager, State};
+use tauri::{AppHandle, Manager, Runtime, State};
 
 type St<'a> = State<'a, Arc<AppState>>;
 
-pub fn updater_configured(app: &AppHandle) -> bool {
+pub fn updater_configured<R: Runtime>(app: &AppHandle<R>) -> bool {
     app.config()
         .plugins
         .0
@@ -22,7 +22,7 @@ pub fn updater_configured(app: &AppHandle) -> bool {
 }
 
 #[tauri::command]
-pub fn app_info(app: AppHandle, state: St) -> AppInfo {
+pub fn app_info<R: Runtime>(app: AppHandle<R>, state: St) -> AppInfo {
     platform::app_info(&state, updater_configured(&app))
 }
 
@@ -111,7 +111,11 @@ pub fn open_privacy_settings() -> CmdResult<()> {
     }
 }
 
-pub fn data_dir(app: &AppHandle) -> std::path::PathBuf {
+/// App data folder; `GAMEPADLAB_DATA_DIR` overrides it (tests, portable use).
+pub fn data_dir<R: Runtime>(app: &AppHandle<R>) -> std::path::PathBuf {
+    if let Some(dir) = std::env::var_os("GAMEPADLAB_DATA_DIR") {
+        return dir.into();
+    }
     app.path()
         .app_data_dir()
         .unwrap_or_else(|_| std::env::temp_dir().join("gamepadlab"))

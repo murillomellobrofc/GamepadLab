@@ -20,19 +20,22 @@ use state::AppState;
 use std::sync::atomic::AtomicU32;
 use std::sync::mpsc;
 use std::sync::Arc;
-use tauri::{Manager, RunEvent};
+use tauri::{Manager, RunEvent, Runtime};
 
-pub fn run() {
-    logging::init(log::LevelFilter::Info);
-
-    let app = tauri::Builder::default()
-        .plugin(tauri_plugin_dialog::init())
-        .plugin(tauri_plugin_process::init())
-        .plugin(tauri_plugin_updater::Builder::new().build())
+/// Everything except platform plugins: state, background threads and
+/// commands. Shared by the real app and the IPC tests (mock runtime).
+pub fn configure<R: Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
+    builder
         .manage(overlay::OverlayState::default())
         .setup(|app| {
             let handle = app.handle().clone();
-            if let Ok(dir) = handle.path().app_log_dir() {
+            let data_dir = commands::data_dir(&handle);
+            let log_dir = if std::env::var_os("GAMEPADLAB_DATA_DIR").is_some() {
+                Some(data_dir.join("logs"))
+            } else {
+                handle.path().app_log_dir().ok()
+            };
+            if let Some(dir) = log_dir {
                 logging::attach_file(&dir);
             }
             log::info!(
@@ -42,11 +45,15 @@ pub fn run() {
                 platform::os_version(),
                 std::env::consts::ARCH
             );
-            let data_dir = commands::data_dir(&handle);
             let _ = std::fs::create_dir_all(&data_dir);
 
             let (tx, rx) = mpsc::channel();
-            let input = InputService::start_default(tx);
+            // GAMEPADLAB_NO_HARDWARE=1 keeps only the demo backend (CI, tests).
+            let input = if std::env::var_os("GAMEPADLAB_NO_HARDWARE").is_some() {
+                InputService::start(Default::default(), Vec::new(), tx)
+            } else {
+                InputService::start_default(tx)
+            };
             let sink = Arc::new(haptics::ServiceSink(Default::default()));
             let engine = haptics::start(handle.clone(), sink.clone());
             let history = match history::History::open(&data_dir.join("history.sqlite")) {
@@ -124,8 +131,19 @@ pub fn run() {
             overlay::overlay_state,
             overlay::overlay_is_open,
         ])
-        .build(tauri::generate_context!())
-        .expect("error while building GamepadLab");
+}
+
+pub fn run() {
+    logging::init(log::LevelFilter::Info);
+
+    let app = configure(
+        tauri::Builder::default()
+            .plugin(tauri_plugin_dialog::init())
+            .plugin(tauri_plugin_process::init())
+            .plugin(tauri_plugin_updater::Builder::new().build()),
+    )
+    .build(tauri::generate_context!())
+    .expect("error while building GamepadLab");
 
     app.run(|_app, event| {
         if let RunEvent::Exit = event {

@@ -4,7 +4,7 @@
 use crate::error::{CmdError, CmdResult};
 use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
-use tauri::{AppHandle, Emitter, Manager, WebviewUrl, WebviewWindowBuilder};
+use tauri::{AppHandle, Emitter, Manager, Runtime, WebviewUrl, WebviewWindowBuilder};
 
 pub const LABEL: &str = "overlay";
 pub const EV_SETTINGS: &str = "overlay://settings";
@@ -27,8 +27,8 @@ fn always_on_top(settings: &serde_json::Value) -> bool {
 }
 
 #[tauri::command]
-pub async fn overlay_open(
-    app: AppHandle,
+pub async fn overlay_open<R: Runtime>(
+    app: AppHandle<R>,
     settings: serde_json::Value,
     controller_id: Option<String>,
 ) -> CmdResult<()> {
@@ -60,8 +60,8 @@ pub async fn overlay_open(
 }
 
 #[tauri::command]
-pub fn overlay_update(
-    app: AppHandle,
+pub fn overlay_update<R: Runtime>(
+    app: AppHandle<R>,
     settings: serde_json::Value,
     controller_id: Option<String>,
 ) -> CmdResult<()> {
@@ -78,7 +78,7 @@ pub fn overlay_update(
 }
 
 #[tauri::command]
-pub fn overlay_close(app: AppHandle) -> CmdResult<()> {
+pub fn overlay_close<R: Runtime>(app: AppHandle<R>) -> CmdResult<()> {
     if let Some(w) = app.get_webview_window(LABEL) {
         w.close().map_err(CmdError::internal)?;
     }
@@ -87,11 +87,11 @@ pub fn overlay_close(app: AppHandle) -> CmdResult<()> {
 
 /// Lets the overlay window read its configuration when it starts.
 #[tauri::command]
-pub fn overlay_state(app: AppHandle) -> Option<OverlayConfig> {
+pub fn overlay_state<R: Runtime>(app: AppHandle<R>) -> Option<OverlayConfig> {
     app.state::<OverlayState>().0.lock().unwrap().clone()
 }
 
 #[tauri::command]
-pub fn overlay_is_open(app: AppHandle) -> bool {
+pub fn overlay_is_open<R: Runtime>(app: AppHandle<R>) -> bool {
     app.get_webview_window(LABEL).is_some()
 }

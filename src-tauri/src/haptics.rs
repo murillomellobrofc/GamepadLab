@@ -6,7 +6,7 @@ use gamepadlab_haptics::{HapticsEngine, RumbleObserver, RumbleSink, RumbleState}
 use gamepadlab_input::{ControllerId, InputService, OutputCommand};
 use serde::Serialize;
 use std::sync::{Arc, Weak};
-use tauri::{AppHandle, Emitter};
+use tauri::{AppHandle, Emitter, Runtime};
 
 pub const EV_RUMBLE: &str = "gp://rumble";
 
@@ -42,7 +42,7 @@ struct RumblePayload {
     active: bool,
 }
 
-pub fn start(app: AppHandle, sink: Arc<ServiceSink>) -> HapticsEngine {
+pub fn start<R: Runtime>(app: AppHandle<R>, sink: Arc<ServiceSink>) -> HapticsEngine {
     let observer: RumbleObserver = Arc::new(move |id: &str, st: RumbleState| {
         let _ = app.emit(
             EV_RUMBLE,

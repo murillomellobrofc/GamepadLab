@@ -1,4 +1,3 @@
-import { toPng } from 'html-to-image';
 import type { HistorySession } from '@/api/types';
 import { saveBase64, saveText, stamp } from '@/lib/files';
 
@@ -21,6 +20,7 @@ export function reportJson(sessions: HistorySession[], version: string): string 
 async function nodeToPng(node: HTMLElement): Promise<string> {
   // Two frames so canvases inside the sheet have drawn.
   await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  const { toPng } = await import('html-to-image');
   return toPng(node, { pixelRatio: 2, backgroundColor: '#ffffff', cacheBust: true });
 }
 

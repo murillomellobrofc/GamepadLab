@@ -14,6 +14,7 @@ import { SensorsView } from '@/features/sensors/SensorsView';
 import { TestView } from '@/features/test/TestView';
 import { useT } from '@/i18n';
 import { useApp, useSelectedController } from '@/state/app';
+import { useSettings } from '@/state/settings';
 import ui from '@/styles/ui.module.css';
 
 function MainContent() {
@@ -59,6 +60,8 @@ export default function App() {
   useDocumentSettings();
   useShortcuts();
   useEffect(() => {
+    // On narrow windows the raw panel is a drawer over the content: start closed.
+    if (window.innerWidth < 1180) useSettings.getState().set({ showRawPanel: false });
     void bootstrap();
   }, []);
   return (

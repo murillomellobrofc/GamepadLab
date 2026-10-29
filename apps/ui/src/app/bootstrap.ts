@@ -87,4 +87,17 @@ export async function bootstrap(): Promise<void> {
   } catch {
     /* none */
   }
+
+  // Optional update check (the only network access the app ever makes).
+  if (info?.updaterConfigured && useSettings.getState().autoUpdate) {
+    const { checkForUpdate } = await import('@/lib/updater');
+    const res = await checkForUpdate(true);
+    if (res.state === 'available') {
+      useApp.getState().toast({
+        tone: 'info',
+        title: tt('settings.updateAvailable', { version: res.version }),
+        action: { label: tt('settings.installUpdate'), run: () => void res.install() },
+      });
+    }
+  }
 }
