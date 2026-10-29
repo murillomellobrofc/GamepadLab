@@ -579,7 +579,7 @@ const DS_BUTTON_LABELS: [(Button, &str); 19] = [
     (Button::RightBumper, "R1"),
     (Button::LeftTrigger, "L2"),
     (Button::RightTrigger, "R2"),
-    (Button::Select, "Create"),
+    (Button::Select, "Share"),
     (Button::Start, "Options"),
     (Button::LeftStick, "L3"),
     (Button::RightStick, "R3"),

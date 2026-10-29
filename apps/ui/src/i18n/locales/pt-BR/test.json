@@ -31,7 +31,7 @@
     "start": "Começar teste",
     "prompt": "Aperte {button}",
     "promptHint": "O botão está destacado no desenho do controle.",
-    "progress": "{done} de {total}",
+    "progress": "Botão {n} de {total}",
     "skip": "Pular",
     "fail": "Não funciona",
     "back": "Voltar",

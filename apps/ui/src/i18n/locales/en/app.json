@@ -54,7 +54,7 @@
     "demoCta": "Try the demo controller",
     "demoHint": "No controller? Demo mode simulates a DualSense so you can see every screen working.",
     "osTitle": "Tips for {os}",
-    "mac1": "Bluetooth: hold PS + Create (DualSense), PS + Share (DS4), the pair button (Xbox) or Sync (Switch Pro) until the light blinks, then pair in System Settings > Bluetooth.",
+    "mac1": "Bluetooth: hold PS + Share (DualSense or DS4), the pair button (Xbox) or Sync (Switch Pro) until the light blinks, then pair in System Settings > Bluetooth.",
     "mac2": "If macOS asks, allow GamepadLab under Privacy & Security > Input Monitoring.",
     "mac3": "Older Xbox 360 controllers have no native driver on macOS.",
     "win1": "Xbox controllers work out of the box. DualShock and DualSense too, no DS4Windows needed.",

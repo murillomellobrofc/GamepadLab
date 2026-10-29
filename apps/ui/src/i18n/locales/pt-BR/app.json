@@ -54,7 +54,7 @@
     "demoCta": "Experimentar com controle demo",
     "demoHint": "Sem controle? O modo demo simula um DualSense e mostra todas as telas funcionando.",
     "osTitle": "Dicas para {os}",
-    "mac1": "Bluetooth: segure PS + Create (DualSense), PS + Share (DS4), o botão de pareamento (Xbox) ou Sync (Switch Pro) até a luz piscar e pareie em Ajustes do Sistema > Bluetooth.",
+    "mac1": "Bluetooth: segure PS + Share (DualSense ou DS4), o botão de pareamento (Xbox) ou Sync (Switch Pro) até a luz piscar e pareie em Ajustes do Sistema > Bluetooth.",
     "mac2": "Se o macOS pedir, libere o GamepadLab em Privacidade e Segurança > Monitoramento de Entrada.",
     "mac3": "Controles Xbox antigos (360) não têm driver nativo no macOS.",
     "win1": "Controles Xbox funcionam direto. DualShock e DualSense também, sem DS4Windows.",

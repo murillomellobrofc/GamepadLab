@@ -37,7 +37,7 @@ const NAMES: Record<ControllerKind, string[]> = {
     'R1',
     'L2',
     'R2',
-    'Create',
+    'Share',
     'Options',
     ...COMMON,
     'PS',

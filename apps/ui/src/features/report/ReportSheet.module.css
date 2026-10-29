@@ -127,6 +127,11 @@
   gap: 18px;
   align-items: center;
 }
+.hist {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 .hist rect {
   fill: #2f5fd0;
 }

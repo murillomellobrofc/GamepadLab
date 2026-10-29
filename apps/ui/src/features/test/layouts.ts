@@ -86,7 +86,7 @@ export const DUALSENSE: LayoutSpec = {
   id: 'dualsense',
   body: PS_BODY,
   shapes: [
-    ...psCommon('Create', 'Options'),
+    ...psCommon('Share', 'Options'),
     { kind: 'rect', btn: 18, x: 287, y: 284, w: 26, h: 9, rx: 4.5, title: 'Mute' },
     { kind: 'rect', btn: 19, x: 238, y: 296, w: 22, h: 10, rx: 5, title: 'Fn L' },
     { kind: 'rect', btn: 20, x: 340, y: 296, w: 22, h: 10, rx: 5, title: 'Fn R' },

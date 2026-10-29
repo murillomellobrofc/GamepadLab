@@ -31,7 +31,7 @@
     "start": "Start test",
     "prompt": "Press {button}",
     "promptHint": "The button is highlighted on the controller drawing.",
-    "progress": "{done} of {total}",
+    "progress": "Button {n} of {total}",
     "skip": "Skip",
     "fail": "Not working",
     "back": "Back",

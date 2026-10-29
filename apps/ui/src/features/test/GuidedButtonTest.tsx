@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { api } from '@/api/client';
 import type { ControllerInfo } from '@/api/types';
 import { Icon } from '@/app/icons';
@@ -164,9 +164,14 @@ export function GuidedButtonTest({
           data-passed={justPassed || undefined}
         >
           <span className={css.progress}>
-            {t('test.guided.progress', { done: idx, total: order.length })}
+            {t('test.guided.progress', { n: idx + 1, total: order.length })}
           </span>
-          <div className={css.glyph} aria-hidden="true">
+          <div
+            className={css.glyph}
+            aria-hidden="true"
+            // Shrinks long names ("Options", "Touchpad") so they stay inside the circle.
+            style={{ '--chars': buttonName(c.kind, current).length } as CSSProperties}
+          >
             {justPassed ? <Icon name="check" size={56} /> : buttonName(c.kind, current)}
           </div>
           <p className={css.ask} data-testid="guided-prompt">

@@ -4,7 +4,7 @@
 - **Monitoramento de Entrada** (Privacidade e Segurança): controles comuns funcionam sem ela, mas alguns aparelhos que
   também se apresentam como teclado só aparecem depois de liberar o GamepadLab. O app avisa no topo e tem um botão que
   abre o painel certo.
-- Bluetooth: pareie em Ajustes do Sistema → Bluetooth (DualSense: PS + Create; DS4: PS + Share; Xbox: botão de
+- Bluetooth: pareie em Ajustes do Sistema → Bluetooth (DualSense e DS4: PS + Share; Xbox: botão de
   pareamento; Switch Pro: Sync).
 
 ## Apple Silicon e Intel

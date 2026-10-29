@@ -17,7 +17,7 @@ const LABELS = [
   'R1',
   'L2',
   'R2',
-  'Create',
+  'Share',
   'Options',
   'L3',
   'R3',
