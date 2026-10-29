@@ -6,13 +6,14 @@ use serde::{Deserialize, Serialize};
 use std::path::Path;
 use std::sync::Mutex;
 
-pub const KINDS: [&str; 6] = [
+pub const KINDS: [&str; 7] = [
     "test",
     "buttons",
     "calibration",
     "latency",
     "ghosting",
     "vibration",
+    "firmware",
 ];
 const MAX_PAYLOAD: usize = 4 * 1024 * 1024;
 

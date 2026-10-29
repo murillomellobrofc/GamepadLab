@@ -1,6 +1,7 @@
 import type {
   CalibratedView,
   CalibrationProfile,
+  FirmwareOp,
   HistorySession,
   Profile,
   RumbleRequest,
@@ -11,6 +12,7 @@ import { envelope } from '@/lib/haptics';
 import reportLeft from './fixtures/report-left.json';
 import reportRight from './fixtures/report-right.json';
 import triggers from './fixtures/triggers.json';
+import { MockFirmware } from './mockFirmware';
 import { MockProfiles } from './mockProfiles';
 import type { MockBackend } from './mockTransport';
 
@@ -43,6 +45,7 @@ function playRumble(b: MockBackend, id: string, program: RumbleRequest[]) {
 
 const profiles = new MockProfiles();
 const history: HistorySession[] = [];
+const firmware = new MockFirmware();
 const DEMO_KEY = 'demo:dualsense';
 let active: CalibrationProfile | null = null;
 let pending: { kind: string; target: string } | null = null;
@@ -189,6 +192,30 @@ export const mockExtras = {
       },
       history_clear: () => {
         history.length = 0;
+      },
+      firmware: (a) => {
+        const op = a.op as FirmwareOp;
+        const r = firmware.run(op, b.sim);
+        if (op.op === 'savePermanent') {
+          history.unshift({
+            id: (history[0]?.id ?? 0) + 1,
+            createdAt: new Date().toISOString(),
+            kind: 'firmware',
+            controllerName: 'DualSense (demo)',
+            controllerKey: DEMO_KEY,
+            score: null,
+            summary: 'Calibração gravada permanentemente no controle',
+            payload: { op },
+          });
+        }
+        if (op.op === 'reboot') {
+          b.setDemo(false);
+          window.setTimeout(() => b.setDemo(true), 600);
+        }
+        return r;
+      },
+      firmware_switch_propose: () => {
+        throw { code: 'rumbleUnsupported', message: 'Switch operations on the demo DualSense' };
       },
       overlay_open: () => undefined,
       overlay_update: () => undefined,

@@ -42,6 +42,21 @@ botões, analógicos de 8 bits, gatilhos, gyro/acelerômetro calibrados (mesma f
 touchpad, bateria, e saída de vibração, LED, LEDs de jogador e gatilhos adaptativos (com CRC32 no Bluetooth).
 No macOS o hidapi é aberto em modo compartilhado (`macos-shared-device`) para não "roubar" o controle do sistema.
 
+## Calibração gravada no controle (firmware)
+
+`crates/input/src/firmware/` contém a máquina de estados (`FirmwareSession`) e só depende da trait `FeatureIo`
+(relatórios de feature, escrita e leitura). O driver HID implementa `FeatureIo` sobre o hidapi, com o tamanho de cada
+relatório lido do descritor HID; os testes usam um dispositivo falso que grava os comandos enviados e emula a memória
+SPI do Switch. O demo tem uma simulação com o mesmo contrato.
+
+- Sony: `0x82/0x83` (DualSense) ou `0x90/0x91/0x92` (DS4) para centro e alcance; `0x80/0x81` ou `0xA0` para travar e
+  destravar a NVS e reiniciar. Cada resposta é conferida contra o valor esperado da referência. Antes de calibrar, a
+  NVS é colocada em modo travado (temporário); "salvar" é destravar + travar, exigido só depois de uma calibração na
+  sessão e com `acknowledgeRisk`.
+- Switch Pro: subcomandos `0x10` (ler SPI) e `0x11` (escrever SPI) com resposta no relatório `0x21`. A escrita é
+  recusada fora de `0x8010–0x8025`; antes de escrever, o bloco atual vira backup (salvo em disco pelo `src-tauri`), e
+  depois o bloco é lido de volta e comparado.
+
 ## Calibração
 
 Ordem do pipeline (`crates/calibration/src/pipeline.rs`):

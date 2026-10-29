@@ -45,5 +45,13 @@
     "hidrawPermission": "Sem permissão para o hidraw: giroscópio, touchpad, LED e gatilhos ficam indisponíveis até instalar a regra udev do GamepadLab.",
     "virtualDevice": "Há um controle virtual conectado (Steam Input, ViGEm…). Ele espelha um controle real e pode aparecer como cópia.",
     "openSettings": "Abrir ajustes"
+  },
+  "firmwareBlocked": {
+    "title": "Gravação no controle bloqueada",
+    "action": "Uma checagem de segurança impediu a operação. Veja os avisos na aba Firmware e resolva antes de tentar de novo."
+  },
+  "firmwareProtocol": {
+    "title": "O controle respondeu de forma inesperada",
+    "action": "Nada foi gravado de forma permanente. Reinicie o controle (desconecte e reconecte) e tente de novo pelo cabo USB."
   }
 }

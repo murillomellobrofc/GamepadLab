@@ -9,7 +9,8 @@
     "calibration": "Calibration",
     "latency": "Latency",
     "ghosting": "Ghosting",
-    "vibration": "Rumble"
+    "vibration": "Rumble",
+    "firmware": "Firmware"
   },
   "date": "Date",
   "controller": "Controller",

@@ -192,6 +192,8 @@ export type AppErrorCode =
   | 'rumbleUnsupported'
   | 'hidAccess'
   | 'io'
+  | 'firmwareBlocked'
+  | 'firmwareProtocol'
   | 'invalidInput'
   | 'notFound'
   | 'internal';
@@ -405,7 +407,8 @@ export interface RumbleFrame {
 
 /* -------------------------------------------------------------------- history */
 
-export type SessionKind = 'test' | 'buttons' | 'calibration' | 'latency' | 'ghosting' | 'vibration';
+export type SessionKind =
+  'test' | 'buttons' | 'calibration' | 'latency' | 'ghosting' | 'vibration' | 'firmware';
 
 export interface HistorySession {
   id: number;
@@ -440,6 +443,7 @@ export type DemoScenario =
   | 'idle'
   | 'rotateLeft'
   | 'rotateRight'
+  | 'rotateBoth'
   | 'directionsLeft'
   | 'directionsRight'
   | 'triggerRest'
@@ -448,3 +452,82 @@ export type DemoScenario =
   | 'manual'
   | { pressButton: number }
   | { chord: number[] };
+
+/* ------------------------------------------------------------------- firmware */
+
+export type FirmwareModel = 'ds4' | 'ds5' | 'ds5Edge' | 'switchPro';
+export type NvStatus = 'locked' | 'unlocked' | 'pendingReboot' | 'unknown' | 'notApplicable';
+export type FirmwarePhase = 'idle' | 'center' | 'range';
+export type FirmwareBlocker =
+  | 'bluetooth'
+  | 'clone'
+  | 'outdatedFirmware'
+  | 'edgeNeedsHardwareMod'
+  | 'lowBattery'
+  | 'batteryUnknown'
+  | 'pendingReboot';
+
+export interface FirmwareStatus {
+  model: FirmwareModel;
+  simulated: boolean;
+  genuine: boolean | null;
+  cloneReason: string | null;
+  firmware: string | null;
+  usb: boolean;
+  battery: number | null;
+  nv: NvStatus;
+  phase: FirmwarePhase;
+  centerSamples: number;
+  unsavedChanges: boolean;
+  blockers: FirmwareBlocker[];
+}
+
+/** Switch Pro stick calibration in raw 12-bit units. */
+export interface SwitchStickCal {
+  centerX: number;
+  centerY: number;
+  xMaxAbove: number;
+  xMinBelow: number;
+  yMaxAbove: number;
+  yMinBelow: number;
+}
+
+export interface SwitchCalibrationData {
+  factoryLeft: SwitchStickCal;
+  factoryRight: SwitchStickCal;
+  userLeft: SwitchStickCal | null;
+  userRight: SwitchStickCal | null;
+  userBlock: number[];
+}
+
+export type FirmwareOp =
+  | { op: 'status' }
+  | { op: 'centerBegin' }
+  | { op: 'centerSample' }
+  | { op: 'centerEnd' }
+  | { op: 'rangeBegin' }
+  | { op: 'rangeEnd' }
+  | { op: 'savePermanent'; acknowledgeRisk: boolean }
+  | { op: 'reboot' }
+  | { op: 'switchRead' }
+  | { op: 'switchWrite'; left: SwitchStickCal; right: SwitchStickCal; acknowledgeRisk: boolean }
+  | { op: 'switchClear'; acknowledgeRisk: boolean };
+
+export interface FirmwareResult {
+  status: FirmwareStatus;
+  switch: SwitchCalibrationData | null;
+  backup: number[] | null;
+  backupPath: string | null;
+}
+
+export interface SwitchProposal {
+  calibration: SwitchStickCal;
+  raisedToMinimum: boolean;
+  problems: string[];
+}
+
+export interface SwitchProposals {
+  current: SwitchCalibrationData;
+  left: SwitchProposal | null;
+  right: SwitchProposal | null;
+}

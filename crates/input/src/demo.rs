@@ -6,6 +6,9 @@
 //! button test drive it like a person would.
 
 use crate::backend::{BackendEvent, Clock, GamepadBackend, InputError, OutputCommand};
+use crate::firmware::{
+    FirmwareModel, FirmwareOp, FirmwarePhase, FirmwareReply, FirmwareStatus, NvStatus,
+};
 use crate::mapping::{hid_capabilities, PID_DUALSENSE, VID_SONY};
 use crate::model::*;
 use gamepadlab_calibration::Vec2;
@@ -22,6 +25,8 @@ pub enum DemoScenario {
     Idle,
     RotateLeft,
     RotateRight,
+    /// Both sticks rotating (firmware range calibration).
+    RotateBoth,
     DirectionsLeft,
     DirectionsRight,
     TriggerRest,
@@ -117,7 +122,20 @@ const RIGHT: StickModel = StickModel {
     spike_every_us: None,
 };
 
+/// Simulated DualSense firmware calibration (temporary until saved).
+#[derive(Debug, Clone, Copy)]
+struct DemoFirmware {
+    phase: FirmwarePhase,
+    samples: u32,
+    unsaved: bool,
+    saved: (StickModel, StickModel),
+}
+
 pub struct DemoBackend {
+    left: StickModel,
+    right: StickModel,
+    fw: DemoFirmware,
+    reboot_pending: bool,
     active: bool,
     announced: bool,
     scenario: DemoScenario,
@@ -139,6 +157,15 @@ impl Default for DemoBackend {
 impl DemoBackend {
     pub fn new() -> Self {
         Self {
+            left: LEFT,
+            right: RIGHT,
+            fw: DemoFirmware {
+                phase: FirmwarePhase::Idle,
+                samples: 0,
+                unsaved: false,
+                saved: (LEFT, RIGHT),
+            },
+            reboot_pending: false,
             active: false,
             announced: false,
             scenario: DemoScenario::Showcase,
@@ -212,8 +239,9 @@ impl DemoBackend {
         let mut st = DeviceState::neutral(t);
         st.report_based = true;
 
-        let mut left = LEFT.drift;
-        let mut right = RIGHT.drift;
+        let (lm, rm) = (self.left, self.right);
+        let mut left = lm.drift;
+        let mut right = rm.drift;
         let mut lt = 0.0f32;
         let mut rt = 0.0f32;
         let mut pressed: Vec<usize> = Vec::new();
@@ -222,7 +250,7 @@ impl DemoBackend {
             DemoScenario::Showcase => {
                 let a = abs * TAU * 0.33;
                 let r = if (abs % 6.0) < 3.0 { 1.0 } else { 0.55 };
-                left = left + Vec2::from_polar(r * LEFT.reach(a), a);
+                left = left + Vec2::from_polar(r * lm.reach(a), a);
                 right = right + Vec2::new((abs * 1.7).sin() * 0.8, (abs * 2.3).sin() * 0.6);
                 lt = ((abs * 1.3).sin() + 1.0) * 0.5;
                 rt = (abs * 0.6).fract();
@@ -239,19 +267,25 @@ impl DemoBackend {
             }
             DemoScenario::RotateLeft | DemoScenario::RotateRight => {
                 let (model, base) = if self.scenario == DemoScenario::RotateLeft {
-                    (LEFT, &mut left)
+                    (lm, &mut left)
                 } else {
-                    (RIGHT, &mut right)
+                    (rm, &mut right)
                 };
                 let a = rotation_angle(secs);
                 let push = 1.0 - 0.012 * self.rng.uniform();
                 *base = model.drift.scale(0.3) + Vec2::from_polar(model.reach(a) * push, a);
             }
+            DemoScenario::RotateBoth => {
+                let a = rotation_angle(secs);
+                left = lm.drift.scale(0.3) + Vec2::from_polar(lm.reach(a), a);
+                let b = -a + 0.7;
+                right = rm.drift.scale(0.3) + Vec2::from_polar(rm.reach(b), b);
+            }
             DemoScenario::DirectionsLeft | DemoScenario::DirectionsRight => {
                 let (model, base) = if self.scenario == DemoScenario::DirectionsLeft {
-                    (LEFT, &mut left)
+                    (lm, &mut left)
                 } else {
-                    (RIGHT, &mut right)
+                    (rm, &mut right)
                 };
                 let slot = (secs / 0.95) as usize % 8;
                 let within = secs % 0.95;
@@ -316,13 +350,9 @@ impl DemoBackend {
 
         let manual = self.scenario == DemoScenario::Manual;
         if !manual {
-            left = left + Vec2::new(self.rng.gauss() * LEFT.noise, self.rng.gauss() * LEFT.noise);
-            right = right
-                + Vec2::new(
-                    self.rng.gauss() * RIGHT.noise,
-                    self.rng.gauss() * RIGHT.noise,
-                );
-            if let Some(every) = LEFT.spike_every_us {
+            left = left + Vec2::new(self.rng.gauss() * lm.noise, self.rng.gauss() * lm.noise);
+            right = right + Vec2::new(self.rng.gauss() * rm.noise, self.rng.gauss() * rm.noise);
+            if let Some(every) = lm.spike_every_us {
                 if t % every < REPORT_US {
                     left = left + Vec2::new(0.22, -0.17);
                 }
@@ -413,6 +443,111 @@ impl DemoBackend {
     }
 }
 
+impl DemoBackend {
+    fn fw_status(&self) -> FirmwareStatus {
+        FirmwareStatus {
+            model: FirmwareModel::Ds5,
+            simulated: true,
+            genuine: Some(true),
+            clone_reason: None,
+            firmware: Some("Demo 1.0 (simulated)".into()),
+            usb: true,
+            battery: Some(self.battery),
+            nv: NvStatus::Locked,
+            phase: self.fw.phase,
+            center_samples: self.fw.samples,
+            unsaved_changes: self.fw.unsaved,
+            blockers: Vec::new(),
+        }
+    }
+
+    /// Same state machine as the real controllers, applied to the simulated
+    /// sticks: centre calibration removes the drift, range calibration
+    /// restores full travel (the worn sector stays: that is mechanical).
+    pub fn firmware(
+        &mut self,
+        id: &ControllerId,
+        op: &FirmwareOp,
+    ) -> Result<FirmwareReply, InputError> {
+        if id.as_str() != DEMO_ID || !self.active {
+            return Err(InputError::Disconnected(id.to_string()));
+        }
+        let fail = |m: &str| Err(InputError::FirmwareProtocol(m.into()));
+        match op {
+            FirmwareOp::Status => {}
+            FirmwareOp::CenterBegin | FirmwareOp::RangeBegin => {
+                if self.fw.phase != FirmwarePhase::Idle {
+                    return fail("another calibration is still running");
+                }
+                self.fw.phase = if matches!(op, FirmwareOp::CenterBegin) {
+                    FirmwarePhase::Center
+                } else {
+                    FirmwarePhase::Range
+                };
+                self.fw.samples = 0;
+            }
+            FirmwareOp::CenterSample => {
+                if self.fw.phase != FirmwarePhase::Center {
+                    return fail("center calibration is not running");
+                }
+                self.fw.samples += 1;
+            }
+            FirmwareOp::CenterEnd => {
+                if self.fw.phase != FirmwarePhase::Center || self.fw.samples == 0 {
+                    return fail("take at least one center sample first");
+                }
+                self.fw.phase = FirmwarePhase::Idle;
+                self.fw.unsaved = true;
+                self.left.drift = Vec2::new(0.003, -0.002);
+                self.right.drift = Vec2::new(0.001, 0.001);
+            }
+            FirmwareOp::RangeEnd => {
+                if self.fw.phase != FirmwarePhase::Range {
+                    return fail("range calibration is not running");
+                }
+                self.fw.phase = FirmwarePhase::Idle;
+                self.fw.unsaved = true;
+                for m in [&mut self.left, &mut self.right] {
+                    m.base_reach = 1.0;
+                    m.diagonal_bulge = 0.035;
+                }
+            }
+            FirmwareOp::SavePermanent { acknowledge_risk } => {
+                if !acknowledge_risk {
+                    return Err(InputError::FirmwareBlocked(
+                        "the risk was not acknowledged".into(),
+                    ));
+                }
+                if !self.fw.unsaved || self.fw.phase != FirmwarePhase::Idle {
+                    return Err(InputError::FirmwareBlocked(
+                        "calibrate (temporarily) and check the result first".into(),
+                    ));
+                }
+                self.fw.saved = (self.left, self.right);
+                self.fw.unsaved = false;
+            }
+            FirmwareOp::Reboot => {
+                (self.left, self.right) = self.fw.saved;
+                self.fw.unsaved = false;
+                self.fw.phase = FirmwarePhase::Idle;
+                self.reboot_pending = true;
+            }
+            FirmwareOp::SwitchRead
+            | FirmwareOp::SwitchWrite { .. }
+            | FirmwareOp::SwitchClear { .. } => {
+                return Err(InputError::Unsupported(
+                    "Switch operations on the demo DualSense".into(),
+                ));
+            }
+        }
+        Ok(FirmwareReply {
+            status: self.fw_status(),
+            switch: None,
+            backup: None,
+        })
+    }
+}
+
 /// Two slow turns each way, then two fast turns each way (16 s loop).
 fn rotation_angle(secs: f32) -> f32 {
     let s = secs % 16.0;
@@ -492,6 +627,13 @@ impl GamepadBackend for DemoBackend {
                 self.announced = false;
                 out.push(BackendEvent::Disconnected(Self::id()));
             }
+            return;
+        }
+        if self.reboot_pending && self.announced {
+            // Simulated reboot: the pad drops off the bus and comes back.
+            self.reboot_pending = false;
+            self.announced = false;
+            out.push(BackendEvent::Disconnected(Self::id()));
             return;
         }
         if !self.announced {
@@ -597,6 +739,71 @@ mod tests {
         d.set_active(false);
         d.poll(&clock, &mut out);
         assert!(matches!(out.as_slice(), [BackendEvent::Disconnected(_)]));
+    }
+
+    fn mean_left_x(d: &mut DemoBackend) -> f32 {
+        d.set_scenario(DemoScenario::Idle, 0);
+        (0..400)
+            .map(|i| d.state_at(i * REPORT_US + 1).left_stick.x)
+            .sum::<f32>()
+            / 400.0
+    }
+
+    #[test]
+    fn simulated_firmware_calibration_fixes_drift_until_reboot() {
+        let mut d = DemoBackend::new();
+        d.set_active(true);
+        let id = DemoBackend::id();
+        assert!(mean_left_x(&mut d) > 0.025);
+        d.firmware(&id, &FirmwareOp::CenterBegin).unwrap();
+        assert!(
+            d.firmware(&id, &FirmwareOp::CenterEnd).is_err(),
+            "needs a sample"
+        );
+        d.firmware(&id, &FirmwareOp::CenterSample).unwrap();
+        let st = d.firmware(&id, &FirmwareOp::CenterEnd).unwrap().status;
+        assert!(st.unsaved_changes && st.simulated);
+        assert!(mean_left_x(&mut d).abs() < 0.01);
+        // Reboot without saving → drift is back.
+        d.firmware(&id, &FirmwareOp::Reboot).unwrap();
+        assert!(mean_left_x(&mut d) > 0.025);
+        // Calibrate again and save: survives a reboot.
+        d.firmware(&id, &FirmwareOp::CenterBegin).unwrap();
+        d.firmware(&id, &FirmwareOp::CenterSample).unwrap();
+        d.firmware(&id, &FirmwareOp::CenterEnd).unwrap();
+        assert!(d
+            .firmware(
+                &id,
+                &FirmwareOp::SavePermanent {
+                    acknowledge_risk: false
+                }
+            )
+            .is_err());
+        d.firmware(
+            &id,
+            &FirmwareOp::SavePermanent {
+                acknowledge_risk: true,
+            },
+        )
+        .unwrap();
+        d.firmware(&id, &FirmwareOp::Reboot).unwrap();
+        assert!(mean_left_x(&mut d).abs() < 0.01);
+    }
+
+    #[test]
+    fn simulated_reboot_reconnects() {
+        let mut d = DemoBackend::new();
+        let clock = Clock::new();
+        let mut out = Vec::new();
+        d.set_active(true);
+        d.poll(&clock, &mut out);
+        d.firmware(&DemoBackend::id(), &FirmwareOp::Reboot).unwrap();
+        out.clear();
+        d.poll(&clock, &mut out);
+        assert!(matches!(out.as_slice(), [BackendEvent::Disconnected(_)]));
+        out.clear();
+        d.poll(&clock, &mut out);
+        assert!(matches!(out[0], BackendEvent::Connected(_)));
     }
 
     #[test]

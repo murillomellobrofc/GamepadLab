@@ -1,5 +1,12 @@
 # Changelog
 
+## Não lançado
+
+- Calibração gravada no controle: DualShock 4 e DualSense (centro e alcance com os comandos de fábrica, modo
+  temporário primeiro, gravação permanente com confirmação, descartar reiniciando) e Switch Pro experimental
+  (calibração do usuário na memória SPI, com backup e verificação). Travas de USB, clone, firmware, bateria e
+  DualSense Edge. Simulação no controle demo.
+
 ## 0.1.0 — primeira versão
 
 - Teste completo de controles: detecção e hotplug, até 8 controles, layouts Xbox/DS4/DualSense/Switch Pro/genérico,

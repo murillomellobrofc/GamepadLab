@@ -246,5 +246,126 @@
     "hint": "Cada controle tem seus perfis, identificados por VID:PID e pelo número de série quando existe. Troque de perfil com um clique.",
     "renamePrompt": "Novo nome",
     "save": "Salvar nome"
+  },
+  "firmware": {
+    "tab": "No controle (firmware)",
+    "title": "Calibração gravada no controle",
+    "intro": "Grava a calibração dentro do próprio controle, então ela vale em qualquer lugar: PS4/PS5, Switch, PC e todos os jogos. É diferente da calibração por software das outras abas, que só vale dentro do GamepadLab.",
+    "simulated": "Simulado no controle demo: nada é gravado em controle de verdade.",
+    "notSupported": "Este controle não aceita calibração por firmware.",
+    "whyNot": {
+      "xbox": "Controles Xbox não têm um comando público de calibração: o protocolo é fechado e o firmware é assinado. Use a calibração por software (abas Assistente e Ajustes).",
+      "generic": "Só DualShock 4, DualSense e Switch Pro têm calibração por firmware conhecida. Use a calibração por software (abas Assistente e Ajustes)."
+    },
+    "risks": {
+      "title": "Antes de começar",
+      "wear": "Não conserta drift por desgaste mecânico: nesse caso o módulo do analógico precisa ser trocado.",
+      "battery": "Mantenha a bateria acima de 30 % e o cabo conectado. Se o controle desligar no meio de uma gravação permanente, ele pode ficar inutilizável.",
+      "noUndo": "A gravação permanente no DualShock 4/DualSense não volta para a de fábrica: só dá para gravar outra por cima.",
+      "tempFirst": "Por isso o GamepadLab sempre calibra primeiro em modo temporário (some ao desligar o controle). Você confere o resultado e só então decide se grava de vez.",
+      "credits": "Comandos Sony portados do projeto open-source DualShock Calibration GUI (MIT, the_al), o mesmo usado pelo calibrador da PG Custom."
+    },
+    "status": {
+      "title": "Estado do controle",
+      "model": "Modelo",
+      "genuine": "Original",
+      "firmware": "Firmware",
+      "connection": "Conexão",
+      "battery": "Bateria",
+      "memory": "Memória",
+      "changes": "Alterações",
+      "yes": "Sim",
+      "no": "Não (clone)",
+      "unknown": "Desconhecido",
+      "nv": {
+        "locked": "Temporária (seguro)",
+        "unlocked": "Permanente",
+        "pendingReboot": "Aguardando reinício",
+        "unknown": "Desconhecida",
+        "notApplicable": "—"
+      },
+      "unsaved": "Calibração temporária ativa, ainda não gravada",
+      "clean": "Nenhuma alteração pendente",
+      "refresh": "Atualizar"
+    },
+    "blockers": {
+      "bluetooth": "Conecte pelo cabo USB. A calibração do Sony não pode ser feita pelo Bluetooth.",
+      "clone": "Parece um clone ou um controle não original: os comandos de fábrica não funcionam nele.",
+      "outdatedFirmware": "O firmware do DualSense está desatualizado (2020/2021). Atualize pelo console ou pelo app oficial da Sony e tente de novo.",
+      "edgeNeedsHardwareMod": "O DualSense Edge exige uma modificação de hardware para gravar a calibração dos módulos. O GamepadLab não faz isso.",
+      "lowBattery": "Bateria abaixo de 30 %. Carregue o controle antes de calibrar.",
+      "batteryUnknown": "Não foi possível ler a bateria. Mexa no controle por alguns segundos ou reconecte.",
+      "pendingReboot": "O controle está aguardando reinício. Reinicie-o e tente de novo."
+    },
+    "center": {
+      "title": "1. Centro",
+      "fourStep": "Em 4 etapas (recomendado)",
+      "quick": "Rápida",
+      "quickBody": "Solte os dois analógicos e não toque no controle. O app tira 5 amostras do centro.",
+      "start": "Começar calibração do centro",
+      "running": "Calibrando o centro: não feche o app nem desconecte o controle.",
+      "corner": {
+        "0": "Mova os dois analógicos para o canto superior esquerdo e solte.",
+        "1": "Mova os dois analógicos para o canto superior direito e solte.",
+        "2": "Mova os dois analógicos para o canto inferior esquerdo e solte.",
+        "3": "Mova os dois analógicos para o canto inferior direito e solte."
+      },
+      "whenCentered": "Quando os analógicos voltarem ao centro, toque em Continuar.",
+      "continue": "Continuar",
+      "done": "Centro calibrado (temporário)."
+    },
+    "range": {
+      "title": "2. Alcance",
+      "body": "Gire os dois analógicos devagar encostando na borda: pelo menos 2 voltas num sentido e 2 no outro. Continue girando mesmo que a cobertura não suba rápido.",
+      "start": "Começar calibração do alcance",
+      "coverage": "Cobertura: esquerdo {left} · direito {right}",
+      "finish": "Concluir",
+      "wait": "Concluir (libera em {s} s)",
+      "done": "Alcance calibrado (temporário)."
+    },
+    "check": {
+      "title": "3. Conferir",
+      "body": "Mexa os analógicos e confira: solto, o ponto deve ficar no centro; girando, deve encostar no círculo. Para números, use a aba Assistente. Controles Sony saem de fábrica com cerca de 7 a 9 % de erro médio de circularidade, e é isso que os jogos esperam."
+    },
+    "decide": {
+      "title": "4. Decidir",
+      "body": "A calibração está ativa só até o controle desligar. Escolha o que fazer:",
+      "keep": "Manter só até desligar",
+      "discard": "Descartar (reiniciar o controle)",
+      "save": "Gravar permanentemente",
+      "ack": "Entendo que a gravação permanente não volta para a calibração de fábrica.",
+      "confirmTitle": "Gravar no controle?",
+      "confirmBody": "A calibração atual será gravada na memória do controle e valerá em qualquer console ou PC. Não desconecte o cabo durante a gravação.",
+      "saved": "Calibração gravada no controle.",
+      "discarded": "Controle reiniciado: a calibração temporária foi descartada."
+    },
+    "switch": {
+      "untested": "Experimental: escrita da calibração do Switch Pro testada só em simulação, ainda não num controle de verdade.",
+      "enable": "Ativar modo completo (HID)",
+      "enableHint": "O Switch Pro precisa estar no modo completo para o app ler e gravar a memória. Se ele parar de responder em outros apps, desconecte e reconecte.",
+      "read": "Ler calibração do controle",
+      "factory": "Fábrica",
+      "user": "Usuário",
+      "noUser": "sem calibração do usuário",
+      "left": "Analógico esquerdo",
+      "right": "Analógico direito",
+      "center": "Centro X/Y",
+      "ranges": "Alcance X−/X+ · Y−/Y+",
+      "measureTitle": "Medir",
+      "measureBody": "Para cada analógico: meça o repouso (solto) e a rotação (girando na borda).",
+      "rest": "Repouso",
+      "rotation": "Rotação",
+      "measured": "medido",
+      "propose": "Calcular nova calibração",
+      "proposal": "Proposta",
+      "raised": "Alguns alcances ficaram abaixo do mínimo que o console aceita e foram elevados: o analógico pode não chegar a 100 % no console.",
+      "write": "Gravar na memória do controle",
+      "writeConfirm": "A calibração do usuário (a mesma que o console grava em Calibrar analógicos) será substituída. Um backup do valor atual é salvo antes. A calibração de fábrica nunca é alterada.",
+      "written": "Calibração gravada e conferida. Backup em {path}",
+      "clear": "Apagar calibração do usuário (voltar à de fábrica)",
+      "clearConfirm": "O controle voltará a usar a calibração de fábrica. Um backup é salvo antes.",
+      "cleared": "Calibração do usuário apagada. Backup em {path}",
+      "ack": "Entendo os riscos de gravar na memória do controle."
+    }
   }
 }

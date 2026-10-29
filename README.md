@@ -34,7 +34,7 @@ latência real, giroscópio, touchpad, ghosting, perfis, histórico, relatórios
 - Vários controles ao mesmo tempo, com abas e visão "todos ao vivo".
 - Overlay para stream: janela pequena, sem bordas, sempre no topo, com fundo transparente ou chroma key.
 
-**Calibração** (por software, em perfis; nada é gravado no controle)
+**Calibração por software** (em perfis do app, para qualquer controle)
 - Assistente em 5 passos: repouso (2 s), rotação na borda, 8 direções, gatilhos e resultado com nota.
 - Análises: gráfico circular de cobertura com o círculo ideal e setores com problema, circularidade em %,
   erro médio (RMS), raios mín/médio/máx, drift do centro em X/Y com classificação, deadzone sugerida a
@@ -46,6 +46,20 @@ latência real, giroscópio, touchpad, ghosting, perfis, histórico, relatórios
 - Perfis por controle (VID:PID + número de série), vários por controle, troca rápida, duplicar, renomear,
   resetar para o padrão de fábrica, exportar e importar JSON com validação e migração de versão.
 - Tudo o que o teste mostra pode ser visto cru ou calibrado (botão **Cru / Calibrado** no topo).
+
+**Calibração gravada no controle (firmware)**, para valer em qualquer console, PC e jogo
+- **DualShock 4 e DualSense**: os mesmos comandos de fábrica usados pelo calibrador da PG Custom (portados do
+  DualShock Calibration GUI, MIT). Centro em 4 etapas ou rápido e alcance girando os dois analógicos. Sempre começa em
+  **modo temporário** (some ao desligar): você confere e só depois decide gravar de vez, com caixa de confirmação.
+  Também dá para descartar reiniciando o controle.
+- Travas de segurança no backend: só por cabo USB, só controle original (detecção de clone), firmware do DualSense
+  atualizado, bateria acima de 30 %, memória sempre em modo temporário antes de calibrar. O DualSense Edge não é
+  suportado (exige modificação de hardware).
+- **Switch Pro** (experimental): grava a calibração do usuário na memória SPI, a mesma área que o console usa em
+  "Calibrar analógicos", nunca a de fábrica. Faz backup em disco antes, confere lendo de volta e permite apagar para
+  voltar à de fábrica.
+- **Xbox não tem**: o protocolo é fechado, o firmware é assinado e não existe comando público de calibração.
+- Toda gravação permanente fica registrada no histórico.
 
 **Extras**
 - Temas escuro, claro e automático, alto contraste, tamanho de texto, animações reduzidas.
@@ -150,8 +164,11 @@ sistema com a calibração aplicada, para qualquer jogo usar. O que falta:
 
 ## Limitações conhecidas
 
-- A calibração por software vale dentro do app (e no futuro controle virtual). O app **não grava no firmware**
-  do controle, de propósito: isso pode brickar o controle e não tem volta.
+- A calibração por software vale dentro do app (e no futuro controle virtual). Para valer em qualquer lugar, use a
+  calibração gravada no controle (só DualShock 4, DualSense e Switch Pro).
+- Calibração por firmware: a gravação permanente no Sony não volta para a de fábrica, e uma queda de energia durante
+  a gravação pode inutilizar o controle; por isso há checagem de bateria e o modo temporário vem antes. A escrita no
+  Switch Pro foi testada só em simulação. Backups do Switch ficam em `<pasta de dados>/firmware-backups/`.
 - Polling: para Sony via HID, o Hz é o real (um relatório por amostra). Para controles lidos pelo sistema
   (gilrs), o Hz é medido por mudança de estado: mexa o analógico continuamente.
 - Switch Pro: o IMU é experimental e só liga a pedido; vibração HD do Switch não está implementada.
@@ -167,7 +184,8 @@ e cole no issue.
 MIT. Inspirado no [hardwaretester.com](https://hardwaretester.com/gamepad) e no calibrador da
 [PG Custom](https://www.pgcustom.com.br/calibrador/calibrador-controle) (baseado no DualShock Calibration GUI, MIT).
 Protocolos HID do DualShock 4/DualSense conforme documentados pelo driver `hid-playstation` do Linux e pela
-comunidade.
+comunidade. Comandos de calibração de fábrica portados do DualShock Calibration GUI (MIT, the_al); formato da memória
+do Switch conforme o Nintendo_Switch_Reverse_Engineering. Detalhes em [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ---
 

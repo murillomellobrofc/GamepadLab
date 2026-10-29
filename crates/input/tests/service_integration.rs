@@ -220,3 +220,24 @@ fn demo_controller_lifecycle() {
     svc.set_demo(false);
     assert!(matches!(next_event(&rx), ServiceEvent::Disconnected(i) if i.is_demo));
 }
+
+#[test]
+fn firmware_ops_are_routed_and_unsupported_backends_say_so() {
+    let (svc, h, rx) = start_with(vec![("scripted", 1)]);
+    let pad = ScriptedBackend::controller("pad", 0x045e, 0x0b13, "scripted");
+    h[0].connect(pad.clone());
+    next_event(&rx);
+    let err = svc.firmware(&pad.id, FirmwareOp::Status).unwrap_err();
+    assert_eq!(err.code(), "rumbleUnsupported");
+
+    svc.set_demo(true);
+    let ServiceEvent::Connected(demo) = next_event(&rx) else {
+        panic!()
+    };
+    let r = svc.firmware(&demo.id, FirmwareOp::CenterBegin).unwrap();
+    assert_eq!(
+        r.status.phase,
+        gamepadlab_input::firmware::FirmwarePhase::Center
+    );
+    assert!(r.status.simulated);
+}

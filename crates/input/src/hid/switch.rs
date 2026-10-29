@@ -4,11 +4,11 @@
 
 use super::Driver;
 use crate::backend::{InputError, OutputCommand};
+use crate::firmware::switch_cal::{self, SwitchStickCal};
+use crate::firmware::{switch_spi_read, switch_subcommand, FeatureIo};
 use crate::model::*;
 use gamepadlab_calibration::Vec2;
 
-const STICK_CENTER: f32 = 2048.0;
-const STICK_RANGE: f32 = 1600.0;
 const ACCEL_G_PER_LSB: f32 = 0.000_244;
 const GYRO_DPS_PER_LSB: f32 = 0.061_03;
 const NEUTRAL_RUMBLE: [u8; 8] = [0x00, 0x01, 0x40, 0x40, 0x00, 0x01, 0x40, 0x40];
@@ -16,11 +16,51 @@ const NEUTRAL_RUMBLE: [u8; 8] = [0x00, 0x01, 0x40, 0x40, 0x00, 0x01, 0x40, 0x40]
 pub struct SwitchPro {
     pub usb: bool,
     counter: u8,
+    /// Active stick calibration (user block if present, else factory).
+    pub cal_left: SwitchStickCal,
+    pub cal_right: SwitchStickCal,
 }
 
 impl SwitchPro {
     pub fn new(usb: bool) -> Self {
-        Self { usb, counter: 0 }
+        Self {
+            usb,
+            counter: 0,
+            cal_left: SwitchStickCal::default(),
+            cal_right: SwitchStickCal::default(),
+        }
+    }
+
+    /// Reads factory and user stick calibration from SPI flash.
+    pub fn load_calibration(&mut self, io: &dyn FeatureIo) {
+        let factory = switch_spi_read(
+            io,
+            &mut self.counter,
+            switch_cal::FACTORY_STICKS_ADDR,
+            switch_cal::FACTORY_STICKS_LEN,
+        );
+        let user = switch_spi_read(
+            io,
+            &mut self.counter,
+            switch_cal::USER_STICKS_ADDR,
+            switch_cal::USER_STICKS_LEN,
+        );
+        match factory {
+            Ok(f) => {
+                self.cal_left = SwitchStickCal::decode_left(&f[0..9]);
+                self.cal_right = SwitchStickCal::decode_right(&f[9..18]);
+            }
+            Err(e) => log::warn!("Switch Pro: factory calibration unreadable: {e}"),
+        }
+        if let Ok(u) = user {
+            let (l, r) = switch_cal::parse_user_block(&u);
+            if let Some(l) = l {
+                self.cal_left = l;
+            }
+            if let Some(r) = r {
+                self.cal_right = r;
+            }
+        }
     }
 
     pub fn subcommand(&mut self, id: u8, args: &[u8]) -> Vec<u8> {
@@ -81,9 +121,10 @@ impl SwitchPro {
 
         let (lx, ly) = stick12(&d[6..9]);
         let (rx, ry) = stick12(&d[9..12]);
-        let norm = |v: u16| ((v as f32 - STICK_CENTER) / STICK_RANGE).clamp(-1.0, 1.0);
-        st.left_stick = Vec2::new(norm(lx), norm(ly));
-        st.right_stick = Vec2::new(norm(rx), norm(ry));
+        let (nlx, nly) = self.cal_left.normalize(lx, ly);
+        let (nrx, nry) = self.cal_right.normalize(rx, ry);
+        st.left_stick = Vec2::new(nlx, nly);
+        st.right_stick = Vec2::new(nrx, nry);
 
         let i = |o: usize| i16::from_le_bytes([d[13 + o], d[14 + o]]);
         st.motion = Some(MotionSample {
@@ -100,16 +141,21 @@ impl SwitchPro {
                 BatteryState::Discharging
             },
         });
-        st.raw_axes = [("LX", lx), ("LY", ly), ("RX", rx), ("RY", ry)]
-            .iter()
-            .enumerate()
-            .map(|(k, (label, v))| RawAxisValue {
-                code: k as u32,
-                label: (*label).into(),
-                value: norm(*v),
-                raw: Some(*v as i32),
-            })
-            .collect();
+        st.raw_axes = [
+            ("LX", lx, nlx),
+            ("LY", ly, nly),
+            ("RX", rx, nrx),
+            ("RY", ry, nry),
+        ]
+        .iter()
+        .enumerate()
+        .map(|(k, (label, raw, value))| RawAxisValue {
+            code: k as u32,
+            label: (*label).into(),
+            value: *value,
+            raw: Some(*raw as i32),
+        })
+        .collect();
         st.raw_buttons = Button::ALL[..19]
             .iter()
             .map(|b| {
@@ -133,8 +179,23 @@ fn stick12(b: &[u8]) -> (u16, u16) {
 }
 
 impl Driver for SwitchPro {
-    fn init_reports(&mut self) -> Vec<Vec<u8>> {
-        self.init_sequence()
+    fn init(&mut self, io: &dyn FeatureIo) {
+        if self.usb {
+            for cmd in [0x02u8, 0x03, 0x02, 0x04] {
+                let _ = io.write(&[0x80, cmd]);
+                io.sleep_ms(20);
+            }
+        }
+        self.load_calibration(io);
+        for (id, args) in [(0x03u8, [0x30u8]), (0x40, [0x01]), (0x30, [0x01])] {
+            if let Err(e) = switch_subcommand(io, &mut self.counter, id, &args) {
+                log::warn!("Switch Pro: init subcommand 0x{id:02X} failed: {e}");
+            }
+        }
+    }
+
+    fn after_firmware(&mut self, io: &dyn FeatureIo) {
+        self.load_calibration(io);
     }
 
     fn parse(&mut self, d: &[u8], timestamp_us: u64) -> Option<DeviceState> {

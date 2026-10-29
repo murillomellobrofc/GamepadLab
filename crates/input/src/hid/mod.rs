@@ -5,11 +5,13 @@
 
 pub mod common;
 pub mod crc;
+pub mod descriptor;
 pub mod ds4;
 pub mod ds5;
 pub mod switch;
 
 use crate::backend::{BackendEvent, Clock, GamepadBackend, InputError, OutputCommand};
+use crate::firmware::{FeatureIo, FirmwareModel, FirmwareOp, FirmwareReply, FirmwareSession};
 use crate::mapping::{self, hid_capabilities};
 use crate::model::*;
 use hidapi::{BusType, HidApi, HidDevice};
@@ -31,10 +33,10 @@ pub trait Driver: Send {
         None
     }
     fn on_feature_report(&mut self, _buf: &[u8]) {}
-    /// Output reports to write right after opening.
-    fn init_reports(&mut self) -> Vec<Vec<u8>> {
-        Vec::new()
-    }
+    /// Runs once after opening, with request/response access to the device.
+    fn init(&mut self, _io: &dyn FeatureIo) {}
+    /// Called after a firmware calibration write (re-read calibration data).
+    fn after_firmware(&mut self, _io: &dyn FeatureIo) {}
     fn parse(&mut self, report: &[u8], timestamp_us: u64) -> Option<DeviceState>;
     /// Applies an output command and returns the report to write.
     fn output(&mut self, cmd: &OutputCommand) -> Result<Vec<u8>, InputError>;
@@ -48,9 +50,57 @@ enum Msg {
 
 type Reply = Sender<Result<(), InputError>>;
 
+enum DeviceCmd {
+    Output(OutputCommand, Reply),
+    Firmware(FirmwareOp, Sender<Result<FirmwareReply, InputError>>),
+}
+
+/// hidapi device with feature-report sizes taken from its descriptor.
+struct DevIo<'a> {
+    dev: &'a HidDevice,
+    lengths: HashMap<u8, usize>,
+}
+
+impl FeatureIo for DevIo<'_> {
+    fn send_feature(&self, data: &[u8]) -> Result<(), String> {
+        let want = self.lengths.get(&data[0]).copied().unwrap_or(data.len());
+        let mut buf = data.to_vec();
+        if buf.len() < want {
+            buf.resize(want, 0);
+        }
+        log::debug!("hid feature out {:02X?}", data);
+        self.dev
+            .send_feature_report(&buf)
+            .map_err(|e| e.to_string())
+    }
+    fn get_feature(&self, id: u8) -> Result<Vec<u8>, String> {
+        let len = self.lengths.get(&id).copied().unwrap_or(64).max(2);
+        let mut buf = vec![0u8; len];
+        buf[0] = id;
+        let n = self
+            .dev
+            .get_feature_report(&mut buf)
+            .map_err(|e| e.to_string())?;
+        buf.truncate(n.max(1));
+        log::debug!("hid feature in  {:02X?}", buf);
+        Ok(buf)
+    }
+    fn write(&self, data: &[u8]) -> Result<(), String> {
+        self.dev.write(data).map(|_| ()).map_err(|e| e.to_string())
+    }
+    fn read(&self, buf: &mut [u8], timeout_ms: i32) -> Result<usize, String> {
+        self.dev
+            .read_timeout(buf, timeout_ms)
+            .map_err(|e| e.to_string())
+    }
+    fn sleep_ms(&self, ms: u64) {
+        std::thread::sleep(Duration::from_millis(ms));
+    }
+}
+
 struct OpenDevice {
     id: ControllerId,
-    cmd_tx: Sender<(OutputCommand, Reply)>,
+    cmd_tx: Sender<DeviceCmd>,
     stop: Arc<AtomicBool>,
     thread: Option<JoinHandle<()>>,
 }
@@ -226,7 +276,7 @@ fn make_info(
 }
 
 fn spawn_device(dev: HidDevice, info: ControllerInfo, clock: Clock, tx: Sender<Msg>) -> OpenDevice {
-    let (cmd_tx, cmd_rx) = mpsc::channel::<(OutputCommand, Reply)>();
+    let (cmd_tx, cmd_rx) = mpsc::channel::<DeviceCmd>();
     let stop = Arc::new(AtomicBool::new(false));
     let stop_t = stop.clone();
     let id = info.id.clone();
@@ -259,10 +309,29 @@ fn device_loop(
     mut info: ControllerInfo,
     clock: Clock,
     tx: Sender<Msg>,
-    cmd_rx: Receiver<(OutputCommand, Reply)>,
+    cmd_rx: Receiver<DeviceCmd>,
     stop: Arc<AtomicBool>,
 ) {
     let mut driver = make_driver(&info);
+    let mut descriptor = vec![0u8; 4096];
+    let lengths = match dev.get_report_descriptor(&mut descriptor) {
+        Ok(n) => descriptor::feature_report_lengths(&descriptor[..n]),
+        Err(e) => {
+            log::debug!("{}: no report descriptor ({e})", info.name);
+            HashMap::new()
+        }
+    };
+    let io = DevIo { dev: &dev, lengths };
+    let fw_model = match info.kind {
+        ControllerKind::Ps4 => Some(FirmwareModel::Ds4),
+        ControllerKind::Ps5 if info.product_id == mapping::PID_DUALSENSE_EDGE => {
+            Some(FirmwareModel::Ds5Edge)
+        }
+        ControllerKind::Ps5 => Some(FirmwareModel::Ds5),
+        ControllerKind::SwitchPro => Some(FirmwareModel::SwitchPro),
+        _ => None,
+    };
+    let mut session: Option<FirmwareSession> = None;
     if let Some((id, len)) = driver.feature_report() {
         let mut buf = vec![0u8; len];
         buf[0] = id;
@@ -271,12 +340,7 @@ fn device_loop(
             Err(e) => log::warn!("{}: feature report 0x{id:02x} failed: {e}", info.name),
         }
     }
-    for report in driver.init_reports() {
-        if let Err(e) = dev.write(&report) {
-            log::warn!("{}: init write failed: {e}", info.name);
-        }
-        std::thread::sleep(Duration::from_millis(20));
-    }
+    driver.init(&io);
 
     let mut buf = [0u8; 128];
     let mut last_battery: Option<BatteryInfo> = None;
@@ -302,13 +366,37 @@ fn device_loop(
                 break;
             }
         }
-        while let Ok((cmd, reply)) = cmd_rx.try_recv() {
-            let result = driver.output(&cmd).and_then(|report| {
-                dev.write(&report)
-                    .map(|_| ())
-                    .map_err(|e| InputError::Hid(e.to_string()))
-            });
-            let _ = reply.send(result);
+        while let Ok(cmd) = cmd_rx.try_recv() {
+            match cmd {
+                DeviceCmd::Output(cmd, reply) => {
+                    let result = driver.output(&cmd).and_then(|report| {
+                        dev.write(&report)
+                            .map(|_| ())
+                            .map_err(|e| InputError::Hid(e.to_string()))
+                    });
+                    let _ = reply.send(result);
+                }
+                DeviceCmd::Firmware(op, reply) => {
+                    let result = match fw_model {
+                        None => Err(InputError::Unsupported("firmware calibration".into())),
+                        Some(model) => {
+                            let usb = info.connection == ConnectionType::Usb;
+                            let s = session.get_or_insert_with(|| FirmwareSession::new(model, usb));
+                            let r = s.execute(&io, &op, last_battery);
+                            if r.is_ok()
+                                && matches!(
+                                    op,
+                                    FirmwareOp::SwitchWrite { .. } | FirmwareOp::SwitchClear { .. }
+                                )
+                            {
+                                driver.after_firmware(&io);
+                            }
+                            r
+                        }
+                    };
+                    let _ = reply.send(result);
+                }
+            }
         }
     }
     let _ = tx.send(Msg::Closed(info.id.clone(), reason));
@@ -358,10 +446,28 @@ impl GamepadBackend for HidBackend {
             .ok_or_else(|| InputError::Disconnected(id.to_string()))?;
         let (tx, rx) = mpsc::channel();
         dev.cmd_tx
-            .send((cmd.clone(), tx))
+            .send(DeviceCmd::Output(cmd.clone(), tx))
             .map_err(|_| InputError::Disconnected(id.to_string()))?;
         rx.recv_timeout(Duration::from_millis(250))
             .unwrap_or_else(|_| Err(InputError::Hid("device did not answer".into())))
+    }
+
+    fn firmware(
+        &mut self,
+        id: &ControllerId,
+        op: &FirmwareOp,
+    ) -> Result<FirmwareReply, InputError> {
+        let dev = self
+            .open
+            .values()
+            .find(|d| &d.id == id)
+            .ok_or_else(|| InputError::Disconnected(id.to_string()))?;
+        let (tx, rx) = mpsc::channel();
+        dev.cmd_tx
+            .send(DeviceCmd::Firmware(op.clone(), tx))
+            .map_err(|_| InputError::Disconnected(id.to_string()))?;
+        rx.recv_timeout(Duration::from_secs(20))
+            .unwrap_or_else(|_| Err(InputError::Hid("controller did not answer in time".into())))
     }
 
     fn enable_extended(&mut self, info: &ControllerInfo) -> Result<bool, InputError> {

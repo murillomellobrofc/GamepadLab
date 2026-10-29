@@ -81,7 +81,7 @@
     "privacyTitle": "Privacidade",
     "privacy": "Nenhuma telemetria. Nenhum dado sai do seu computador. Perfis, histórico e relatórios ficam salvos localmente.",
     "network": "A única conexão de rede é a verificação opcional de atualização, que você pode desligar nas configurações.",
-    "credits": "Inspirado no hardwaretester.com e no calibrador da PG Custom (DualShock Calibration GUI).",
+    "credits": "Inspirado no hardwaretester.com e no calibrador da PG Custom. Comandos de calibração Sony portados do DualShock Calibration GUI (MIT, the_al); formato da memória do Switch documentado pelo Nintendo_Switch_Reverse_Engineering.",
     "license": "Licença MIT",
     "dataDir": "Pasta de dados",
     "backends": "Backends de entrada",

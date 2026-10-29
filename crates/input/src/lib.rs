@@ -6,6 +6,7 @@
 
 pub mod backend;
 pub mod demo;
+pub mod firmware;
 pub mod mapping;
 pub mod model;
 pub mod platform;
@@ -22,6 +23,7 @@ pub mod hid;
 
 pub use backend::{BackendEvent, Clock, GamepadBackend, InputError, OutputCommand};
 pub use demo::{DemoBackend, DemoScenario, ManualInput};
+pub use firmware::{FirmwareOp, FirmwareReply, FirmwareStatus};
 pub use model::*;
 pub use service::{
     Capture, CaptureSample, CaptureTarget, FrameEntryRaw, InputService, ServiceConfig, ServiceEvent,

@@ -15,6 +15,8 @@ const KNOWN_CODES = [
   'rumbleUnsupported',
   'hidAccess',
   'io',
+  'firmwareBlocked',
+  'firmwareProtocol',
   'invalidInput',
   'notFound',
   'internal',
@@ -26,7 +28,7 @@ export function errorToast(code: string | null, detail?: string): Omit<Toast, 'i
   const c = code && KNOWN_CODES.includes(code) ? code : 'internal';
   const action = translate(locale, `errors.${c}.action`);
   return {
-    tone: c === 'rumbleUnsupported' ? 'warn' : 'bad',
+    tone: c === 'rumbleUnsupported' || c === 'firmwareBlocked' ? 'warn' : 'bad',
     title: translate(locale, `errors.${c}.title`),
     body: detail ? `${action} (${detail})` : action,
   };

@@ -246,5 +246,126 @@
     "hint": "Each controller has its own profiles, identified by VID:PID and the serial number when available. Switch profiles with one click.",
     "renamePrompt": "New name",
     "save": "Save name"
+  },
+  "firmware": {
+    "tab": "On the controller (firmware)",
+    "title": "Calibration stored in the controller",
+    "intro": "Writes the calibration into the controller itself, so it works everywhere: PS4/PS5, Switch, PC and every game. This is different from the software calibration in the other tabs, which only applies inside GamepadLab.",
+    "simulated": "Simulated on the demo controller: nothing is written to a real controller.",
+    "notSupported": "This controller does not accept firmware calibration.",
+    "whyNot": {
+      "xbox": "Xbox controllers have no public calibration command: the protocol is closed and the firmware is signed. Use the software calibration (Wizard and Adjust tabs).",
+      "generic": "Only DualShock 4, DualSense and Switch Pro have known firmware calibration. Use the software calibration (Wizard and Adjust tabs)."
+    },
+    "risks": {
+      "title": "Before you start",
+      "wear": "It does not fix drift caused by mechanical wear: in that case the stick module must be replaced.",
+      "battery": "Keep the battery above 30 % and the cable plugged in. If the controller dies in the middle of a permanent write, it may become unusable.",
+      "noUndo": "A permanent write on DualShock 4/DualSense cannot go back to the factory calibration: you can only write another one over it.",
+      "tempFirst": "That is why GamepadLab always calibrates in temporary mode first (gone when the controller turns off). You check the result and only then decide to make it permanent.",
+      "credits": "Sony commands ported from the open-source DualShock Calibration GUI project (MIT, the_al), the same one behind the PG Custom calibrator."
+    },
+    "status": {
+      "title": "Controller state",
+      "model": "Model",
+      "genuine": "Genuine",
+      "firmware": "Firmware",
+      "connection": "Connection",
+      "battery": "Battery",
+      "memory": "Memory",
+      "changes": "Changes",
+      "yes": "Yes",
+      "no": "No (clone)",
+      "unknown": "Unknown",
+      "nv": {
+        "locked": "Temporary (safe)",
+        "unlocked": "Permanent",
+        "pendingReboot": "Waiting for reboot",
+        "unknown": "Unknown",
+        "notApplicable": "—"
+      },
+      "unsaved": "Temporary calibration active, not saved yet",
+      "clean": "No pending changes",
+      "refresh": "Refresh"
+    },
+    "blockers": {
+      "bluetooth": "Connect with a USB cable. Sony calibration cannot be done over Bluetooth.",
+      "clone": "This looks like a clone or non-genuine controller: the factory commands do not work on it.",
+      "outdatedFirmware": "The DualSense firmware is outdated (2020/2021). Update it from the console or Sony's official app and try again.",
+      "edgeNeedsHardwareMod": "The DualSense Edge needs a hardware mod to store the module calibration. GamepadLab does not do that.",
+      "lowBattery": "Battery below 30 %. Charge the controller before calibrating.",
+      "batteryUnknown": "Could not read the battery. Move the controller for a few seconds or reconnect it.",
+      "pendingReboot": "The controller is waiting for a reboot. Restart it and try again."
+    },
+    "center": {
+      "title": "1. Centre",
+      "fourStep": "In 4 steps (recommended)",
+      "quick": "Quick",
+      "quickBody": "Let go of both sticks and do not touch the controller. The app takes 5 centre samples.",
+      "start": "Start centre calibration",
+      "running": "Calibrating the centre: do not close the app or unplug the controller.",
+      "corner": {
+        "0": "Move both sticks to the top-left corner and let go.",
+        "1": "Move both sticks to the top-right corner and let go.",
+        "2": "Move both sticks to the bottom-left corner and let go.",
+        "3": "Move both sticks to the bottom-right corner and let go."
+      },
+      "whenCentered": "When the sticks are back in the centre, press Continue.",
+      "continue": "Continue",
+      "done": "Centre calibrated (temporary)."
+    },
+    "range": {
+      "title": "2. Range",
+      "body": "Rotate both sticks slowly against the edge: at least 2 turns one way and 2 the other. Keep rotating even if the coverage climbs slowly.",
+      "start": "Start range calibration",
+      "coverage": "Coverage: left {left} · right {right}",
+      "finish": "Finish",
+      "wait": "Finish (unlocks in {s} s)",
+      "done": "Range calibrated (temporary)."
+    },
+    "check": {
+      "title": "3. Check",
+      "body": "Move the sticks and check: released, the dot should sit in the centre; rotating, it should touch the circle. For numbers, use the Wizard tab. Sony controllers ship with about 7 to 9 % average circularity error, and that is what games expect."
+    },
+    "decide": {
+      "title": "4. Decide",
+      "body": "The calibration is only active until the controller turns off. Choose what to do:",
+      "keep": "Keep until power-off",
+      "discard": "Discard (restart the controller)",
+      "save": "Save permanently",
+      "ack": "I understand a permanent save cannot go back to the factory calibration.",
+      "confirmTitle": "Save to the controller?",
+      "confirmBody": "The current calibration will be written to the controller's memory and work on any console or PC. Do not unplug the cable while it saves.",
+      "saved": "Calibration saved to the controller.",
+      "discarded": "Controller restarted: the temporary calibration was discarded."
+    },
+    "switch": {
+      "untested": "Experimental: Switch Pro calibration writing has only been tested in simulation, not on a real controller yet.",
+      "enable": "Enable full mode (HID)",
+      "enableHint": "The Switch Pro must be in full mode for the app to read and write its memory. If it stops responding in other apps, unplug and reconnect it.",
+      "read": "Read the controller's calibration",
+      "factory": "Factory",
+      "user": "User",
+      "noUser": "no user calibration",
+      "left": "Left stick",
+      "right": "Right stick",
+      "center": "Centre X/Y",
+      "ranges": "Range X−/X+ · Y−/Y+",
+      "measureTitle": "Measure",
+      "measureBody": "For each stick: measure rest (released) and rotation (rotating against the edge).",
+      "rest": "Rest",
+      "rotation": "Rotation",
+      "measured": "measured",
+      "propose": "Compute new calibration",
+      "proposal": "Proposal",
+      "raised": "Some ranges were below the minimum the console accepts and were raised: the stick may not reach 100 % on the console.",
+      "write": "Write to the controller's memory",
+      "writeConfirm": "The user calibration (the same one the console writes in Calibrate Control Sticks) will be replaced. A backup of the current value is saved first. The factory calibration is never touched.",
+      "written": "Calibration written and verified. Backup at {path}",
+      "clear": "Erase user calibration (back to factory)",
+      "clearConfirm": "The controller will go back to its factory calibration. A backup is saved first.",
+      "cleared": "User calibration erased. Backup at {path}",
+      "ack": "I understand the risks of writing to the controller's memory."
+    }
   }
 }

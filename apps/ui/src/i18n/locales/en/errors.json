@@ -45,5 +45,13 @@
     "hidrawPermission": "No hidraw permission: gyro, touchpad, lightbar and triggers stay unavailable until you install the GamepadLab udev rule.",
     "virtualDevice": "A virtual controller is connected (Steam Input, ViGEm…). It mirrors a real one and may show up as a copy.",
     "openSettings": "Open settings"
+  },
+  "firmwareBlocked": {
+    "title": "Writing to the controller was blocked",
+    "action": "A safety check stopped the operation. See the warnings in the Firmware tab and fix them before trying again."
+  },
+  "firmwareProtocol": {
+    "title": "The controller answered unexpectedly",
+    "action": "Nothing was saved permanently. Restart the controller (unplug and reconnect) and try again over USB."
   }
 }

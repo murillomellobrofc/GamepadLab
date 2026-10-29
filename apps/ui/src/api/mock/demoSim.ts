@@ -37,14 +37,14 @@ interface StickModel {
   base: number;
   dent: [number, number, number] | null;
 }
-const LEFT: StickModel = {
+const LEFT_MODEL: StickModel = {
   drift: [0.034, -0.021],
   noise: 0.0065,
   bulge: 0.04,
   base: 0.965,
   dent: [200, 22, 0.8],
 };
-const RIGHT: StickModel = {
+const RIGHT_MODEL: StickModel = {
   drift: [0.004, 0.006],
   noise: 0.0025,
   bulge: 0.05,
@@ -109,6 +109,9 @@ export class DemoSim {
     buttons: [],
   };
   rumble = { weak: 0, strong: 0 };
+  /** Simulated firmware calibration (see MockFirmware). */
+  calibrated = { center: false, range: false };
+  savedCalibration = { center: false, range: false };
   private seq = 0;
   private ranges = new Map<number, [number, number]>();
   private presses = new Map<number, [boolean, number, number]>();
@@ -129,6 +132,12 @@ export class DemoSim {
   sample(t: number) {
     const secs = (t - this.scenarioStart) / 1e6;
     const abs = t / 1e6;
+    const fixRange = (m: StickModel): StickModel =>
+      this.calibrated.range ? { ...m, base: 1, bulge: 0.035 } : m;
+    const fixCenter = (m: StickModel): StickModel =>
+      this.calibrated.center ? { ...m, drift: [0.003, -0.002] } : m;
+    const LEFT = fixRange(fixCenter(LEFT_MODEL));
+    const RIGHT = fixRange(fixCenter(RIGHT_MODEL));
     let left: [number, number] = [...LEFT.drift];
     let right: [number, number] = [...RIGHT.drift];
     let lt = 0;
@@ -159,6 +168,10 @@ export class DemoSim {
       const v = polar(sc === 'rotateLeft' ? LEFT : RIGHT, a, 1 - 0.012 * rand());
       if (sc === 'rotateLeft') left = v;
       else right = v;
+    } else if (sc === 'rotateBoth') {
+      const a = rotationAngle(secs);
+      left = polar(LEFT, a);
+      right = polar(RIGHT, -a + 0.7);
     } else if (sc === 'directionsLeft' || sc === 'directionsRight') {
       const slot = Math.floor(secs / 0.95) % 8;
       const within = secs % 0.95;

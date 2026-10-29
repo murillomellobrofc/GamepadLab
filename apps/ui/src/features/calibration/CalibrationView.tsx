@@ -7,10 +7,11 @@ import ui from '@/styles/ui.module.css';
 import { ControllerHeader } from '../common/ControllerHeader';
 import { Adjustments } from './Adjustments';
 import css from './CalibrationView.module.css';
+import { FirmwarePanel } from './FirmwarePanel';
 import { ProfilesPanel } from './ProfilesPanel';
 import { Wizard } from './Wizard';
 
-type Sub = 'wizard' | 'adjust' | 'profiles';
+type Sub = 'wizard' | 'adjust' | 'profiles' | 'firmware';
 
 function ProfileSwitcher() {
   const t = useT();
@@ -73,6 +74,7 @@ export function CalibrationView({ c }: { c: ControllerInfo }) {
             { value: 'wizard', label: t('calibration.tabs.wizard') },
             { value: 'adjust', label: t('calibration.tabs.adjust') },
             { value: 'profiles', label: t('calibration.tabs.profiles') },
+            { value: 'firmware', label: t('calibration.firmware.tab') },
           ]}
         />
         <ProfileSwitcher />
@@ -80,6 +82,7 @@ export function CalibrationView({ c }: { c: ControllerInfo }) {
       {sub === 'wizard' && <Wizard c={c} />}
       {sub === 'adjust' && <Adjustments c={c} />}
       {sub === 'profiles' && <ProfilesPanel c={c} />}
+      {sub === 'firmware' && <FirmwarePanel c={c} />}
     </>
   );
 }

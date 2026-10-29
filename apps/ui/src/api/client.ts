@@ -9,6 +9,9 @@ import type {
   ControllerInfo,
   DemoScenario,
   DeviceProfiles,
+  FirmwareOp,
+  FirmwareResult,
+  SwitchProposals,
   HistorySession,
   PlatformWarning,
   Profile,
@@ -98,6 +101,9 @@ export const api = {
     call<void>('set_lightbar', { id, r, g, b }),
   setPlayerLeds: (id: string, mask: number) => call<void>('set_player_leds', { id, mask }),
   enableSensors: (id: string) => call<void>('enable_sensors', { id }),
+
+  firmware: (id: string, op: FirmwareOp) => call<FirmwareResult>('firmware', { id, op }),
+  firmwareSwitchPropose: (id: string) => call<SwitchProposals>('firmware_switch_propose', { id }),
 
   historyAdd: (session: NewHistorySession) => call<number>('history_add', { session }),
   historyList: (limit = 200) => call<HistorySession[]>('history_list', { limit }),

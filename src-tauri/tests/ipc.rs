@@ -280,6 +280,40 @@ fn full_flow_over_ipc() {
         )
         .is_err());
 
+    // Firmware calibration (simulated on the demo DualSense).
+    let st = ipc.ok("firmware", json!({ "id": id, "op": { "op": "status" } }));
+    assert_eq!(st["status"]["model"], "ds5");
+    assert_eq!(st["status"]["simulated"], true);
+    assert_eq!(st["status"]["blockers"], json!([]));
+    ipc.ok(
+        "firmware",
+        json!({ "id": id, "op": { "op": "centerBegin" } }),
+    );
+    ipc.ok(
+        "firmware",
+        json!({ "id": id, "op": { "op": "centerSample" } }),
+    );
+    let st = ipc.ok("firmware", json!({ "id": id, "op": { "op": "centerEnd" } }));
+    assert_eq!(st["status"]["unsavedChanges"], true);
+    let err = ipc
+        .call(
+            "firmware",
+            json!({ "id": id, "op": { "op": "savePermanent", "acknowledgeRisk": false } }),
+        )
+        .unwrap_err();
+    assert_eq!(err["code"], "firmwareBlocked");
+    let saved = ipc.ok(
+        "firmware",
+        json!({ "id": id, "op": { "op": "savePermanent", "acknowledgeRisk": true } }),
+    );
+    assert_eq!(saved["status"]["unsavedChanges"], false);
+    let hist = ipc.ok("history_list", json!({ "limit": 10 }));
+    assert_eq!(hist[0]["kind"], "firmware");
+    let err = ipc
+        .call("firmware_switch_propose", json!({ "id": id }))
+        .unwrap_err();
+    assert_eq!(err["code"], "rumbleUnsupported");
+
     let diag = ipc.ok("diagnostics", json!({}));
     assert!(diag.as_str().unwrap().contains("DualSense (demo)"));
     assert!(ipc.ok("platform_warnings", json!({})).is_array());

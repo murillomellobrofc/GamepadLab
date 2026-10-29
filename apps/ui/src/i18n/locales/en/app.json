@@ -81,7 +81,7 @@
     "privacyTitle": "Privacy",
     "privacy": "No telemetry. No data leaves your computer. Profiles, history and reports are stored locally.",
     "network": "The only network connection is the optional update check, which you can turn off in settings.",
-    "credits": "Inspired by hardwaretester.com and the PG Custom calibrator (DualShock Calibration GUI).",
+    "credits": "Inspired by hardwaretester.com and the PG Custom calibrator. Sony calibration commands ported from DualShock Calibration GUI (MIT, the_al); Switch memory layout documented by Nintendo_Switch_Reverse_Engineering.",
     "license": "MIT License",
     "dataDir": "Data folder",
     "backends": "Input backends",

@@ -4,6 +4,7 @@
 
 use crate::backend::{BackendEvent, Clock, GamepadBackend, InputError, OutputCommand};
 use crate::demo::{DemoBackend, DemoScenario, ManualInput, DEMO_ID};
+use crate::firmware::{FirmwareOp, FirmwareReply};
 use crate::model::*;
 use crate::registry::{Change, Registry};
 use crate::stats::{PollMeter, PollStats};
@@ -79,6 +80,11 @@ enum Command {
     CaptureStart(ControllerId, CaptureTarget),
     CaptureStop(Sender<Option<Capture>>),
     EnableExtended(ControllerId, Sender<Result<bool, InputError>>),
+    Firmware(
+        ControllerId,
+        FirmwareOp,
+        Sender<Result<FirmwareReply, InputError>>,
+    ),
     Shutdown,
 }
 
@@ -233,6 +239,16 @@ impl InputService {
         let (tx, rx) = mpsc::channel();
         self.tx.send(Command::CaptureStop(tx)).ok()?;
         rx.recv_timeout(Duration::from_secs(2)).ok().flatten()
+    }
+
+    /// Runs a firmware calibration step on the controller (blocking, ≤ 25 s).
+    pub fn firmware(&self, id: &ControllerId, op: FirmwareOp) -> Result<FirmwareReply, InputError> {
+        let (tx, rx) = mpsc::channel();
+        self.tx
+            .send(Command::Firmware(id.clone(), op, tx))
+            .map_err(|_| InputError::Other("input service stopped".into()))?;
+        rx.recv_timeout(Duration::from_secs(25))
+            .unwrap_or_else(|_| Err(InputError::Other("input service timeout".into())))
     }
 
     pub fn enable_extended(&self, id: &ControllerId) -> Result<bool, InputError> {
@@ -424,6 +440,17 @@ fn run(
                     } else {
                         match owners.get(&id).and_then(|&i| backends.get_mut(i)) {
                             Some(b) => b.send(&id, &out),
+                            None => Err(InputError::Disconnected(id.to_string())),
+                        }
+                    };
+                    let _ = reply.send(result);
+                }
+                Command::Firmware(id, op, reply) => {
+                    let result = if id.as_str() == DEMO_ID {
+                        demo.firmware(&id, &op)
+                    } else {
+                        match owners.get(&id).and_then(|&i| backends.get_mut(i)) {
+                            Some(b) => b.firmware(&id, &op),
                             None => Err(InputError::Disconnected(id.to_string())),
                         }
                     };

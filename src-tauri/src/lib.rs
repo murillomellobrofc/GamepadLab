@@ -4,6 +4,7 @@
 mod calibrate;
 mod cmd_calibration;
 mod cmd_files;
+mod cmd_firmware;
 mod cmd_history;
 mod commands;
 mod emitter;
@@ -121,6 +122,8 @@ pub fn configure<R: Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
             cmd_files::save_text_file,
             cmd_files::save_binary_file,
             cmd_files::read_text_file,
+            cmd_firmware::firmware,
+            cmd_firmware::firmware_switch_propose,
             cmd_history::history_add,
             cmd_history::history_list,
             cmd_history::history_delete,

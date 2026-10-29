@@ -62,6 +62,12 @@ pub enum InputError {
     Unsupported(String),
     #[error("HID access failed: {0}")]
     Hid(String),
+    /// A firmware calibration step was refused by a safety check.
+    #[error("firmware calibration blocked: {0}")]
+    FirmwareBlocked(String),
+    /// The controller answered a firmware command unexpectedly.
+    #[error("firmware calibration failed: {0}")]
+    FirmwareProtocol(String),
     #[error("{0}")]
     Other(String),
 }
@@ -74,6 +80,8 @@ impl InputError {
             InputError::BackendUnavailable(_) => "backendUnavailable",
             InputError::Unsupported(_) => "rumbleUnsupported",
             InputError::Hid(_) => "hidAccess",
+            InputError::FirmwareBlocked(_) => "firmwareBlocked",
+            InputError::FirmwareProtocol(_) => "firmwareProtocol",
             InputError::Other(_) => "internal",
         }
     }
@@ -99,6 +107,15 @@ pub trait GamepadBackend: Send {
     /// Returns `Ok(true)` when this backend will take the device over.
     fn enable_extended(&mut self, _info: &ControllerInfo) -> Result<bool, InputError> {
         Ok(false)
+    }
+
+    /// Calibration stored in the controller itself (Sony, Switch Pro).
+    fn firmware(
+        &mut self,
+        _id: &ControllerId,
+        _op: &crate::firmware::FirmwareOp,
+    ) -> Result<crate::firmware::FirmwareReply, InputError> {
+        Err(InputError::Unsupported("firmware calibration".into()))
     }
 }
 
