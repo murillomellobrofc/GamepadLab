@@ -41,7 +41,7 @@ const LEFT: StickModel = {
   noise: 0.0065,
   bulge: 0.04,
   base: 0.965,
-  dent: [200, 18, 0.86],
+  dent: [200, 22, 0.8],
 };
 const RIGHT: StickModel = {
   drift: [0.004, 0.006],

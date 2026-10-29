@@ -198,7 +198,7 @@ export type AppErrorCode =
 
 /* ---------------------------------------------------------------- calibration */
 
-export type DeadzoneMode = 'radial' | 'axial' | 'scaledRadial';
+export type DeadzoneMode = 'radial' | 'axial';
 export type GateShape = 'none' | 'circle' | 'octagon' | 'square';
 export type CurveKind = 'linear' | 'smooth' | 'aggressive' | 'sCurve' | 'custom';
 
@@ -328,6 +328,7 @@ export interface TriggerAnalysis {
 
 export interface StickReport {
   stick: 'left' | 'right';
+  calibrated: boolean;
   rest: RestAnalysis | null;
   circularity: CircularityAnalysis | null;
   directions: DirectionsAnalysis | null;

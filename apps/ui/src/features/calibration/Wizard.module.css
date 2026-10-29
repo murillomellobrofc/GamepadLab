@@ -1,0 +1,158 @@
+.intro {
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: start;
+  max-width: 760px;
+}
+.title {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+}
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-6);
+  align-items: flex-end;
+  margin: var(--sp-2) 0;
+}
+.wrap {
+  display: grid;
+  gap: var(--sp-4);
+}
+.stepper {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.stepper li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  color: var(--text-faint);
+  font-size: var(--fs-sm);
+}
+.stepper li span {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  background: var(--surface-3);
+}
+.stepper li[data-state='current'] {
+  border-color: var(--accent);
+  color: var(--text);
+}
+.stepper li[data-state='current'] span {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.stepper li[data-state='done'] {
+  color: var(--text-muted);
+}
+.stepper li[data-state='done'] span {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.step {
+  display: grid;
+  gap: var(--sp-3);
+  max-width: 980px;
+}
+.twoCol {
+  grid-template-columns: minmax(0, 1fr) 240px;
+  align-items: center;
+  gap: var(--sp-6);
+}
+.count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-lg);
+  color: var(--accent);
+}
+.good {
+  color: var(--ok);
+}
+.ask {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+.ring path {
+  fill: var(--surface-3);
+  stroke: var(--line-strong);
+  stroke-width: 0.5;
+  transition: fill var(--dur) var(--ease);
+}
+.ring path[data-on] {
+  fill: var(--accent);
+}
+.ringPct {
+  fill: var(--text);
+  font-family: var(--font-mono);
+  font-size: 24px;
+}
+.compass .hub {
+  fill: var(--surface-3);
+  stroke: var(--line-strong);
+}
+.compass g path {
+  fill: var(--surface-3);
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+  transition: fill var(--dur) var(--ease);
+}
+.compass g[data-on] path {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+.trigBar {
+  position: relative;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--surface-3);
+  overflow: hidden;
+  max-width: 480px;
+}
+.trigBar i {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  background: var(--sig-raw);
+  opacity: 0.8;
+}
+.trigBar span {
+  position: relative;
+  padding: 0 10px;
+  line-height: 28px;
+  font-size: var(--fs-sm);
+}
+.suggest {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  align-items: center;
+}
+.suggest > div:first-child {
+  display: grid;
+  gap: 4px;
+  max-width: 640px;
+}
+@media (max-width: 900px) {
+  .twoCol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

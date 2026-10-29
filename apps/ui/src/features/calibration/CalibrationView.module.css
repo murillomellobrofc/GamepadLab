@@ -1,0 +1,22 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--sp-4);
+}
+.bar > [role='radiogroup'] button {
+  padding: 6px 14px;
+  font-size: var(--fs-sm);
+}
+.switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.save {
+  font-size: var(--fs-xs);
+  color: var(--ok);
+  min-width: 70px;
+}

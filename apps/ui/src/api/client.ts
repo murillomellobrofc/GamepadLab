@@ -61,7 +61,8 @@ export const api = {
   captureClear: () => call<void>('capture_clear'),
   analyzeStick: (stick: StickSide, calibration: StickCalibration | null) =>
     call<StickReport>('analyze_stick', { stick, calibration }),
-  analyzeTrigger: (side: TriggerSide) => call<TriggerAnalysis>('analyze_trigger', { side }),
+  analyzeTrigger: (side: TriggerSide) =>
+    call<TriggerAnalysis>('analyze_trigger_cmd', { sideName: side }),
   setActiveCalibration: (id: string, profile: CalibrationProfile | null) =>
     call<void>('set_active_calibration', { id, profile }),
 

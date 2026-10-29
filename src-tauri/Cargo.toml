@@ -23,4 +23,6 @@ log.workspace = true
 gamepadlab-input.workspace = true
 gamepadlab-calibration.workspace = true
 gamepadlab-haptics.workspace = true
+gamepadlab-profiles.workspace = true
+base64 = "0.22"
 sysinfo = { version = "0.40", default-features = false, features = ["system"] }

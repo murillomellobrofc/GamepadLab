@@ -104,7 +104,7 @@ const LEFT: StickModel = StickModel {
     noise: 0.0065,
     diagonal_bulge: 0.04,
     base_reach: 0.965,
-    dent: Some((200.0, 18.0, 0.86)),
+    dent: Some((200.0, 22.0, 0.80)),
     spike_every_us: Some(2_700_000),
 };
 

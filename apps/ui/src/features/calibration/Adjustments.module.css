@@ -1,0 +1,138 @@
+.wrap {
+  display: grid;
+  gap: var(--sp-4);
+}
+.stick {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.9fr);
+  gap: var(--sp-4);
+  align-items: start;
+}
+.visuals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--sp-4);
+}
+.controls {
+  display: grid;
+  gap: var(--sp-4);
+}
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+.readout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 0;
+  font-size: var(--fs-xs);
+}
+.readout dt {
+  color: var(--text-muted);
+}
+.readout dd {
+  margin: 0;
+}
+.preview {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+.preview canvas {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1;
+  height: auto;
+}
+.preview figcaption {
+  display: flex;
+  gap: 16px;
+  font-size: var(--fs-2xs);
+  color: var(--text-muted);
+}
+.preview figcaption i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid;
+  vertical-align: -1px;
+  margin-right: 4px;
+}
+.curve {
+  display: grid;
+  gap: 8px;
+}
+.curveSvg {
+  width: 100%;
+  max-width: 300px;
+  justify-self: center;
+  touch-action: none;
+}
+.curveGrid line {
+  stroke: var(--graticule-strong);
+}
+.curveDiag {
+  stroke: var(--line-strong);
+  stroke-dasharray: 3 4;
+}
+.curvePath {
+  fill: none;
+  stroke: var(--sig-cal);
+  stroke-width: 2.5;
+}
+.curveAxis {
+  fill: var(--text-faint);
+  font-size: 9px;
+  font-family: var(--font-mono);
+}
+.curvePoint {
+  fill: var(--surface-2);
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  cursor: grab;
+}
+.curvePoint:focus-visible,
+.curvePoint[data-active] {
+  fill: var(--accent);
+  outline: none;
+  stroke: var(--focus);
+}
+.curveTools {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+.curveTools p {
+  font-size: var(--fs-xs);
+  color: var(--text-faint);
+}
+.triggers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--sp-4);
+}
+.trigLive {
+  display: grid;
+  gap: 4px;
+}
+.trigLive div {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.trigLive i {
+  display: block;
+  height: 100%;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+@media (max-width: 1100px) {
+  .stick {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

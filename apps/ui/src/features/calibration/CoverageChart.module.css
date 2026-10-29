@@ -1,0 +1,52 @@
+.figure {
+  margin: 0;
+  display: grid;
+  gap: var(--sp-2);
+}
+.canvas {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1;
+  height: auto;
+  justify-self: center;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  justify-content: center;
+  font-size: var(--fs-2xs);
+  color: var(--text-muted);
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend i {
+  width: 14px;
+  height: 3px;
+  display: inline-block;
+}
+.ideal {
+  border-top: 2px dashed var(--text);
+  height: 0 !important;
+}
+.reach {
+  background: var(--sig-raw);
+}
+.points {
+  height: 6px !important;
+  width: 6px !important;
+  border-radius: 50%;
+  background: var(--sig-raw);
+  opacity: 0.6;
+}
+.fail {
+  height: 10px !important;
+  background: var(--bad);
+  opacity: 0.35;
+}
+.after {
+  background: var(--sig-cal);
+}

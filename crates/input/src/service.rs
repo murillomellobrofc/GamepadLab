@@ -51,13 +51,9 @@ pub enum CaptureTarget {
     RightTrigger,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
-pub struct CaptureSample {
-    /// Microseconds since the capture started.
-    pub t: u64,
-    pub x: f32,
-    pub y: f32,
-}
+/// Captured reading (`t` = µs since the capture started); shared with the
+/// calibration crate so captures feed the analyses directly.
+pub use gamepadlab_calibration::Sample as CaptureSample;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

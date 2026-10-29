@@ -4,6 +4,7 @@ import { bootstrap } from '@/app/bootstrap';
 import { EmptyState } from '@/app/EmptyState';
 import { useDocumentSettings } from '@/app/useDocumentSettings';
 import { useShortcuts } from '@/app/useShortcuts';
+import { CalibrationView } from '@/features/calibration/CalibrationView';
 import { ControllerStrip } from '@/features/common/ControllerStrip';
 import { MultiView } from '@/features/common/MultiView';
 import { LatencyView } from '@/features/latency/LatencyView';
@@ -31,6 +32,8 @@ function MainContent() {
         return c && <TestView key={c.id} c={c} />;
       case 'latency':
         return c && <LatencyView key={c.id} c={c} />;
+      case 'calibration':
+        return c && <CalibrationView key={c.id} c={c} />;
       default:
         return <p className={ui.muted}>{t('app.common.loading')}</p>;
     }

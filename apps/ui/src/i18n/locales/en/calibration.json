@@ -1,0 +1,249 @@
+{
+  "tabs": {
+    "label": "Calibration",
+    "wizard": "Wizard",
+    "adjust": "Adjust",
+    "profiles": "Profiles"
+  },
+  "activeProfile": "Active profile",
+  "wizard": {
+    "title": "Calibration wizard",
+    "intro": "We measure one stick at a time: rest, rotation, 8 directions and triggers. It takes about a minute. Nothing is written to the controller: the calibration lives in an app profile.",
+    "chooseStick": "Which stick?",
+    "left": "Left",
+    "right": "Right",
+    "includeTriggers": "Include the triggers (step 4)",
+    "start": "Start",
+    "stepOf": "Step {n} of {total}",
+    "steps": {
+      "rest": "Rest",
+      "rotation": "Rotation",
+      "directions": "8 directions",
+      "triggers": "Triggers",
+      "result": "Result"
+    },
+    "rest": {
+      "title": "Let go of the sticks",
+      "body": "Leave the controller still on a table and do not touch anything. We measure the centre for 2 seconds.",
+      "measure": "Measure now",
+      "measuring": "Measuring… {s} s",
+      "done": "Centre measured with {n} samples."
+    },
+    "rotation": {
+      "title": "Rotate the {stick} stick along the edge",
+      "body": "Push the stick against the edge and rotate slowly twice, then quickly twice. Do both directions if you can. No rush.",
+      "start": "Start recording",
+      "coverage": "Circle coverage: {pct}",
+      "finish": "Finish rotation",
+      "lowCoverage": "Parts of the circle are still missing. Rotate a bit more or finish anyway."
+    },
+    "directions": {
+      "title": "Push in 8 directions",
+      "body": "Push the {stick} stick all the way and hold for half a second in each direction. The arrow lights up once the direction is registered.",
+      "start": "Start",
+      "finish": "Finish directions",
+      "progress": "{n} of 8 directions",
+      "names": {
+        "right": "Right",
+        "upRight": "Up-right",
+        "up": "Up",
+        "upLeft": "Up-left",
+        "left": "Left",
+        "downLeft": "Down-left",
+        "down": "Down",
+        "downRight": "Down-right"
+      }
+    },
+    "triggers": {
+      "title": "Triggers",
+      "releaseBody": "Let go of both triggers. We measure where each one rests.",
+      "measureRest": "Measure rest",
+      "press": "Press {trigger} all the way and hold",
+      "holdHint": "Hold for about a second, then press Done.",
+      "done": "Done",
+      "skip": "Skip triggers",
+      "value": "Now: {pct}"
+    },
+    "analyzing": "Analysing the measurements…",
+    "retry": "Redo this step",
+    "next": "Continue",
+    "cancel": "Cancel",
+    "otherStick": "Calibrate the other stick",
+    "restart": "Start over",
+    "demoNote": "In demo mode the simulated controller makes every move by itself.",
+    "navPaused": "During the wizard the controller does not navigate the app. Use mouse or keyboard."
+  },
+  "report": {
+    "title": "{stick} stick report",
+    "score": "Quality score",
+    "of100": "out of 100",
+    "issues": {
+      "drift": "Off-centre (drift)",
+      "noise": "Noisy centre",
+      "wandering": "Centre wanders over time",
+      "lowCoverage": "Incomplete rotation",
+      "incompleteTravel": "Does not reach full travel in some directions",
+      "weakSectors": "Weak sectors on the circle",
+      "aim": "Crooked directions",
+      "spikes": "Reading spikes",
+      "jumps": "Reading jumps"
+    },
+    "noIssues": "No problems found.",
+    "rest": {
+      "title": "Rest and drift",
+      "offset": "Centre offset",
+      "offsetXY": "X {x} · Y {y}",
+      "noise": "Noise (standard deviation)",
+      "maxDev": "Maximum deviation",
+      "rate": "Drift over time",
+      "grade": "Rating",
+      "suggestedDz": "Suggested deadzone",
+      "grades": {
+        "excellent": "Excellent",
+        "acceptable": "Acceptable",
+        "poor": "Poor",
+        "defective": "Defective"
+      }
+    },
+    "circ": {
+      "title": "Circularity",
+      "roundness": "Roundness",
+      "error": "Average error (RMS)",
+      "radii": "Radius min / avg / max",
+      "coverage": "Coverage",
+      "failing": "Problem sectors",
+      "none": "none",
+      "incomplete": "The stick does not reach full travel in every direction. The suggested calibration already includes a rescale.",
+      "legendIdeal": "ideal circle",
+      "legendReach": "measured reach",
+      "legendPoints": "recorded points",
+      "legendFail": "problem sector",
+      "legendAfter": "after calibration"
+    },
+    "dirs": {
+      "title": "8 directions",
+      "reach": "Reach",
+      "aim": "Aim error",
+      "gate": "Gate shape",
+      "ratio": "Diagonal / axis"
+    },
+    "gates": {
+      "none": "No limit",
+      "circle": "Circular",
+      "octagon": "Octagonal",
+      "square": "Square"
+    },
+    "spikes": {
+      "title": "Spikes and noise",
+      "count": "Spikes",
+      "jumps": "Jumps",
+      "noise": "RMS noise",
+      "verdicts": {
+        "clean": "Clean",
+        "noisy": "Noisy",
+        "faulty": "Faulty"
+      }
+    },
+    "triggers": {
+      "title": "Triggers",
+      "rest": "Rest",
+      "max": "Maximum reached",
+      "full": "Full travel",
+      "incomplete": "Does not reach 100 %: suggested max limit {pct}",
+      "suggested": "Suggested deadzone"
+    },
+    "suggestion": {
+      "title": "Suggested calibration",
+      "body": "Centre, deadzone and scale computed from the measurements. Your curve and sensitivity settings are kept.",
+      "apply": "Apply to the active profile",
+      "applied": "Calibration applied to profile \"{name}\"."
+    },
+    "compare": {
+      "title": "Before and after",
+      "metric": "Measure",
+      "before": "Before",
+      "after": "After"
+    },
+    "hardwareNote": "Software calibration does not fix mechanical wear. If the drift is large or grows over time, the stick module needs replacing."
+  },
+  "adjust": {
+    "title": "Manual adjustments",
+    "stick": "Stick",
+    "left": "Left",
+    "right": "Right",
+    "trigger": "Triggers",
+    "innerDz": "Inner deadzone",
+    "outerDz": "Outer deadzone",
+    "mode": "Deadzone type",
+    "radial": "Radial",
+    "axial": "Axial",
+    "curve": "Response curve",
+    "curves": {
+      "linear": "Linear",
+      "smooth": "Smooth",
+      "aggressive": "Aggressive",
+      "sCurve": "S-curve",
+      "custom": "Custom"
+    },
+    "sensX": "Sensitivity X",
+    "sensY": "Sensitivity Y",
+    "invertX": "Invert X",
+    "invertY": "Invert Y",
+    "swap": "Swap X and Y",
+    "antiDz": "Anti-deadzone",
+    "antiDzHint": "Cancels the game's own deadzone: the smallest movement already outputs this value.",
+    "gate": "Gate limiter",
+    "gates": {
+      "none": "None",
+      "circle": "Circle",
+      "octagon": "Octagon",
+      "square": "Square"
+    },
+    "center": "Corrected centre",
+    "ranges": "Per-direction scale",
+    "resetStick": "Reset this stick to default",
+    "trig": {
+      "left": "Left trigger",
+      "right": "Right trigger",
+      "deadzone": "Initial deadzone",
+      "max": "Max limit",
+      "activation": "Activation point",
+      "digital": "Digital mode (on/off)"
+    },
+    "preview": "Live preview",
+    "rawDot": "raw",
+    "calDot": "calibrated",
+    "saved": "Saved",
+    "saving": "Saving…",
+    "curveEditor": "Curve editor",
+    "curveHelp": "Drag the points. Double-click an empty spot to add one; select a point and press Delete to remove it. Keyboard: Tab selects, arrows move (Shift moves further).",
+    "point": "Point {n}: input {x}, output {y}",
+    "addPoint": "Add point",
+    "input": "input",
+    "output": "output",
+    "liveNote": "The result applies to every screen: use Raw/Calibrated at the top to compare."
+  },
+  "profiles": {
+    "title": "Profiles for {device}",
+    "key": "Identification",
+    "active": "Active",
+    "activate": "Activate",
+    "new": "New profile",
+    "newName": "New profile",
+    "rename": "Rename",
+    "duplicate": "Duplicate",
+    "export": "Export JSON",
+    "import": "Import JSON",
+    "delete": "Delete",
+    "reset": "Reset to factory default",
+    "confirmDelete": "Delete profile \"{name}\"? This cannot be undone.",
+    "confirmReset": "Reset \"{name}\" to factory default? Current settings will be lost.",
+    "imported": "Profile \"{name}\" imported.",
+    "exported": "Profile exported.",
+    "updated": "Updated {date}",
+    "measured": "Measured by the wizard on {date}",
+    "hint": "Each controller has its own profiles, identified by VID:PID and the serial number when available. Switch profiles with one click.",
+    "renamePrompt": "New name",
+    "save": "Save name"
+  }
+}

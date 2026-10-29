@@ -1,0 +1,724 @@
+{
+  "after": {
+    "calibrated": true,
+    "circularity": {
+      "avgErrorPct": 3.856184720993042,
+      "coveragePct": 100.0,
+      "failingSectors": [],
+      "incompleteTravel": false,
+      "radiusAvg": 1.0340845584869385,
+      "radiusMax": 1.0592916011810303,
+      "radiusMin": 1.0049364566802979,
+      "roundnessPct": 94.86872863769531,
+      "samples": 4000,
+      "sectors": [
+        {
+          "angleDeg": 5.625,
+          "index": 0,
+          "maxRadius": 1.0074995756149292,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 16.875,
+          "index": 1,
+          "maxRadius": 1.020067811012268,
+          "samples": 122,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 28.125,
+          "index": 2,
+          "maxRadius": 1.0425972938537598,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 39.375,
+          "index": 3,
+          "maxRadius": 1.0491828918457031,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 50.625,
+          "index": 4,
+          "maxRadius": 1.0499622821807861,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 61.875,
+          "index": 5,
+          "maxRadius": 1.042227029800415,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 73.125,
+          "index": 6,
+          "maxRadius": 1.0204312801361084,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 84.375,
+          "index": 7,
+          "maxRadius": 1.0049364566802979,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 95.625,
+          "index": 8,
+          "maxRadius": 1.0073480606079102,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 106.875,
+          "index": 9,
+          "maxRadius": 1.0264958143234253,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 118.125,
+          "index": 10,
+          "maxRadius": 1.046677589416504,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 129.375,
+          "index": 11,
+          "maxRadius": 1.0554008483886719,
+          "samples": 122,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 140.625,
+          "index": 12,
+          "maxRadius": 1.0544750690460205,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 151.875,
+          "index": 13,
+          "maxRadius": 1.047027826309204,
+          "samples": 130,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 163.125,
+          "index": 14,
+          "maxRadius": 1.0316294431686401,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 174.375,
+          "index": 15,
+          "maxRadius": 1.0138801336288452,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 185.625,
+          "index": 16,
+          "maxRadius": 1.011453628540039,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 196.875,
+          "index": 17,
+          "maxRadius": 1.026644229888916,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 208.125,
+          "index": 18,
+          "maxRadius": 1.0507347583770752,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 219.375,
+          "index": 19,
+          "maxRadius": 1.0577360391616821,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 230.625,
+          "index": 20,
+          "maxRadius": 1.0592916011810303,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 241.875,
+          "index": 21,
+          "maxRadius": 1.047621250152588,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 253.125,
+          "index": 22,
+          "maxRadius": 1.0288572311401367,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 264.375,
+          "index": 23,
+          "maxRadius": 1.0139154195785522,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 275.625,
+          "index": 24,
+          "maxRadius": 1.00987708568573,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 286.875,
+          "index": 25,
+          "maxRadius": 1.0303277969360352,
+          "samples": 122,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 298.125,
+          "index": 26,
+          "maxRadius": 1.0467398166656494,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 309.375,
+          "index": 27,
+          "maxRadius": 1.0578536987304688,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 320.625,
+          "index": 28,
+          "maxRadius": 1.056355357170105,
+          "samples": 121,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 331.875,
+          "index": 29,
+          "maxRadius": 1.0430408716201782,
+          "samples": 115,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 343.125,
+          "index": 30,
+          "maxRadius": 1.0251163244247437,
+          "samples": 116,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 354.375,
+          "index": 31,
+          "maxRadius": 1.0053023099899292,
+          "samples": 114,
+          "status": "ok"
+        }
+      ],
+      "suggestedOuterDeadzone": 0.0,
+      "suggestedScale": 0.9923221468925476
+    },
+    "directions": {
+      "diagonalRatio": 1.0566811561584473,
+      "directions": [
+        {
+          "angleErrorDeg": -0.1455078125,
+          "measuredDeg": 359.8544921875,
+          "name": "right",
+          "ok": true,
+          "reach": 0.9960159659385681,
+          "samples": 158,
+          "targetDeg": 0.0
+        },
+        {
+          "angleErrorDeg": -0.02741241455078125,
+          "measuredDeg": 44.97258758544922,
+          "name": "upRight",
+          "ok": true,
+          "reach": 1.0499398708343506,
+          "samples": 157,
+          "targetDeg": 45.0
+        },
+        {
+          "angleErrorDeg": 0.11993408203125,
+          "measuredDeg": 90.11993408203125,
+          "name": "up",
+          "ok": true,
+          "reach": 0.9947113394737244,
+          "samples": 157,
+          "targetDeg": 90.0
+        },
+        {
+          "angleErrorDeg": 0.2694244384765625,
+          "measuredDeg": 135.26942443847656,
+          "name": "upLeft",
+          "ok": true,
+          "reach": 1.0544750690460205,
+          "samples": 157,
+          "targetDeg": 135.0
+        },
+        {
+          "angleErrorDeg": 0.1393280029296875,
+          "measuredDeg": 180.1393280029297,
+          "name": "left",
+          "ok": true,
+          "reach": 1.0000412464141846,
+          "samples": 158,
+          "targetDeg": 180.0
+        },
+        {
+          "angleErrorDeg": 0.0405120849609375,
+          "measuredDeg": 225.04051208496094,
+          "name": "downLeft",
+          "ok": true,
+          "reach": 1.0562819242477417,
+          "samples": 157,
+          "targetDeg": 225.0
+        },
+        {
+          "angleErrorDeg": -0.132843017578125,
+          "measuredDeg": 269.8671569824219,
+          "name": "down",
+          "ok": true,
+          "reach": 1.0000306367874146,
+          "samples": 158,
+          "targetDeg": 270.0
+        },
+        {
+          "angleErrorDeg": -0.290679931640625,
+          "measuredDeg": 314.7093200683594,
+          "name": "downRight",
+          "ok": true,
+          "reach": 1.056304693222046,
+          "samples": 158,
+          "targetDeg": 315.0
+        }
+      ],
+      "gateShape": "circle",
+      "rangeNeg": { "x": 1.0000412464141846, "y": 1.0000306367874146 },
+      "rangePos": { "x": 0.9960159659385681, "y": 0.9947113394737244 }
+    },
+    "rest": {
+      "driftRatePerSec": 0.0,
+      "durationMs": 1996.0,
+      "grade": "excellent",
+      "maxDeviation": 0.0,
+      "mean": { "x": 0.0, "y": 0.0 },
+      "noiseP2p": 0.0,
+      "offsetPct": 0.0,
+      "offsetPctX": 0.0,
+      "offsetPctY": 0.0,
+      "samples": 500,
+      "std": { "x": 0.0, "y": 0.0 },
+      "stdRadial": 0.0,
+      "suggestedDeadzone": 0.029999999329447746
+    },
+    "score": { "grade": "A", "issues": [], "score": 100.0 },
+    "spikes": {
+      "events": [],
+      "jumpCount": 0,
+      "noiseRms": 0.0,
+      "spikeCount": 0,
+      "verdict": "clean"
+    },
+    "stick": "right",
+    "suggested": {
+      "antiDeadzone": 0.0,
+      "center": { "x": 0.0039059410337358713, "y": 0.0051607838831841946 },
+      "curve": { "kind": "linear", "points": [] },
+      "deadzoneMode": "radial",
+      "gate": "none",
+      "innerDeadzone": 0.029999999329447746,
+      "invertX": false,
+      "invertY": false,
+      "outerDeadzone": 0.0,
+      "rangeNeg": { "x": 1.0, "y": 1.0 },
+      "rangePos": { "x": 1.0, "y": 1.0 },
+      "sensitivity": { "x": 1.0, "y": 1.0 },
+      "swapAxes": false
+    }
+  },
+  "before": {
+    "calibrated": false,
+    "circularity": {
+      "avgErrorPct": 3.7405014038085938,
+      "coveragePct": 100.0,
+      "failingSectors": [],
+      "incompleteTravel": false,
+      "radiusAvg": 1.0330619812011719,
+      "radiusMax": 1.057512879371643,
+      "radiusMin": 1.0047883987426758,
+      "roundnessPct": 95.01428985595703,
+      "samples": 4000,
+      "sectors": [
+        {
+          "angleDeg": 5.625,
+          "index": 0,
+          "maxRadius": 1.0072746276855469,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 16.875,
+          "index": 1,
+          "maxRadius": 1.0194658041000366,
+          "samples": 122,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 28.125,
+          "index": 2,
+          "maxRadius": 1.0413193702697754,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 39.375,
+          "index": 3,
+          "maxRadius": 1.0477075576782227,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 50.625,
+          "index": 4,
+          "maxRadius": 1.0484634637832642,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 61.875,
+          "index": 5,
+          "maxRadius": 1.0409600734710693,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 73.125,
+          "index": 6,
+          "maxRadius": 1.0198184251785278,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 84.375,
+          "index": 7,
+          "maxRadius": 1.0047883987426758,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 95.625,
+          "index": 8,
+          "maxRadius": 1.0071276426315308,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 106.875,
+          "index": 9,
+          "maxRadius": 1.0257009267807007,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 118.125,
+          "index": 10,
+          "maxRadius": 1.0452773571014404,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 129.375,
+          "index": 11,
+          "maxRadius": 1.0537388324737549,
+          "samples": 122,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 140.625,
+          "index": 12,
+          "maxRadius": 1.0528408288955688,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 151.875,
+          "index": 13,
+          "maxRadius": 1.0456169843673706,
+          "samples": 130,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 163.125,
+          "index": 14,
+          "maxRadius": 1.0306806564331055,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 174.375,
+          "index": 15,
+          "maxRadius": 1.0134637355804443,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 185.625,
+          "index": 16,
+          "maxRadius": 1.0111100673675537,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 196.875,
+          "index": 17,
+          "maxRadius": 1.025844931602478,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 208.125,
+          "index": 18,
+          "maxRadius": 1.0492126941680908,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 219.375,
+          "index": 19,
+          "maxRadius": 1.0560040473937988,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 230.625,
+          "index": 20,
+          "maxRadius": 1.057512879371643,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 241.875,
+          "index": 21,
+          "maxRadius": 1.0461926460266113,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 253.125,
+          "index": 22,
+          "maxRadius": 1.027991533279419,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 264.375,
+          "index": 23,
+          "maxRadius": 1.013498067855835,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 275.625,
+          "index": 24,
+          "maxRadius": 1.0095808506011963,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 286.875,
+          "index": 25,
+          "maxRadius": 1.0294179916381836,
+          "samples": 122,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 298.125,
+          "index": 26,
+          "maxRadius": 1.0453376770019531,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 309.375,
+          "index": 27,
+          "maxRadius": 1.056118130683899,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 320.625,
+          "index": 28,
+          "maxRadius": 1.0546647310256958,
+          "samples": 121,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 331.875,
+          "index": 29,
+          "maxRadius": 1.0417495965957642,
+          "samples": 115,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 343.125,
+          "index": 30,
+          "maxRadius": 1.0243626832962036,
+          "samples": 116,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 354.375,
+          "index": 31,
+          "maxRadius": 1.0051432847976685,
+          "samples": 114,
+          "status": "ok"
+        }
+      ],
+      "suggestedOuterDeadzone": 0.0,
+      "suggestedScale": 0.9925506114959717
+    },
+    "directions": {
+      "diagonalRatio": 1.0525848865509033,
+      "directions": [
+        {
+          "angleErrorDeg": -0.1455078125,
+          "measuredDeg": 359.8544921875,
+          "name": "right",
+          "ok": true,
+          "reach": 0.9961354732513428,
+          "samples": 158,
+          "targetDeg": 0.0
+        },
+        {
+          "angleErrorDeg": -0.02741241455078125,
+          "measuredDeg": 44.97258758544922,
+          "name": "upRight",
+          "ok": true,
+          "reach": 1.0484416484832764,
+          "samples": 157,
+          "targetDeg": 45.0
+        },
+        {
+          "angleErrorDeg": 0.11993408203125,
+          "measuredDeg": 90.11993408203125,
+          "name": "up",
+          "ok": true,
+          "reach": 0.9948700070381165,
+          "samples": 157,
+          "targetDeg": 90.0
+        },
+        {
+          "angleErrorDeg": 0.2694244384765625,
+          "measuredDeg": 135.26942443847656,
+          "name": "upLeft",
+          "ok": true,
+          "reach": 1.0528408288955688,
+          "samples": 157,
+          "targetDeg": 135.0
+        },
+        {
+          "angleErrorDeg": 0.138824462890625,
+          "measuredDeg": 180.13882446289062,
+          "name": "left",
+          "ok": true,
+          "reach": 1.0039470195770264,
+          "samples": 158,
+          "targetDeg": 180.0
+        },
+        {
+          "angleErrorDeg": 0.0405120849609375,
+          "measuredDeg": 225.04051208496094,
+          "name": "downLeft",
+          "ok": true,
+          "reach": 1.0545933246612549,
+          "samples": 157,
+          "targetDeg": 225.0
+        },
+        {
+          "angleErrorDeg": -0.132232666015625,
+          "measuredDeg": 269.8677673339844,
+          "name": "down",
+          "ok": true,
+          "reach": 1.0051913261413574,
+          "samples": 158,
+          "targetDeg": 270.0
+        },
+        {
+          "angleErrorDeg": -0.290679931640625,
+          "measuredDeg": 314.7093200683594,
+          "name": "downRight",
+          "ok": true,
+          "reach": 1.0546154975891113,
+          "samples": 158,
+          "targetDeg": 315.0
+        }
+      ],
+      "gateShape": "circle",
+      "rangeNeg": { "x": 1.0039470195770264, "y": 1.0051913261413574 },
+      "rangePos": { "x": 0.9961354732513428, "y": 0.9948700070381165 }
+    },
+    "rest": {
+      "driftRatePerSec": 0.0002181321760872379,
+      "durationMs": 1996.0,
+      "grade": "excellent",
+      "maxDeviation": 0.010265129618346691,
+      "mean": { "x": 0.0039059410337358713, "y": 0.0051607838831841946 },
+      "noiseP2p": 0.015686333179473877,
+      "offsetPct": 0.6472253799438477,
+      "offsetPctX": 0.39059409499168396,
+      "offsetPctY": 0.5160784125328064,
+      "samples": 500,
+      "std": { "x": 0.0010521546937525272, "y": 0.002860713517293334 },
+      "stdRadial": 0.0030480672139674425,
+      "suggestedDeadzone": 0.029999999329447746
+    },
+    "score": { "grade": "A", "issues": [], "score": 100.0 },
+    "spikes": {
+      "events": [],
+      "jumpCount": 0,
+      "noiseRms": 0.003149881027638912,
+      "spikeCount": 0,
+      "verdict": "clean"
+    },
+    "stick": "right",
+    "suggested": {
+      "antiDeadzone": 0.0,
+      "center": { "x": 0.0039059410337358713, "y": 0.0051607838831841946 },
+      "curve": { "kind": "linear", "points": [] },
+      "deadzoneMode": "radial",
+      "gate": "none",
+      "innerDeadzone": 0.029999999329447746,
+      "invertX": false,
+      "invertY": false,
+      "outerDeadzone": 0.0,
+      "rangeNeg": { "x": 1.0, "y": 1.0 },
+      "rangePos": { "x": 1.0, "y": 1.0 },
+      "sensitivity": { "x": 1.0, "y": 1.0 },
+      "swapAxes": false
+    }
+  }
+}

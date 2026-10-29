@@ -1,0 +1,748 @@
+{
+  "after": {
+    "calibrated": true,
+    "circularity": {
+      "avgErrorPct": 5.831048011779785,
+      "coveragePct": 100.0,
+      "failingSectors": [17, 27],
+      "incompleteTravel": false,
+      "radiusAvg": 1.0217205286026,
+      "radiusMax": 1.2566510438919067,
+      "radiusMin": 0.8654423356056213,
+      "roundnessPct": 68.86894989013672,
+      "samples": 4000,
+      "sectors": [
+        {
+          "angleDeg": 5.625,
+          "index": 0,
+          "maxRadius": 1.0038689374923706,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 16.875,
+          "index": 1,
+          "maxRadius": 1.0537421703338623,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 28.125,
+          "index": 2,
+          "maxRadius": 1.0295886993408203,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 39.375,
+          "index": 3,
+          "maxRadius": 1.035537838935852,
+          "samples": 125,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 50.625,
+          "index": 4,
+          "maxRadius": 1.033280849456787,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 61.875,
+          "index": 5,
+          "maxRadius": 1.0145212411880493,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 73.125,
+          "index": 6,
+          "maxRadius": 1.002560019493103,
+          "samples": 119,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 84.375,
+          "index": 7,
+          "maxRadius": 0.9892288446426392,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 95.625,
+          "index": 8,
+          "maxRadius": 0.9940289855003357,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 106.875,
+          "index": 9,
+          "maxRadius": 1.0078915357589722,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 118.125,
+          "index": 10,
+          "maxRadius": 1.0380624532699585,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 129.375,
+          "index": 11,
+          "maxRadius": 1.0398200750350952,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 140.625,
+          "index": 12,
+          "maxRadius": 1.045440912246704,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 151.875,
+          "index": 13,
+          "maxRadius": 1.030625820159912,
+          "samples": 130,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 163.125,
+          "index": 14,
+          "maxRadius": 1.0169529914855957,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 174.375,
+          "index": 15,
+          "maxRadius": 1.0009686946868896,
+          "samples": 133,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 185.625,
+          "index": 16,
+          "maxRadius": 0.9780755043029785,
+          "samples": 121,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 196.875,
+          "index": 17,
+          "maxRadius": 0.8654423356056213,
+          "samples": 126,
+          "status": "under"
+        },
+        {
+          "angleDeg": 208.125,
+          "index": 18,
+          "maxRadius": 0.9594579339027405,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 219.375,
+          "index": 19,
+          "maxRadius": 1.0434244871139526,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 230.625,
+          "index": 20,
+          "maxRadius": 1.0424201488494873,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 241.875,
+          "index": 21,
+          "maxRadius": 1.0379936695098877,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 253.125,
+          "index": 22,
+          "maxRadius": 1.0270341634750366,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 264.375,
+          "index": 23,
+          "maxRadius": 1.009363055229187,
+          "samples": 128,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 275.625,
+          "index": 24,
+          "maxRadius": 1.0062710046768188,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 286.875,
+          "index": 25,
+          "maxRadius": 1.0348398685455322,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 298.125,
+          "index": 26,
+          "maxRadius": 1.0225025415420532,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 309.375,
+          "index": 27,
+          "maxRadius": 1.2566510438919067,
+          "samples": 126,
+          "status": "over"
+        },
+        {
+          "angleDeg": 320.625,
+          "index": 28,
+          "maxRadius": 1.0331766605377197,
+          "samples": 118,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 331.875,
+          "index": 29,
+          "maxRadius": 1.025347352027893,
+          "samples": 112,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 343.125,
+          "index": 30,
+          "maxRadius": 1.0185750722885132,
+          "samples": 112,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 354.375,
+          "index": 31,
+          "maxRadius": 0.9983634948730469,
+          "samples": 110,
+          "status": "ok"
+        }
+      ],
+      "suggestedOuterDeadzone": 0.0,
+      "suggestedScale": 1.0103981494903564
+    },
+    "directions": {
+      "diagonalRatio": 1.042570948600769,
+      "directions": [
+        {
+          "angleErrorDeg": 0.8695669770240784,
+          "measuredDeg": 0.8695669770240784,
+          "name": "right",
+          "ok": true,
+          "reach": 1.0001507997512817,
+          "samples": 158,
+          "targetDeg": 0.0
+        },
+        {
+          "angleErrorDeg": 0.11358642578125,
+          "measuredDeg": 45.11358642578125,
+          "name": "upRight",
+          "ok": true,
+          "reach": 1.0333501100540161,
+          "samples": 157,
+          "targetDeg": 45.0
+        },
+        {
+          "angleErrorDeg": 1.42938232421875,
+          "measuredDeg": 91.42938232421875,
+          "name": "up",
+          "ok": true,
+          "reach": 0.989650547504425,
+          "samples": 157,
+          "targetDeg": 90.0
+        },
+        {
+          "angleErrorDeg": 0.35382080078125,
+          "measuredDeg": 135.35382080078125,
+          "name": "upLeft",
+          "ok": true,
+          "reach": 1.0394773483276367,
+          "samples": 157,
+          "targetDeg": 135.0
+        },
+        {
+          "angleErrorDeg": -0.888397216796875,
+          "measuredDeg": 179.11160278320312,
+          "name": "left",
+          "ok": true,
+          "reach": 0.994724690914154,
+          "samples": 158,
+          "targetDeg": 180.0
+        },
+        {
+          "angleErrorDeg": -0.1558837890625,
+          "measuredDeg": 224.8441162109375,
+          "name": "downLeft",
+          "ok": true,
+          "reach": 1.043476939201355,
+          "samples": 157,
+          "targetDeg": 225.0
+        },
+        {
+          "angleErrorDeg": -1.353485107421875,
+          "measuredDeg": 268.6465148925781,
+          "name": "down",
+          "ok": true,
+          "reach": 0.9995762705802917,
+          "samples": 158,
+          "targetDeg": 270.0
+        },
+        {
+          "angleErrorDeg": -0.167938232421875,
+          "measuredDeg": 314.8320617675781,
+          "name": "downRight",
+          "ok": true,
+          "reach": 1.0374048948287964,
+          "samples": 158,
+          "targetDeg": 315.0
+        }
+      ],
+      "gateShape": "circle",
+      "rangeNeg": { "x": 0.994724690914154, "y": 0.9995762705802917 },
+      "rangePos": { "x": 1.0001507997512817, "y": 0.989650547504425 }
+    },
+    "rest": {
+      "driftRatePerSec": 0.0,
+      "durationMs": 1996.0,
+      "grade": "excellent",
+      "maxDeviation": 0.0,
+      "mean": { "x": 0.0, "y": 0.0 },
+      "noiseP2p": 0.0,
+      "offsetPct": 0.0,
+      "offsetPctX": 0.0,
+      "offsetPctY": 0.0,
+      "samples": 499,
+      "std": { "x": 0.0, "y": 0.0 },
+      "stdRadial": 0.0,
+      "suggestedDeadzone": 0.029999999329447746
+    },
+    "score": {
+      "grade": "C",
+      "issues": ["incompleteTravel", "weakSectors", "spikes"],
+      "score": 65.0
+    },
+    "spikes": {
+      "events": [
+        { "index": 425, "magnitude": 0.2629743814468384, "timestampUs": 1700000 },
+        { "index": 425, "magnitude": 0.19113512337207794, "timestampUs": 1700000 },
+        { "index": 1100, "magnitude": 0.26429983973503113, "timestampUs": 4400000 },
+        { "index": 1775, "magnitude": 0.2238922268152237, "timestampUs": 7100000 },
+        { "index": 2450, "magnitude": 0.18102896213531494, "timestampUs": 9800000 },
+        { "index": 3125, "magnitude": 0.30293944478034973, "timestampUs": 12500000 },
+        { "index": 3800, "magnitude": 0.2110597789287567, "timestampUs": 15200000 }
+      ],
+      "jumpCount": 0,
+      "noiseRms": 0.0,
+      "spikeCount": 7,
+      "verdict": "noisy"
+    },
+    "stick": "left",
+    "suggested": {
+      "antiDeadzone": 0.0,
+      "center": { "x": 0.03405247628688812, "y": -0.021289696916937828 },
+      "curve": { "kind": "linear", "points": [] },
+      "deadzoneMode": "radial",
+      "gate": "none",
+      "innerDeadzone": 0.04999999701976776,
+      "invertX": false,
+      "invertY": false,
+      "outerDeadzone": 0.0,
+      "rangeNeg": { "x": 1.0, "y": 0.9559999704360962 },
+      "rangePos": { "x": 0.949999988079071, "y": 1.0 },
+      "sensitivity": { "x": 1.0, "y": 1.0 },
+      "swapAxes": false
+    }
+  },
+  "before": {
+    "calibrated": false,
+    "circularity": {
+      "avgErrorPct": 4.995670318603516,
+      "coveragePct": 100.0,
+      "failingSectors": [17, 27],
+      "incompleteTravel": false,
+      "radiusAvg": 0.9992260932922363,
+      "radiusMax": 1.2120444774627686,
+      "radiusMin": 0.8705926537513733,
+      "roundnessPct": 71.82844543457031,
+      "samples": 4000,
+      "sectors": [
+        {
+          "angleDeg": 5.625,
+          "index": 0,
+          "maxRadius": 0.9699437618255615,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 16.875,
+          "index": 1,
+          "maxRadius": 1.0211158990859985,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 28.125,
+          "index": 2,
+          "maxRadius": 0.991725504398346,
+          "samples": 120,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 39.375,
+          "index": 3,
+          "maxRadius": 1.0025264024734497,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 50.625,
+          "index": 4,
+          "maxRadius": 1.006642460823059,
+          "samples": 130,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 61.875,
+          "index": 5,
+          "maxRadius": 1.0017136335372925,
+          "samples": 126,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 73.125,
+          "index": 6,
+          "maxRadius": 0.9953445792198181,
+          "samples": 125,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 84.375,
+          "index": 7,
+          "maxRadius": 0.9882633090019226,
+          "samples": 133,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 95.625,
+          "index": 8,
+          "maxRadius": 0.9943275451660156,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 106.875,
+          "index": 9,
+          "maxRadius": 1.007496953010559,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 118.125,
+          "index": 10,
+          "maxRadius": 1.0361592769622803,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 129.375,
+          "index": 11,
+          "maxRadius": 1.037829041481018,
+          "samples": 131,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 140.625,
+          "index": 12,
+          "maxRadius": 1.0431689023971558,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 151.875,
+          "index": 13,
+          "maxRadius": 1.0290945768356323,
+          "samples": 130,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 163.125,
+          "index": 14,
+          "maxRadius": 1.0161054134368896,
+          "samples": 129,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 174.375,
+          "index": 15,
+          "maxRadius": 1.000920295715332,
+          "samples": 133,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 185.625,
+          "index": 16,
+          "maxRadius": 0.9791699051856995,
+          "samples": 125,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 196.875,
+          "index": 17,
+          "maxRadius": 0.8705926537513733,
+          "samples": 132,
+          "status": "under"
+        },
+        {
+          "angleDeg": 208.125,
+          "index": 18,
+          "maxRadius": 0.9617594480514526,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 219.375,
+          "index": 19,
+          "maxRadius": 1.0205775499343872,
+          "samples": 130,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 230.625,
+          "index": 20,
+          "maxRadius": 1.0132100582122803,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 241.875,
+          "index": 21,
+          "maxRadius": 1.0030912160873413,
+          "samples": 127,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 253.125,
+          "index": 22,
+          "maxRadius": 0.9857276678085327,
+          "samples": 125,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 264.375,
+          "index": 23,
+          "maxRadius": 0.9653767347335815,
+          "samples": 121,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 275.625,
+          "index": 24,
+          "maxRadius": 0.9616140723228455,
+          "samples": 124,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 286.875,
+          "index": 25,
+          "maxRadius": 1.0106878280639648,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 298.125,
+          "index": 26,
+          "maxRadius": 0.9752969145774841,
+          "samples": 123,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 309.375,
+          "index": 27,
+          "maxRadius": 1.2120444774627686,
+          "samples": 126,
+          "status": "over"
+        },
+        {
+          "angleDeg": 320.625,
+          "index": 28,
+          "maxRadius": 0.9826950430870056,
+          "samples": 118,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 331.875,
+          "index": 29,
+          "maxRadius": 0.9746919870376587,
+          "samples": 112,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 343.125,
+          "index": 30,
+          "maxRadius": 0.967634916305542,
+          "samples": 112,
+          "status": "ok"
+        },
+        {
+          "angleDeg": 354.375,
+          "index": 31,
+          "maxRadius": 0.9486870765686035,
+          "samples": 110,
+          "status": "ok"
+        }
+      ],
+      "suggestedOuterDeadzone": 0.0,
+      "suggestedScale": 1.039370059967041
+    },
+    "directions": {
+      "diagonalRatio": 1.0406938791275024,
+      "directions": [
+        {
+          "angleErrorDeg": 0.915292501449585,
+          "measuredDeg": 0.915292501449585,
+          "name": "right",
+          "ok": true,
+          "reach": 0.9504199624061584,
+          "samples": 158,
+          "targetDeg": 0.0
+        },
+        {
+          "angleErrorDeg": 1.5821418762207031,
+          "measuredDeg": 46.5821418762207,
+          "name": "upRight",
+          "ok": true,
+          "reach": 1.006272315979004,
+          "samples": 157,
+          "targetDeg": 45.0
+        },
+        {
+          "angleErrorDeg": 1.42938232421875,
+          "measuredDeg": 91.42938232421875,
+          "name": "up",
+          "ok": true,
+          "reach": 0.990168035030365,
+          "samples": 157,
+          "targetDeg": 90.0
+        },
+        {
+          "angleErrorDeg": 0.35382080078125,
+          "measuredDeg": 135.35382080078125,
+          "name": "upLeft",
+          "ok": true,
+          "reach": 1.0375036001205444,
+          "samples": 157,
+          "targetDeg": 135.0
+        },
+        {
+          "angleErrorDeg": -0.888336181640625,
+          "measuredDeg": 179.11166381835938,
+          "name": "left",
+          "ok": true,
+          "reach": 0.9949883818626404,
+          "samples": 158,
+          "targetDeg": 180.0
+        },
+        {
+          "angleErrorDeg": -1.4431304931640625,
+          "measuredDeg": 223.55686950683594,
+          "name": "downLeft",
+          "ok": true,
+          "reach": 1.018938660621643,
+          "samples": 157,
+          "targetDeg": 225.0
+        },
+        {
+          "angleErrorDeg": -1.41552734375,
+          "measuredDeg": 268.58447265625,
+          "name": "down",
+          "ok": true,
+          "reach": 0.9556559920310974,
+          "samples": 158,
+          "targetDeg": 270.0
+        },
+        {
+          "angleErrorDeg": -0.3482666015625,
+          "measuredDeg": 314.6517333984375,
+          "name": "downRight",
+          "ok": true,
+          "reach": 0.9868674278259277,
+          "samples": 158,
+          "targetDeg": 315.0
+        }
+      ],
+      "gateShape": "circle",
+      "rangeNeg": { "x": 0.9949883818626404, "y": 0.9556559920310974 },
+      "rangePos": { "x": 0.9504199624061584, "y": 0.990168035030365 }
+    },
+    "rest": {
+      "driftRatePerSec": 0.0004632393829524517,
+      "durationMs": 1996.0,
+      "grade": "acceptable",
+      "maxDeviation": 0.016693102195858955,
+      "mean": { "x": 0.03405247628688812, "y": -0.021289696916937828 },
+      "noiseP2p": 0.023529410362243652,
+      "offsetPct": 4.015995979309082,
+      "offsetPctX": 3.405247688293457,
+      "offsetPctY": 2.128969669342041,
+      "samples": 499,
+      "std": { "x": 0.004971519112586975, "y": 0.005088703706860542 },
+      "stdRadial": 0.007114139385521412,
+      "suggestedDeadzone": 0.04999999701976776
+    },
+    "score": {
+      "grade": "D",
+      "issues": ["drift", "noise", "incompleteTravel", "weakSectors", "spikes"],
+      "score": 59.0
+    },
+    "spikes": {
+      "events": [
+        { "index": 425, "magnitude": 0.28549447655677795, "timestampUs": 1700000 },
+        { "index": 425, "magnitude": 0.19845616817474365, "timestampUs": 1700000 },
+        { "index": 1100, "magnitude": 0.25804993510246277, "timestampUs": 4400000 },
+        { "index": 1775, "magnitude": 0.214075967669487, "timestampUs": 7100000 },
+        { "index": 2450, "magnitude": 0.18481366336345673, "timestampUs": 9800000 },
+        { "index": 3125, "magnitude": 0.29178157448768616, "timestampUs": 12500000 },
+        { "index": 3800, "magnitude": 0.2175322026014328, "timestampUs": 15200000 }
+      ],
+      "jumpCount": 0,
+      "noiseRms": 0.007305565755814314,
+      "spikeCount": 7,
+      "verdict": "noisy"
+    },
+    "stick": "left",
+    "suggested": {
+      "antiDeadzone": 0.0,
+      "center": { "x": 0.03405247628688812, "y": -0.021289696916937828 },
+      "curve": { "kind": "linear", "points": [] },
+      "deadzoneMode": "radial",
+      "gate": "none",
+      "innerDeadzone": 0.04999999701976776,
+      "invertX": false,
+      "invertY": false,
+      "outerDeadzone": 0.0,
+      "rangeNeg": { "x": 1.0, "y": 0.9559999704360962 },
+      "rangePos": { "x": 0.949999988079071, "y": 1.0 },
+      "sensitivity": { "x": 1.0, "y": 1.0 },
+      "swapAxes": false
+    }
+  }
+}

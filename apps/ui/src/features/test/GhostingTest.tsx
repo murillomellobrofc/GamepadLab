@@ -5,7 +5,7 @@ import { Icon } from '@/app/icons';
 import { useT, type TKey } from '@/i18n';
 import { buttonName } from '@/lib/buttonNames';
 import { useApp } from '@/state/app';
-import { live, useAnimationFrame } from '@/state/live';
+import { live } from '@/state/live';
 import ui from '@/styles/ui.module.css';
 import css from './GhostingTest.module.css';
 import { analyzeChord, type GhostResult } from './ghosting';
@@ -62,15 +62,19 @@ export function GhostingTest({ c }: { c: ControllerInfo }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
-  useAnimationFrame(() => {
-    const e = live.get(c.id);
-    if (!e) return;
-    const pressed = e.snapshot.buttons.flatMap((b, i) => (b.pressed ? [i] : []));
-    frames.current.push(pressed);
-    if (frames.current.length > 20000) frames.current.shift();
-    const now = pressed.filter((b) => targets.includes(b));
-    if (now.join() !== held.join()) setHeld(now);
-  }, phase === 'running');
+  // Every backend frame counts (not only animation frames).
+  useEffect(() => {
+    if (phase !== 'running') return;
+    return live.subscribe(() => {
+      const e = live.get(c.id);
+      if (!e) return;
+      const pressed = e.snapshot.buttons.flatMap((b, i) => (b.pressed ? [i] : []));
+      frames.current.push(pressed);
+      if (frames.current.length > 20000) frames.current.shift();
+      const now = pressed.filter((b) => targets.includes(b));
+      setHeld((old) => (now.join() !== old.join() ? now : old));
+    });
+  }, [phase, c.id, targets]);
 
   return (
     <section className={ui.panel} aria-labelledby="ghost-title">

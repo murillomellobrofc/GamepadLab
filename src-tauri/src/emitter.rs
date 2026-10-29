@@ -96,26 +96,36 @@ pub fn spawn_frame_emitter(app: AppHandle, state: Arc<AppState>) {
         .expect("spawn frame emitter");
 }
 
-pub fn spawn_event_forwarder(app: AppHandle, rx: Receiver<ServiceEvent>) {
+pub fn spawn_event_forwarder(app: AppHandle, rx: Receiver<ServiceEvent>, state: Arc<AppState>) {
     std::thread::Builder::new()
         .name("gamepadlab-events".into())
         .spawn(move || {
             for ev in rx {
                 let result = match ev {
-                    ServiceEvent::Connected(controller) => app.emit(
-                        EV_CONNECTION,
-                        ConnectionPayload {
-                            controller,
-                            connected: true,
-                        },
-                    ),
-                    ServiceEvent::Disconnected(controller) => app.emit(
-                        EV_CONNECTION,
-                        ConnectionPayload {
-                            controller,
-                            connected: false,
-                        },
-                    ),
+                    ServiceEvent::Connected(controller) => {
+                        crate::calibrate::load_active(&state, &controller);
+                        app.emit(
+                            EV_CONNECTION,
+                            ConnectionPayload {
+                                controller,
+                                connected: true,
+                            },
+                        )
+                    }
+                    ServiceEvent::Disconnected(controller) => {
+                        state
+                            .calibrations
+                            .write()
+                            .unwrap()
+                            .remove(controller.id.as_str());
+                        app.emit(
+                            EV_CONNECTION,
+                            ConnectionPayload {
+                                controller,
+                                connected: false,
+                            },
+                        )
+                    }
                     ServiceEvent::Updated(controller) => app.emit(EV_UPDATED, controller),
                     ServiceEvent::Error { controller, error } => app.emit(
                         EV_ERROR,

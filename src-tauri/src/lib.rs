@@ -2,6 +2,8 @@
 //! haptics crates to the web UI through Tauri commands and events.
 
 mod calibrate;
+mod cmd_calibration;
+mod cmd_files;
 mod commands;
 mod emitter;
 mod error;
@@ -46,12 +48,16 @@ pub fn run() {
             let state = Arc::new(AppState {
                 input,
                 haptics: engine,
+                profiles: gamepadlab_profiles::ProfileStore::new(data_dir.join("profiles")),
                 ui_rate: AtomicU32::new(60),
                 data_dir,
+                calibrations: Default::default(),
+                captures: Default::default(),
+                pending_capture: Default::default(),
             });
             let _ = sink.0.set(Arc::downgrade(&state));
             app.manage(state.clone());
-            emitter::spawn_event_forwarder(handle.clone(), rx);
+            emitter::spawn_event_forwarder(handle.clone(), rx, state.clone());
             emitter::spawn_frame_emitter(handle, state);
             Ok(())
         })
@@ -76,6 +82,26 @@ pub fn run() {
             commands::set_trigger_effects,
             commands::set_lightbar,
             commands::set_player_leds,
+            cmd_calibration::capture_start,
+            cmd_calibration::capture_stop,
+            cmd_calibration::capture_clear,
+            cmd_calibration::analyze_stick,
+            cmd_calibration::analyze_trigger_cmd,
+            cmd_calibration::set_active_calibration,
+            cmd_calibration::profiles_load,
+            cmd_calibration::profiles_create,
+            cmd_calibration::profiles_update,
+            cmd_calibration::profiles_rename,
+            cmd_calibration::profiles_duplicate,
+            cmd_calibration::profiles_delete,
+            cmd_calibration::profiles_set_active,
+            cmd_calibration::profiles_reset,
+            cmd_calibration::profiles_export,
+            cmd_calibration::profiles_import,
+            cmd_calibration::controller_profile_key,
+            cmd_files::save_text_file,
+            cmd_files::save_binary_file,
+            cmd_files::read_text_file,
         ])
         .build(tauri::generate_context!())
         .expect("error while building GamepadLab");

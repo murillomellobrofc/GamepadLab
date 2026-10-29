@@ -1,0 +1,249 @@
+{
+  "tabs": {
+    "label": "Calibração",
+    "wizard": "Assistente",
+    "adjust": "Ajustes",
+    "profiles": "Perfis"
+  },
+  "activeProfile": "Perfil ativo",
+  "wizard": {
+    "title": "Assistente de calibração",
+    "intro": "Vamos medir um analógico por vez: repouso, rotação, 8 direções e gatilhos. Leva cerca de um minuto. Nada é gravado no controle: a calibração fica num perfil do app.",
+    "chooseStick": "Qual analógico?",
+    "left": "Esquerdo",
+    "right": "Direito",
+    "includeTriggers": "Incluir os gatilhos (passo 4)",
+    "start": "Começar",
+    "stepOf": "Passo {n} de {total}",
+    "steps": {
+      "rest": "Repouso",
+      "rotation": "Rotação",
+      "directions": "8 direções",
+      "triggers": "Gatilhos",
+      "result": "Resultado"
+    },
+    "rest": {
+      "title": "Solte os analógicos",
+      "body": "Deixe o controle parado numa mesa e não toque em nada. Vamos medir o centro por 2 segundos.",
+      "measure": "Medir agora",
+      "measuring": "Medindo… {s} s",
+      "done": "Centro medido com {n} amostras."
+    },
+    "rotation": {
+      "title": "Gire o analógico {stick} na borda",
+      "body": "Encoste o analógico na borda e gire devagar duas voltas, depois rápido duas voltas. Se puder, faça nos dois sentidos. Sem pressa.",
+      "start": "Começar a gravar",
+      "coverage": "Cobertura do círculo: {pct}",
+      "finish": "Concluir rotação",
+      "lowCoverage": "Ainda faltam partes do círculo. Gire mais um pouco ou conclua assim mesmo."
+    },
+    "directions": {
+      "title": "Empurre nas 8 direções",
+      "body": "Empurre o analógico {stick} até o fim e segure meio segundo em cada direção. A seta acende quando a direção é registrada.",
+      "start": "Começar",
+      "finish": "Concluir direções",
+      "progress": "{n} de 8 direções",
+      "names": {
+        "right": "Direita",
+        "upRight": "Cima-direita",
+        "up": "Cima",
+        "upLeft": "Cima-esquerda",
+        "left": "Esquerda",
+        "downLeft": "Baixo-esquerda",
+        "down": "Baixo",
+        "downRight": "Baixo-direita"
+      }
+    },
+    "triggers": {
+      "title": "Gatilhos",
+      "releaseBody": "Solte os dois gatilhos. Vamos medir o repouso de cada um.",
+      "measureRest": "Medir repouso",
+      "press": "Aperte {trigger} até o fundo e segure",
+      "holdHint": "Segure por cerca de 1 segundo e toque em Pronto.",
+      "done": "Pronto",
+      "skip": "Pular gatilhos",
+      "value": "Agora: {pct}"
+    },
+    "analyzing": "Analisando as medidas…",
+    "retry": "Refazer este passo",
+    "next": "Continuar",
+    "cancel": "Cancelar",
+    "otherStick": "Calibrar o outro analógico",
+    "restart": "Recomeçar",
+    "demoNote": "No demo, o controle simulado faz cada movimento sozinho.",
+    "navPaused": "Durante o assistente, o controle não navega pelo app. Use mouse ou teclado."
+  },
+  "report": {
+    "title": "Relatório do analógico {stick}",
+    "score": "Nota de qualidade",
+    "of100": "de 100",
+    "issues": {
+      "drift": "Centro deslocado (drift)",
+      "noise": "Ruído no centro",
+      "wandering": "Centro andando com o tempo",
+      "lowCoverage": "Rotação incompleta",
+      "incompleteTravel": "Não chega ao máximo em algumas direções",
+      "weakSectors": "Setores fracos no círculo",
+      "aim": "Direções tortas",
+      "spikes": "Picos de leitura (spikes)",
+      "jumps": "Saltos de leitura"
+    },
+    "noIssues": "Nenhum problema encontrado.",
+    "rest": {
+      "title": "Repouso e drift",
+      "offset": "Deslocamento do centro",
+      "offsetXY": "X {x} · Y {y}",
+      "noise": "Ruído (desvio padrão)",
+      "maxDev": "Desvio máximo",
+      "rate": "Drift com o tempo",
+      "grade": "Classificação",
+      "suggestedDz": "Deadzone sugerida",
+      "grades": {
+        "excellent": "Ótimo",
+        "acceptable": "Aceitável",
+        "poor": "Ruim",
+        "defective": "Defeituoso"
+      }
+    },
+    "circ": {
+      "title": "Circularidade",
+      "roundness": "Circularidade",
+      "error": "Erro médio (RMS)",
+      "radii": "Raio mín / médio / máx",
+      "coverage": "Cobertura",
+      "failing": "Setores com problema",
+      "none": "nenhum",
+      "incomplete": "O analógico não chega ao máximo em todas as direções. A calibração sugerida já inclui um reescalonamento.",
+      "legendIdeal": "círculo ideal",
+      "legendReach": "alcance medido",
+      "legendPoints": "pontos gravados",
+      "legendFail": "setor com problema",
+      "legendAfter": "depois de calibrar"
+    },
+    "dirs": {
+      "title": "8 direções",
+      "reach": "Alcance",
+      "aim": "Erro de mira",
+      "gate": "Formato do gate",
+      "ratio": "Diagonal / eixo"
+    },
+    "gates": {
+      "none": "Sem limite",
+      "circle": "Circular",
+      "octagon": "Octogonal",
+      "square": "Quadrado"
+    },
+    "spikes": {
+      "title": "Picos e ruído",
+      "count": "Picos",
+      "jumps": "Saltos",
+      "noise": "Ruído RMS",
+      "verdicts": {
+        "clean": "Limpo",
+        "noisy": "Ruidoso",
+        "faulty": "Com defeito"
+      }
+    },
+    "triggers": {
+      "title": "Gatilhos",
+      "rest": "Repouso",
+      "max": "Máximo atingido",
+      "full": "Curso completo",
+      "incomplete": "Não chega a 100%: limite máximo sugerido {pct}",
+      "suggested": "Deadzone sugerida"
+    },
+    "suggestion": {
+      "title": "Calibração sugerida",
+      "body": "Centro, deadzone e escala calculados a partir das medidas. Seus ajustes de curva e sensibilidade são mantidos.",
+      "apply": "Aplicar ao perfil ativo",
+      "applied": "Calibração aplicada ao perfil \"{name}\"."
+    },
+    "compare": {
+      "title": "Antes e depois",
+      "metric": "Medida",
+      "before": "Antes",
+      "after": "Depois"
+    },
+    "hardwareNote": "Calibração por software não conserta desgaste mecânico. Se o drift for grande ou piorar com o tempo, o módulo do analógico precisa ser trocado."
+  },
+  "adjust": {
+    "title": "Ajustes manuais",
+    "stick": "Analógico",
+    "left": "Esquerdo",
+    "right": "Direito",
+    "trigger": "Gatilhos",
+    "innerDz": "Deadzone interna",
+    "outerDz": "Deadzone externa",
+    "mode": "Tipo de deadzone",
+    "radial": "Radial",
+    "axial": "Axial",
+    "curve": "Curva de resposta",
+    "curves": {
+      "linear": "Linear",
+      "smooth": "Suave",
+      "aggressive": "Agressiva",
+      "sCurve": "Curva S",
+      "custom": "Personalizada"
+    },
+    "sensX": "Sensibilidade X",
+    "sensY": "Sensibilidade Y",
+    "invertX": "Inverter X",
+    "invertY": "Inverter Y",
+    "swap": "Trocar eixos X e Y",
+    "antiDz": "Anti-deadzone",
+    "antiDzHint": "Compensa a zona morta do jogo: o menor movimento já sai com esse valor.",
+    "gate": "Limitador (gate)",
+    "gates": {
+      "none": "Nenhum",
+      "circle": "Círculo",
+      "octagon": "Octógono",
+      "square": "Quadrado"
+    },
+    "center": "Centro corrigido",
+    "ranges": "Escala por direção",
+    "resetStick": "Voltar este analógico ao padrão",
+    "trig": {
+      "left": "Gatilho esquerdo",
+      "right": "Gatilho direito",
+      "deadzone": "Deadzone inicial",
+      "max": "Limite máximo",
+      "activation": "Ponto de ativação",
+      "digital": "Modo digital (liga/desliga)"
+    },
+    "preview": "Prévia ao vivo",
+    "rawDot": "cru",
+    "calDot": "calibrado",
+    "saved": "Salvo",
+    "saving": "Salvando…",
+    "curveEditor": "Editor de curva",
+    "curveHelp": "Arraste os pontos. Clique duas vezes numa área vazia para adicionar; selecione um ponto e aperte Delete para remover. Pelo teclado: Tab seleciona, setas movem (Shift move mais).",
+    "point": "Ponto {n}: entrada {x}, saída {y}",
+    "addPoint": "Adicionar ponto",
+    "input": "entrada",
+    "output": "saída",
+    "liveNote": "O resultado vale para todas as telas: use Cru/Calibrado no topo para comparar."
+  },
+  "profiles": {
+    "title": "Perfis de {device}",
+    "key": "Identificação",
+    "active": "Ativo",
+    "activate": "Ativar",
+    "new": "Novo perfil",
+    "newName": "Novo perfil",
+    "rename": "Renomear",
+    "duplicate": "Duplicar",
+    "export": "Exportar JSON",
+    "import": "Importar JSON",
+    "delete": "Excluir",
+    "reset": "Resetar para o padrão de fábrica",
+    "confirmDelete": "Excluir o perfil \"{name}\"? Não dá para desfazer.",
+    "confirmReset": "Voltar \"{name}\" ao padrão de fábrica? Os ajustes atuais serão perdidos.",
+    "imported": "Perfil \"{name}\" importado.",
+    "exported": "Perfil exportado.",
+    "updated": "Atualizado em {date}",
+    "measured": "Medido pelo assistente em {date}",
+    "hint": "Cada controle tem seus perfis, identificados por VID:PID e pelo número de série quando existe. Troque de perfil com um clique.",
+    "renamePrompt": "Novo nome",
+    "save": "Salvar nome"
+  }
+}
