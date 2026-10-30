@@ -241,3 +241,57 @@ fn firmware_ops_are_routed_and_unsupported_backends_say_so() {
     );
     assert!(r.status.simulated);
 }
+
+#[test]
+fn button_health_session_records_the_demo_r1_faults() {
+    use gamepadlab_calibration::button_health::{
+        analyze, ButtonPlan, Grade, HealthSession, Precision,
+    };
+    let (tx, rx) = mpsc::channel();
+    let svc = InputService::start(ServiceConfig::default(), Vec::new(), tx);
+    svc.set_demo(true);
+    let ServiceEvent::Connected(demo) = next_event(&rx) else {
+        panic!("expected the demo controller");
+    };
+    let r1 = gamepadlab_input::demo::HEALTH_FAULTY.index();
+    svc.health_start(&demo.id);
+    svc.demo_scenario(DemoScenario::HealthTaps {
+        button: r1,
+        presses: 6,
+    });
+    // 0.4 s lead-in + 6 taps of 260 ms.
+    std::thread::sleep(Duration::from_millis(2_200));
+    let live = svc.health_progress().expect("a session is running");
+    let r1_live = live.buttons.iter().find(|b| b.button == r1 as u32).unwrap();
+    assert_eq!(r1_live.taps, 5, "tap #3 never arrives: {live:?}");
+    let rec = svc.health_stop().expect("recording");
+    assert!(svc.health_progress().is_none(), "stop ends the session");
+    let Precision::Report { interval_us } = rec.precision else {
+        panic!("the demo is report-based: {:?}", rec.precision);
+    };
+    assert!(
+        (3_000..5_000).contains(&interval_us),
+        "interval {interval_us}"
+    );
+    let report = analyze(&HealthSession {
+        precision: rec.precision,
+        duration_us: rec.duration_us,
+        plans: vec![ButtonPlan {
+            button: r1 as u32,
+            requested: 6,
+            reported_self_releases: 0,
+        }],
+        events: rec.events,
+    });
+    let b = &report.buttons[0];
+    assert_eq!(b.grade, Grade::Bad);
+    assert_eq!(
+        (
+            b.metrics.missed,
+            b.metrics.chatter,
+            b.metrics.release_bounces
+        ),
+        (1, 1, 1)
+    );
+    svc.set_demo(false);
+}

@@ -1,6 +1,7 @@
 //! The input service: one dedicated thread that polls every backend,
 //! normalises states, tracks min/max, measures polling rate and records
-//! calibration captures at full rate. The UI side only reads snapshots.
+//! calibration captures and button-health sessions at full rate. The UI side
+//! only reads snapshots.
 
 use crate::backend::{BackendEvent, Clock, GamepadBackend, InputError, OutputCommand};
 use crate::demo::{DemoBackend, DemoScenario, ManualInput, DEMO_ID};
@@ -8,6 +9,7 @@ use crate::firmware::{FirmwareOp, FirmwareReply};
 use crate::model::*;
 use crate::registry::{Change, Registry};
 use crate::stats::{PollMeter, PollStats};
+use gamepadlab_calibration::button_health::{live_status, ButtonEvent, LiveButton, Precision};
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, VecDeque};
 use std::sync::mpsc::{self, Receiver, Sender};
@@ -16,6 +18,9 @@ use std::thread::JoinHandle;
 use std::time::Duration;
 
 const MAX_CAPTURE_SAMPLES: usize = 200_000;
+const MAX_HEALTH_EVENTS: usize = 200_000;
+/// Report intervals kept to estimate the report rate of a health session.
+const HEALTH_INTERVALS: usize = 512;
 const MAX_RECENT_ERRORS: usize = 50;
 
 #[derive(Debug, Clone)]
@@ -65,6 +70,25 @@ pub struct Capture {
     pub duration_ms: f32,
 }
 
+/// Button edges recorded for a button-health session (`t_us` from its start).
+#[derive(Debug, Clone)]
+pub struct HealthRecording {
+    pub controller: ControllerId,
+    pub precision: Precision,
+    pub duration_us: u64,
+    pub events: Vec<ButtonEvent>,
+}
+
+/// Live view of a running button-health session.
+#[derive(Debug, Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct HealthProgress {
+    pub controller: ControllerId,
+    pub precision: Precision,
+    pub elapsed_ms: f32,
+    pub buttons: Vec<LiveButton>,
+}
+
 #[derive(Debug, Clone)]
 pub struct FrameEntryRaw {
     pub snapshot: InputSnapshot,
@@ -79,6 +103,9 @@ enum Command {
     ResetMinMax(ControllerId),
     CaptureStart(ControllerId, CaptureTarget),
     CaptureStop(Sender<Option<Capture>>),
+    HealthStart(ControllerId),
+    HealthProgress(Sender<Option<HealthProgress>>),
+    HealthStop(Sender<Option<HealthRecording>>),
     EnableExtended(ControllerId, Sender<Result<bool, InputError>>),
     Firmware(
         ControllerId,
@@ -242,6 +269,25 @@ impl InputService {
     }
 
     /// Runs a firmware calibration step on the controller (blocking, ≤ 25 s).
+    /// Starts recording every button edge of `id` at full rate (replaces any
+    /// running session). Read-only: nothing is sent to the controller.
+    pub fn health_start(&self, id: &ControllerId) {
+        let _ = self.tx.send(Command::HealthStart(id.clone()));
+    }
+
+    pub fn health_progress(&self) -> Option<HealthProgress> {
+        let (tx, rx) = mpsc::channel();
+        self.tx.send(Command::HealthProgress(tx)).ok()?;
+        rx.recv_timeout(Duration::from_secs(2)).ok().flatten()
+    }
+
+    /// Ends the session and hands over what was recorded.
+    pub fn health_stop(&self) -> Option<HealthRecording> {
+        let (tx, rx) = mpsc::channel();
+        self.tx.send(Command::HealthStop(tx)).ok()?;
+        rx.recv_timeout(Duration::from_secs(2)).ok().flatten()
+    }
+
     pub fn firmware(&self, id: &ControllerId, op: FirmwareOp) -> Result<FirmwareReply, InputError> {
         let (tx, rx) = mpsc::channel();
         self.tx
@@ -392,6 +438,100 @@ impl CaptureState {
     }
 }
 
+/// A running button-health session: edges of every button of one controller.
+struct HealthState {
+    id: ControllerId,
+    started_us: Option<u64>,
+    last_us: u64,
+    prev: Vec<bool>,
+    events: Vec<ButtonEvent>,
+    /// False as soon as one state came from an event-based source (gilrs).
+    report_based: bool,
+    intervals: VecDeque<u64>,
+}
+
+impl HealthState {
+    fn new(id: ControllerId) -> Self {
+        Self {
+            id,
+            started_us: None,
+            last_us: 0,
+            prev: Vec::new(),
+            events: Vec::new(),
+            report_based: true,
+            intervals: VecDeque::with_capacity(HEALTH_INTERVALS),
+        }
+    }
+
+    fn push(&mut self, st: &DeviceState) {
+        let pressed: Vec<bool> = st.buttons.iter().map(|b| b.pressed).collect();
+        self.report_based &= st.report_based;
+        let Some(start) = self.started_us else {
+            // The first state is the baseline: buttons already held are not edges.
+            self.started_us = Some(st.timestamp_us);
+            self.last_us = st.timestamp_us;
+            self.prev = pressed;
+            return;
+        };
+        if self.intervals.len() == HEALTH_INTERVALS {
+            self.intervals.pop_front();
+        }
+        self.intervals
+            .push_back(st.timestamp_us.saturating_sub(self.last_us));
+        self.last_us = st.timestamp_us;
+        if self.prev.len() < pressed.len() {
+            self.prev.resize(pressed.len(), false);
+        }
+        for (i, &now) in pressed.iter().enumerate() {
+            if now != self.prev[i] && self.events.len() < MAX_HEALTH_EVENTS {
+                self.events.push(ButtonEvent {
+                    button: i as u32,
+                    pressed: now,
+                    t_us: st.timestamp_us.saturating_sub(start),
+                });
+            }
+            self.prev[i] = now;
+        }
+    }
+
+    fn elapsed_us(&self) -> u64 {
+        self.started_us
+            .map_or(0, |s| self.last_us.saturating_sub(s))
+    }
+
+    fn precision(&self) -> Precision {
+        if !self.report_based {
+            return Precision::Event;
+        }
+        let mut v: Vec<u64> = self.intervals.iter().copied().filter(|&d| d > 0).collect();
+        v.sort_unstable();
+        let interval_us = v
+            .get(v.len() / 2)
+            .copied()
+            .unwrap_or(0)
+            .min(u32::MAX as u64) as u32;
+        Precision::Report { interval_us }
+    }
+
+    fn progress(&self) -> HealthProgress {
+        HealthProgress {
+            controller: self.id.clone(),
+            precision: self.precision(),
+            elapsed_ms: self.elapsed_us() as f32 / 1000.0,
+            buttons: live_status(&self.events, self.elapsed_us()),
+        }
+    }
+
+    fn finish(self) -> HealthRecording {
+        HealthRecording {
+            controller: self.id.clone(),
+            precision: self.precision(),
+            duration_us: self.elapsed_us(),
+            events: self.events,
+        }
+    }
+}
+
 fn run(
     config: ServiceConfig,
     mut backends: Vec<Box<dyn GamepadBackend>>,
@@ -405,6 +545,7 @@ fn run(
     let mut owners: HashMap<ControllerId, usize> = HashMap::new();
     let mut trackers: HashMap<ControllerId, Tracker> = HashMap::new();
     let mut capture: Option<CaptureState> = None;
+    let mut health: Option<HealthState> = None;
     let mut buf: Vec<BackendEvent> = Vec::with_capacity(256);
     const DEMO_OWNER: usize = usize::MAX;
 
@@ -473,6 +614,13 @@ fn run(
                 Command::CaptureStop(reply) => {
                     let _ = reply.send(capture.take().map(CaptureState::finish));
                 }
+                Command::HealthStart(id) => health = Some(HealthState::new(id)),
+                Command::HealthProgress(reply) => {
+                    let _ = reply.send(health.as_ref().map(HealthState::progress));
+                }
+                Command::HealthStop(reply) => {
+                    let _ = reply.send(health.take().map(HealthState::finish));
+                }
                 Command::EnableExtended(id, reply) => {
                     let result = match registry.get(&id).cloned() {
                         None => Err(InputError::Disconnected(id.to_string())),
@@ -534,7 +682,9 @@ fn run(
                 BackendEvent::Disconnected(id) => {
                     log::info!("disconnected: {id}");
                     owners.remove(&id);
-                    if capture.as_ref().is_some_and(|c| c.id == id) {
+                    let recording = capture.as_ref().is_some_and(|c| c.id == id)
+                        || health.as_ref().is_some_and(|h| h.id == id);
+                    if recording {
                         let _ = events.send(ServiceEvent::Error {
                             controller: Some(id.clone()),
                             error: InputError::Disconnected(id.to_string()),
@@ -551,6 +701,9 @@ fn run(
                     }
                     if let Some(c) = capture.as_mut().filter(|c| c.id == id) {
                         c.push(&st);
+                    }
+                    if let Some(h) = health.as_mut().filter(|h| h.id == id) {
+                        h.push(&st);
                     }
                     let snap = trackers.entry(id.clone()).or_default().snapshot(&id, &st);
                     let mut live = shared.live.lock().unwrap();

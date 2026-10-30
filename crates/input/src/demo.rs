@@ -3,7 +3,9 @@
 //! It is deliberately imperfect (left stick drifts, has a weak sector and the
 //! odd spike; left trigger never reaches 100 %) so every analysis screen has
 //! something to show. Scenarios let the calibration wizard and the guided
-//! button test drive it like a person would.
+//! button test drive it like a person would. In the button-health scenarios
+//! its R1 is going bad (loose cap, worn switch): some taps never arrive, some
+//! chatter or bounce, and it lets go on its own while held.
 
 use crate::backend::{BackendEvent, Clock, GamepadBackend, InputError, OutputCommand};
 use crate::firmware::{
@@ -17,6 +19,61 @@ use std::f32::consts::{PI, TAU};
 
 pub const DEMO_ID: &str = "demo:dualsense";
 const REPORT_US: u64 = 4_000; // 250 Hz, like a DualSense over Bluetooth
+
+/// The demo button that is going bad in the button-health scenarios.
+pub const HEALTH_FAULTY: Button = Button::RightBumper;
+const HEALTH_TAP_START: f32 = 0.4;
+const HEALTH_TAP_PERIOD: f32 = 0.26;
+const HEALTH_TAP_DOWN: f32 = 0.1;
+/// Taps of the faulty button that never arrive, chatter, or bounce on release.
+const HEALTH_MISSED: [u32; 3] = [3, 9, 15];
+const HEALTH_CHATTER: [u32; 4] = [1, 6, 11, 17];
+const HEALTH_BOUNCE: [u32; 2] = [4, 13];
+const HEALTH_HOLD: (f32, f32) = (0.3, 2.6);
+/// Moments (s) the faulty button lets go on its own while held.
+const HEALTH_DROPOUTS: [(f32, f32); 2] = [(1.4, 1.412), (2.2, 2.208)];
+
+/// Whether `button` is down `secs` into a health tap round.
+fn health_tap_down(button: usize, presses: u32, secs: f32) -> bool {
+    let t = secs - HEALTH_TAP_START;
+    if t < 0.0 {
+        return false;
+    }
+    let k = (t / HEALTH_TAP_PERIOD) as u32;
+    if k >= presses {
+        return false;
+    }
+    let w = t - k as f32 * HEALTH_TAP_PERIOD;
+    if button != HEALTH_FAULTY.index() {
+        return w < HEALTH_TAP_DOWN;
+    }
+    if HEALTH_MISSED.contains(&k) {
+        false
+    } else if HEALTH_CHATTER.contains(&k) {
+        w < 0.008 || (0.016..HEALTH_TAP_DOWN).contains(&w)
+    } else if HEALTH_BOUNCE.contains(&k) {
+        w < HEALTH_TAP_DOWN || (HEALTH_TAP_DOWN + 0.008..HEALTH_TAP_DOWN + 0.016).contains(&w)
+    } else {
+        w < HEALTH_TAP_DOWN
+    }
+}
+
+/// Holds `button`, pulling the trigger fully when it is L2/R2.
+fn press(pressed: &mut Vec<usize>, lt: &mut f32, rt: &mut f32, button: usize) {
+    pressed.push(button);
+    if button == Button::LeftTrigger.index() {
+        *lt = 1.0;
+    }
+    if button == Button::RightTrigger.index() {
+        *rt = 1.0;
+    }
+}
+
+fn health_hold_down(button: usize, secs: f32) -> bool {
+    let dropped = button == HEALTH_FAULTY.index()
+        && HEALTH_DROPOUTS.iter().any(|&(a, b)| (a..b).contains(&secs));
+    (HEALTH_HOLD.0..HEALTH_HOLD.1).contains(&secs) && !dropped
+}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -34,6 +91,13 @@ pub enum DemoScenario {
     Buttons,
     PressButton(usize),
     Chord(Vec<usize>),
+    /// Button-health tap round: `presses` taps of one button, one every 260 ms.
+    HealthTaps {
+        button: usize,
+        presses: u32,
+    },
+    /// Button-health hold step: one button held for 2.3 s.
+    HealthHold(usize),
     Manual,
 }
 
@@ -314,6 +378,16 @@ impl DemoBackend {
                     if i == Button::RightTrigger.index() {
                         rt = 1.0;
                     }
+                }
+            }
+            DemoScenario::HealthTaps { button, presses } => {
+                if health_tap_down(button, presses, secs) {
+                    press(&mut pressed, &mut lt, &mut rt, button);
+                }
+            }
+            DemoScenario::HealthHold(button) => {
+                if health_hold_down(button, secs) {
+                    press(&mut pressed, &mut lt, &mut rt, button);
                 }
             }
             DemoScenario::Chord(list) => {

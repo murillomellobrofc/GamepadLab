@@ -26,7 +26,8 @@ pub use demo::{DemoBackend, DemoScenario, ManualInput};
 pub use firmware::{FirmwareOp, FirmwareReply, FirmwareStatus};
 pub use model::*;
 pub use service::{
-    Capture, CaptureSample, CaptureTarget, FrameEntryRaw, InputService, ServiceConfig, ServiceEvent,
+    Capture, CaptureSample, CaptureTarget, FrameEntryRaw, HealthProgress, HealthRecording,
+    InputService, ServiceConfig, ServiceEvent,
 };
 pub use stats::{IntervalSource, PollStats};
 pub use virtual_device::{platform_virtual_device, VirtualDevice, VirtualLayout, VirtualState};

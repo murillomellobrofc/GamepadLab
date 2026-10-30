@@ -143,3 +143,91 @@ fn write_mock_fixtures() {
         );
     }
 }
+
+/// Records a full button-health session (tap round + hold) for one demo
+/// button, sampling every report like the input service does.
+fn health_session(demo: &mut DemoBackend, button: usize) -> button_health::HealthSession {
+    use button_health::{ButtonEvent, ButtonPlan, HealthSession, Precision};
+    let mut prev = [false; 19];
+    let mut events = Vec::new();
+    let mut offset = 0;
+    let steps = [
+        (
+            DemoScenario::HealthTaps {
+                button,
+                presses: 20,
+            },
+            6.0,
+        ),
+        (DemoScenario::HealthHold(button), 3.0),
+    ];
+    for (scenario, secs) in steps {
+        demo.set_scenario(scenario, 0);
+        let n = (secs * 1e6 / STEP_US as f32) as u64;
+        for i in 0..n {
+            let st = demo.state_at(i * STEP_US);
+            for (b, s) in st.buttons.iter().enumerate().take(prev.len()) {
+                if s.pressed != prev[b] {
+                    prev[b] = s.pressed;
+                    events.push(ButtonEvent {
+                        button: b as u32,
+                        pressed: s.pressed,
+                        t_us: offset + i * STEP_US,
+                    });
+                }
+            }
+        }
+        offset += n * STEP_US;
+    }
+    HealthSession {
+        precision: Precision::Report {
+            interval_us: STEP_US as u32,
+        },
+        duration_us: offset,
+        plans: vec![ButtonPlan {
+            button: button as u32,
+            requested: 20,
+            reported_self_releases: 0,
+        }],
+        events,
+    }
+}
+
+#[test]
+fn demo_button_health_flags_only_the_failing_r1() {
+    use button_health::{analyze, Advice, Grade, ReasonCode};
+    let mut demo = DemoBackend::new();
+    let mut buttons = Vec::new();
+    for button in 0..19 {
+        let report = analyze(&health_session(&mut demo, button));
+        let b = report.buttons[0].clone();
+        if button == gamepadlab_input::demo::HEALTH_FAULTY.index() {
+            assert_eq!(b.grade, Grade::Bad, "R1 should fail: {b:#?}");
+            let codes: Vec<ReasonCode> = b.reasons.iter().map(|r| r.code).collect();
+            for code in [
+                ReasonCode::MissedPresses,
+                ReasonCode::Chatter,
+                ReasonCode::ReleaseBounce,
+                ReasonCode::SelfRelease,
+            ] {
+                assert!(codes.contains(&code), "R1 missing {code:?}: {codes:?}");
+            }
+            assert_eq!(b.metrics.missed, 3);
+            assert_eq!(b.advice.first(), Some(&Advice::ReplaceSwitch));
+        } else {
+            assert_eq!(b.grade, Grade::Good, "button {button}: {b:#?}");
+            assert_eq!(b.metrics.taps, 20, "button {button}");
+        }
+        buttons.push(b);
+    }
+    if std::env::var("GAMEPADLAB_WRITE_GOLDEN").is_ok() {
+        write(
+            "button-health.json",
+            &serde_json::json!({
+                "precision": { "kind": "report", "intervalUs": STEP_US },
+                "durationMs": 9000.0,
+                "buttons": buttons,
+            }),
+        );
+    }
+}
