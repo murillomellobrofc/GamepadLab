@@ -217,6 +217,11 @@ Protocolos HID do DualShock 4/DualSense conforme documentados pelo driver `hid-p
 comunidade. Comandos de calibração de fábrica portados do DualShock Calibration GUI (MIT, the_al); formato da memória
 do Switch conforme o Nintendo_Switch_Reverse_Engineering. Detalhes em [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
+**Artes dos controles** (separadas do código, com licença própria): os desenhos do DualSense, do Xbox Series e do
+Switch Pro são baseados em "Button Icons and Controls" de [Zacksly](https://zacksly.itch.io), licença
+[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), modificados pelo GamepadLab; o controle genérico é desenho
+original do GamepadLab (CC BY 4.0). Arquivos, mudanças e créditos em [ASSETS_LICENSE.md](ASSETS_LICENSE.md).
+
 ---
 
 ### English

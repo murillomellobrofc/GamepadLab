@@ -2,6 +2,11 @@
 
 ## Não lançado
 
+- Novos desenhos dos controles: DualSense (também no DualShock 4), Xbox Series e Switch Pro baseados nas artes de
+  Zacksly (CC BY 3.0, modificadas) e um controle genérico original no mesmo estilo (CC BY 4.0). Seguem o tema escuro,
+  claro e de alto contraste, e cada parte tem um ID (`btn-cross`, `stick-left`, `trigger-l2`, `touchpad`…) que o app
+  acende e move ao vivo. Artes separadas do código, com créditos em `ASSETS_LICENSE.md` e na tela Sobre.
+
 ## 0.2.2
 
 - **Saúde dos botões** (nova aba no teste, e atalho no resultado do teste guiado): aperte cada botão escolhido

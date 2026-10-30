@@ -79,6 +79,28 @@ Os comandos `button_health_start/progress/stop/cancel` (`src-tauri/src/cmd_healt
 a contagem ao vivo para a tela e rodam a análise no fim. Os fixtures em `fixtures/button_health/` cobrem cada
 sintoma e um DualSense com o R1 ruim; o R1 do controle demo falha do mesmo jeito.
 
+## Desenhos dos controles
+
+Os desenhos são arte, não código: ficam em `apps/ui/public/controllers/<família>/` com licença própria
+([ASSETS_LICENSE.md](../ASSETS_LICENSE.md)). DualSense (usado também no DualShock 4), Xbox Series e Switch Pro saem
+dos pacotes do Zacksly (CC BY 3.0) por `scripts/build-controller-art.mjs`, que guarda o original intacto em `source/`
+e lista cada mudança no cabeçalho do arquivo gerado; o genérico é desenho original. Nenhum desenho traz cor: o tema
+pinta pelas classes `gl-body`, `gl-part`, `gl-glyph`, `gl-glyph-fill`, `gl-base`, `gl-seam`, `gl-detail`, `gl-hit`.
+
+O `ControllerDiagram` busca o SVG, limpa (só elementos de desenho e geometria: nada de script, `on*`, `style`,
+`foreignObject` ou link externo), troca cada `id` por `data-part` (vários desenhos podem dividir a página) e, a cada
+quadro, mexe nas partes pelo ID:
+
+| ID | O que o app faz |
+|---|---|
+| `btn-*`, `dpad-up/down/left/right`, `touchpad` | `data-on="true"` enquanto apertado (acende) |
+| `stick-left`, `stick-right` | desloca pelo valor do analógico, até o raio de `stick-*-base` menos o do próprio círculo; acende no L3/R3 |
+| `trigger-l2` (ou `-lt`, `-zl`…) | acende passado o limiar; `trigger-*-fill` (um `rect`) cresce com o valor e `trigger-*-value` mostra a % |
+| `touch-0`, `touch-1` | posicionados dentro da área do `touchpad` para cada dedo |
+
+O mapa índice do botão → ID de cada família fica em `apps/ui/src/features/test/layouts.ts`; partes de botões que o
+modelo não tem (mute no DS4, Fn e traseiros fora do Edge, paddles fora do Elite) ganham `data-absent` e somem.
+
 ## Calibração
 
 Ordem do pipeline (`crates/calibration/src/pipeline.rs`):

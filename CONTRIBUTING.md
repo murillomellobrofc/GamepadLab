@@ -44,7 +44,11 @@ Sem controle por perto? Use o **modo demo** (botão na barra lateral).
 
 1. VID/PID e família em `crates/input/src/mapping.rs` (com teste).
 2. Se o sistema não expõe tudo (gyro, LEDs…), um `Driver` em `crates/input/src/hid/` com parser testado por relatórios sintéticos.
-3. Um layout em `apps/ui/src/features/test/layouts.ts` e os nomes dos botões em `apps/ui/src/lib/buttonNames.ts`.
+3. Um desenho em `apps/ui/public/controllers/<família>/` com os IDs das partes (convenção em
+   [docs/architecture.md](docs/architecture.md#desenhos-dos-controles)), o mapa botão → ID em
+   `apps/ui/src/features/test/layouts.ts` (o teste confere que todo ID existe no desenho) e os nomes dos botões em
+   `apps/ui/src/lib/buttonNames.ts`. Arte de terceiros só com licença que permita redistribuir e modificar, com o
+   crédito em [ASSETS_LICENSE.md](ASSETS_LICENSE.md); o original fica sem alteração em `source/`.
 4. Atualize a tabela de recursos no README.
 
 ## Commits e PRs

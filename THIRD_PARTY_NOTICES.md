@@ -1,5 +1,8 @@
 # Avisos de terceiros
 
+Os desenhos dos controles têm licença própria (CC BY 3.0 e CC BY 4.0), separada do código: veja
+[ASSETS_LICENSE.md](ASSETS_LICENSE.md).
+
 ## DualShock Calibration GUI
 
 Os comandos de calibração de fábrica do DualShock 4 e do DualSense em
