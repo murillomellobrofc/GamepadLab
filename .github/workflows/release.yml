@@ -193,7 +193,7 @@ jobs:
           chown -R builder /tmp/pkg
           # -d: runtime dependencies (webkit2gtk…) are not needed to package a prebuilt binary.
           su builder -c 'cd /tmp/pkg && makepkg -d --noconfirm'
-          file=$(ls /tmp/pkg/*.pkg.tar.zst)
+          file=/tmp/pkg/gamepadlab-bin-${ver}-1-x86_64.pkg.tar.zst
           cp "$file" .
           echo "file=$(basename "$file")" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4

@@ -11,6 +11,8 @@ license=('MIT')
 depends=('webkit2gtk-4.1' 'gtk3' 'systemd-libs' 'hicolor-icon-theme')
 provides=('gamepadlab')
 conflicts=('gamepadlab')
+# Prebuilt binary: no debug split package, nothing to strip.
+options=('!debug' '!strip')
 source=("GamepadLab_${pkgver}_amd64.deb::${url}/releases/download/v${pkgver}/GamepadLab_${pkgver}_amd64.deb"
         "LICENSE-${pkgver}::https://raw.githubusercontent.com/murillomellobrofc/GamepadLab/v${pkgver}/LICENSE")
 sha256sums=('SKIP'
