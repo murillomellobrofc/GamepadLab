@@ -2,7 +2,7 @@
 # Repackages the official .deb from the GitHub release. The release workflow builds this
 # PKGBUILD in an Arch container and attaches the .pkg.tar.zst; the same file can go to the AUR.
 pkgname=gamepadlab-bin
-pkgver=0.2.1
+pkgver=0.2.2
 pkgrel=1
 pkgdesc="Test and calibrate game controllers (Xbox, DualShock 4, DualSense, Switch Pro)"
 arch=('x86_64')

@@ -942,7 +942,7 @@ dependencies = [
 
 [[package]]
 name = "gamepadlab"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
  "base64 0.22.1",
  "gamepadlab-calibration",
@@ -964,7 +964,7 @@ dependencies = [
 
 [[package]]
 name = "gamepadlab-calibration"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
  "serde",
  "serde_json",
@@ -972,7 +972,7 @@ dependencies = [
 
 [[package]]
 name = "gamepadlab-haptics"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
  "log",
  "serde",
@@ -981,7 +981,7 @@ dependencies = [
 
 [[package]]
 name = "gamepadlab-input"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
  "gamepadlab-calibration",
  "gilrs",
@@ -994,7 +994,7 @@ dependencies = [
 
 [[package]]
 name = "gamepadlab-profiles"
-version = "0.2.1"
+version = "0.2.2"
 dependencies = [
  "gamepadlab-calibration",
  "log",

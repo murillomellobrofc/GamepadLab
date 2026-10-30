@@ -10,6 +10,7 @@
    Switch Pro (opt-in)         │        │                                   │
  DemoBackend (simulado) ───────┘        │                                   ├──► PollMeter (Hz, jitter, P99)
                                         │                                   ├──► Capture (assistente, taxa cheia)
+                                        │                                   ├──► Health (saúde dos botões, bordas a taxa cheia)
                                         └──► OutputCommand (vibração, LED, gatilhos) ◄── HapticsEngine (100 Hz)
                                                                             │
  thread "gamepadlab-frames" (60/120 Hz) ◄── take_frame() ◄──────────────────┘
@@ -57,6 +58,27 @@ SPI do Switch. O demo tem uma simulação com o mesmo contrato.
   recusada fora de `0x8010–0x8025`; antes de escrever, o bloco atual vira backup (salvo em disco pelo `src-tauri`), e
   depois o bloco é lido de volta e comparado.
 
+## Saúde dos botões
+
+Só leitura: nada é enviado ao controle. O serviço de entrada grava toda borda de botão (apertou/soltou, com o
+tempo do relatório) de um controle, como faz com as capturas do assistente, e anota se a fonte é por relatório
+(HID e demo, com o intervalo mediano entre relatórios) ou por evento (gilrs, que só entrega mudanças de estado
+na taxa de polling do sistema). A análise fica em `crates/calibration/src/button_health.rs`, pura:
+
+- Bordas separadas por menos de `MERGE_GAP_US` (25 ms) formam um aperto físico; ninguém solta e aperta de novo
+  tão rápido. Cada soltura extra dentro do aperto é um glitch: até `PRESS_SETTLE_US` do primeiro contato é
+  **chatter**, até `RELEASE_SETTLE_US` da soltura final é **quique**, no meio é **soltou sozinho**.
+- Toques (apertos menores que `HOLD_MIN_US`) são comparados com os pedidos: o que faltar é **falha de registro**.
+- **Preso**: toque que demora `SLOW_RELEASE_FACTOR` vezes mais que o típico (e pelo menos `SLOW_RELEASE_US`),
+  aperto de `STUCK_PRESS_US` ou mais, ou botão ainda apertado no fim da sessão.
+- Cada sintoma vira um motivo com nota (atenção ou ruim, pelos limiares `GLITCH_BAD_*`, `MISSED_BAD_RATIO`,
+  `SLOW_RELEASE_BAD_COUNT`) e uma dica: falhas leves de contato pedem limpeza; repetidas, trocar o switch;
+  botão agarrando ou apertos perdidos apontam também para a tampa.
+
+Os comandos `button_health_start/progress/stop/cancel` (`src-tauri/src/cmd_health.rs`) ligam a gravação, servem
+a contagem ao vivo para a tela e rodam a análise no fim. Os fixtures em `fixtures/button_health/` cobrem cada
+sintoma e um DualSense com o R1 ruim; o R1 do controle demo falha do mesmo jeito.
+
 ## Calibração
 
 Ordem do pipeline (`crates/calibration/src/pipeline.rs`):
@@ -76,6 +98,7 @@ Gravação atômica (arquivo temporário + rename); arquivo corrompido vira back
 | Camada | Como |
 |---|---|
 | Matemática | dados sintéticos: círculo perfeito, achatado, drift conhecido, ruído, spikes, setor amassado, gate quadrado, limites |
+| Saúde dos botões | fixtures JSON em `fixtures/button_health/` (saudável, chatter, falha de registro, preso, quique, R1 ruim) |
 | Drivers HID | relatórios montados byte a byte (USB e Bluetooth), CRC, calibração do IMU |
 | Serviço | `ScriptedBackend` gera eventos falsos: hotplug, dedupe, Hz, capturas, roteamento de saída, demo |
 | IPC | `src-tauri/tests/ipc.rs` chama os comandos reais pelo runtime de mock do Tauri com os mesmos argumentos da UI |

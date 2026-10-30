@@ -38,6 +38,11 @@
     <control>gamepad</control>
   </supports>
   <releases>
+    <release version="0.2.2" date="2026-10-30">
+      <description>
+        <p>Button health check: chatter, missed presses, sticking buttons and release bounce, with what to do.</p>
+      </description>
+    </release>
     <release version="0.2.1" date="2026-10-30">
       <description>
         <p>Portable Windows build.</p>

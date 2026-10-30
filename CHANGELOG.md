@@ -2,6 +2,22 @@
 
 ## Não lançado
 
+## 0.2.2
+
+- **Saúde dos botões** (nova aba no teste, e atalho no resultado do teste guiado): aperte cada botão escolhido
+  N vezes (padrão 20) no seu ritmo e segure uma vez. O app mede chatter, apertos que não chegam, botão preso ou
+  que demora a soltar, quique ao soltar e botão que solta sozinho, dá uma nota por botão (boa, atenção, ruim)
+  com os motivos e diz o que fazer: limpar, trocar a tampa ou trocar o switch. Avisa quando o controle é lido
+  pelo sistema (gilrs), onde chatter rápido pode passar batido; pelo HID mostra o intervalo entre relatórios.
+- Lógica pura em `crates/calibration/src/button_health.rs`, com limiares em constantes e fixtures em
+  `fixtures/button_health/` (saudável, chatter, falha de registro, preso, quique e um DualSense com o R1 ruim).
+- O serviço de entrada grava as bordas dos botões na taxa cheia, sem enviar nada ao controle; comandos
+  `button_health_start/progress/stop/cancel`.
+- Resultado no histórico (tipo "Saúde dos botões") e nos relatórios PNG, PDF e JSON.
+- O controle demo ganhou um R1 com defeito para mostrar a análise.
+- Correção: um clique logo ao abrir o app (antes de a conexão interna terminar de carregar) era perdido; agora
+  espera. Era a causa dos testes de ponta a ponta instáveis.
+
 ## 0.2.1
 
 - Versão portátil para Windows (`GamepadLab_x.y.z_x64-portable.zip`): roda sem instalar e, com o `PORTABLE.txt`

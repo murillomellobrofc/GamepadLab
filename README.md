@@ -29,6 +29,11 @@ latência real, giroscópio, touchpad, ghosting, perfis, histórico, relatórios
 - Teste guiado de botões (sem limite de tempo, com aviso de botão trocado), teste de ghosting/rollover,
   vibração com motores separados, intensidade, duração e padrões (pulso, onda, rampas, batimento), e no
   DualSense gatilhos adaptativos, LED e LEDs de jogador.
+- **Saúde dos botões**, para achar o botão com defeito antes de comprar peça: chatter (mais de um clique no
+  mesmo aperto), apertos que não chegam, botão preso ou que demora a soltar, quique ao soltar e botão que solta
+  sozinho enquanto segurado. Nota por botão (boa, atenção, ruim), motivos e dica (limpar, trocar a tampa,
+  trocar o switch), com aviso de precisão quando o controle é lido pelo sistema em vez do HID. Também abre a
+  partir do teste guiado, já com os botões que falharam ou foram pulados.
 - Latência e polling: Hz real, jitter, mínimo/médio/máximo, P99, gráfico ao vivo, histograma e medição de 10 s.
 - Sensores: giroscópio, acelerômetro, orientação 3D e touchpad (DS4, DualSense; Switch Pro experimental).
 - Vários controles ao mesmo tempo, com abas e visão "todos ao vivo".
@@ -220,6 +225,8 @@ GamepadLab tests and calibrates game controllers on macOS, Linux and Windows: li
 raw data with min/max, guided button test, rumble patterns, DualSense adaptive triggers and lights, gyro,
 touchpad, real polling rate and jitter, ghosting, up to 8 controllers, a stream overlay, a 5-step calibration
 wizard with circularity/drift/spike analysis, live-preview deadzones and curves, versioned profiles, local
-SQLite history and PNG/PDF/JSON reports. Interface in Portuguese, English and Spanish. Installers: `.dmg`,
+SQLite history and PNG/PDF/JSON reports, and a button-health check (chatter, missed presses, sticking,
+release bounce) that tells you whether to clean the contact or replace the cap or the switch. Interface in
+Portuguese, English and Spanish. Installers: `.dmg`,
 `.exe`/`.msi`, a portable Windows `.zip`, AppImage, `.deb`, `.rpm`, Flatpak and an Arch package. No telemetry. Build with
 `npm install && npm run tauri dev`.
