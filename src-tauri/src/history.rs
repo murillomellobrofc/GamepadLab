@@ -6,9 +6,10 @@ use serde::{Deserialize, Serialize};
 use std::path::Path;
 use std::sync::Mutex;
 
-pub const KINDS: [&str; 7] = [
+pub const KINDS: [&str; 8] = [
     "test",
     "buttons",
+    "buttonHealth",
     "calibration",
     "latency",
     "ghosting",

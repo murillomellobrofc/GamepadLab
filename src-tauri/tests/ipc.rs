@@ -249,6 +249,38 @@ fn full_flow_over_ipc() {
     );
     ipc.ok("reset_minmax", json!({ "id": id }));
 
+    // Button health: read-only recording of the demo pad, whose R1 is going bad.
+    ipc.ok("button_health_start", json!({ "id": id }));
+    ipc.ok(
+        "demo_scenario",
+        json!({ "scenario": { "healthTaps": { "button": 5, "presses": 4 } } }),
+    );
+    std::thread::sleep(Duration::from_millis(1_700));
+    let live = ipc.ok("button_health_progress", json!({}));
+    assert!(live["buttons"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|b| b["button"] == 5));
+    let health = ipc.ok(
+        "button_health_stop",
+        json!({ "plans": [{ "button": 5, "requested": 4 }] }),
+    );
+    assert_eq!(health["overall"], "bad");
+    assert_eq!(health["buttons"][0]["metrics"]["missed"], 1);
+    assert_eq!(health["precision"]["kind"], "report");
+    let err = ipc.call("button_health_progress", json!({})).unwrap_err();
+    assert_eq!(err["code"], "invalidInput");
+    ipc.ok("button_health_start", json!({ "id": id }));
+    ipc.ok("button_health_cancel", json!({}));
+    let err = ipc
+        .call(
+            "button_health_stop",
+            json!({ "plans": [{ "button": 5, "requested": 4 }] }),
+        )
+        .unwrap_err();
+    assert_eq!(err["code"], "invalidInput");
+
     // History and files.
     let sid = ipc.ok(
         "history_add",
@@ -262,6 +294,11 @@ fn full_flow_over_ipc() {
             .len(),
         1
     );
+    let hid = ipc.ok(
+        "history_add",
+        json!({ "session": { "kind": "buttonHealth", "controllerName": "DualSense (demo)", "controllerKey": key, "score": 20, "summary": "R1 ruim", "payload": { "report": health } } }),
+    );
+    assert!(hid.as_i64().unwrap() > sid.as_i64().unwrap());
     ipc.ok("history_delete", json!({ "id": sid }));
     ipc.ok("history_clear", json!({}));
     let file = dir.path().join("out.txt");

@@ -5,6 +5,7 @@ mod calibrate;
 mod cmd_calibration;
 mod cmd_files;
 mod cmd_firmware;
+mod cmd_health;
 mod cmd_history;
 mod commands;
 mod emitter;
@@ -103,6 +104,10 @@ pub fn configure<R: Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
             commands::set_lightbar,
             commands::set_player_leds,
             cmd_calibration::capture_start,
+            cmd_health::button_health_start,
+            cmd_health::button_health_progress,
+            cmd_health::button_health_stop,
+            cmd_health::button_health_cancel,
             cmd_calibration::capture_stop,
             cmd_calibration::capture_clear,
             cmd_calibration::analyze_stick,
