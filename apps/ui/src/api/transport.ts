@@ -10,17 +10,22 @@ export function isTauri(): boolean {
 }
 
 let current: Transport | null = null;
+let pending: Promise<Transport> | null = null;
 
-export async function getTransport(): Promise<Transport> {
-  if (current) return current;
-  if (isTauri()) {
-    const { createTauriTransport } = await import('./tauriTransport');
-    current = createTauriTransport();
-  } else {
-    const { createMockTransport } = await import('./mock/mockTransport');
-    current = createMockTransport();
-  }
-  return current;
+/** Resolves the transport once; concurrent callers share the same promise. */
+export function getTransport(): Promise<Transport> {
+  if (current) return Promise.resolve(current);
+  pending ??= (async () => {
+    if (isTauri()) {
+      const { createTauriTransport } = await import('./tauriTransport');
+      current = createTauriTransport();
+    } else {
+      const { createMockTransport } = await import('./mock/mockTransport');
+      current = createMockTransport();
+    }
+    return current;
+  })();
+  return pending;
 }
 
 /** Synchronous access once bootstrap has resolved the transport. */
@@ -31,4 +36,5 @@ export function transport(): Transport {
 
 export function setTransportForTests(t: Transport | null) {
   current = t;
+  pending = null;
 }

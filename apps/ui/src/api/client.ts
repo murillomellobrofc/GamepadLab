@@ -1,4 +1,4 @@
-import { transport } from './transport';
+import { getTransport } from './transport';
 import type {
   AppErrorEvent,
   AppInfo,
@@ -30,7 +30,12 @@ import type {
 } from './types';
 import type { LogLevel, OverlaySettings } from '@/state/settings';
 
-const call = <T>(cmd: string, args?: Record<string, unknown>) => transport().invoke<T>(cmd, args);
+// Calls wait for the transport instead of failing: the UI can render (and be
+// clicked) before bootstrap has finished loading it.
+const call = <T>(cmd: string, args?: Record<string, unknown>) =>
+  getTransport().then((t) => t.invoke<T>(cmd, args));
+const listen = <T>(event: string, cb: (payload: T) => void) =>
+  getTransport().then((t) => t.listen<T>(event, cb));
 
 export interface ManualDemoInput {
   leftStick: { x: number; y: number };
@@ -136,18 +141,14 @@ export const api = {
 };
 
 export const events = {
-  frame: (cb: (f: UiFrame) => void) => transport().listen<UiFrame>('gp://frame', cb),
-  connection: (cb: (e: ConnectionEvent) => void) =>
-    transport().listen<ConnectionEvent>('gp://connection', cb),
+  frame: (cb: (f: UiFrame) => void) => listen<UiFrame>('gp://frame', cb),
+  connection: (cb: (e: ConnectionEvent) => void) => listen<ConnectionEvent>('gp://connection', cb),
   controllerUpdated: (cb: (c: ControllerInfo) => void) =>
-    transport().listen<ControllerInfo>('gp://controller-updated', cb),
-  error: (cb: (e: AppErrorEvent) => void) => transport().listen<AppErrorEvent>('gp://error', cb),
-  rumble: (cb: (f: RumbleFrame) => void) => transport().listen<RumbleFrame>('gp://rumble', cb),
+    listen<ControllerInfo>('gp://controller-updated', cb),
+  error: (cb: (e: AppErrorEvent) => void) => listen<AppErrorEvent>('gp://error', cb),
+  rumble: (cb: (f: RumbleFrame) => void) => listen<RumbleFrame>('gp://rumble', cb),
   overlaySettings: (cb: (s: { settings: OverlaySettings; controllerId: string | null }) => void) =>
-    transport().listen<{ settings: OverlaySettings; controllerId: string | null }>(
-      'overlay://settings',
-      cb,
-    ),
+    listen<{ settings: OverlaySettings; controllerId: string | null }>('overlay://settings', cb),
 };
 
 /** Turns any thrown backend error into a human-readable string. */
