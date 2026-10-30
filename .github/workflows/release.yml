@@ -110,6 +110,47 @@ jobs:
           # Windows ships both .msi and .exe; updates of the generic key go through the .exe.
           updaterJsonPreferNsis: true
           args: ${{ matrix.args }} --config src-tauri/tauri.release.conf.json
+      # Portable Windows build: the bare .exe (assets are embedded) plus the PORTABLE.txt
+      # marker that keeps every file the app writes in GamepadLab-data beside it.
+      - name: Portable .zip (Windows)
+        if: runner.os == 'Windows'
+        id: portable
+        shell: pwsh
+        run: |
+          $ver = node -p "require('./src-tauri/tauri.conf.json').version"
+          New-Item -ItemType Directory portable | Out-Null
+          Copy-Item target/release/gamepadlab.exe portable/GamepadLab.exe
+          Copy-Item packaging/windows/PORTABLE.txt portable/
+          $name = "GamepadLab_${ver}_x64-portable.zip"
+          Compress-Archive -Path portable/* -DestinationPath $name
+          "file=$name" >> $env:GITHUB_OUTPUT
+      # Test runs start the portable .exe and check it wrote nothing outside its folder.
+      - name: Portable smoke test (test run)
+        if: runner.os == 'Windows' && github.event_name == 'workflow_dispatch'
+        shell: pwsh
+        run: |
+          $leak = Join-Path $env:LOCALAPPDATA 'io.github.gamepadlab'
+          $p = Start-Process portable/GamepadLab.exe -PassThru
+          Start-Sleep -Seconds 20
+          $alive = -not $p.HasExited
+          Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue
+          Get-ChildItem -Recurse portable/GamepadLab-data -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName }
+          if (-not $alive) { throw 'the portable .exe exited during startup' }
+          if (-not (Test-Path portable/GamepadLab-data/history.sqlite)) { throw 'no data in GamepadLab-data' }
+          if (-not (Test-Path portable/GamepadLab-data/logs)) { throw 'no logs in GamepadLab-data' }
+          if (-not (Test-Path portable/GamepadLab-data/webview)) { Write-Warning 'WebView2 profile folder not created (no desktop session?)' }
+          if (Test-Path (Join-Path $leak 'EBWebView')) { throw "WebView2 profile leaked to $leak" }
+      - name: Attach the portable .zip to the release
+        if: runner.os == 'Windows' && github.event_name == 'push'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_ID: ${{ steps.tauri.outputs.releaseId }}
+          FILE: ${{ steps.portable.outputs.file }}
+        run: |
+          curl -sSf -X POST -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Content-Type: application/zip" --data-binary @"$FILE" \
+            "https://uploads.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets?name=$FILE" > /dev/null
       # The Flatpak and Arch jobs repackage this .deb.
       - name: Keep the .deb for the Flatpak and Arch jobs
         if: runner.os == 'Linux'
@@ -130,6 +171,7 @@ jobs:
             target/**/release/bundle/deb/*.deb
             target/**/release/bundle/rpm/*.rpm
             target/**/release/bundle/appimage/*.AppImage
+            GamepadLab_*_x64-portable.zip
           retention-days: 3
 
   flatpak:

@@ -2,6 +2,13 @@
 
 ## Não lançado
 
+## 0.2.1
+
+- Versão portátil para Windows (`GamepadLab_x.y.z_x64-portable.zip`): roda sem instalar e, com o `PORTABLE.txt`
+  ao lado do `.exe`, guarda dados, logs e configurações na pasta `GamepadLab-data`, sem deixar nada no perfil do
+  Windows. Configurações explicam que ela se atualiza baixando o `.zip` novo. O diagnóstico mostra o modo portátil.
+- `npm run version:set` também atualiza o `PKGBUILD` do Arch.
+
 ## 0.2.0
 
 - Espanhol: interface inteira traduzida, detecção automática pelo idioma do sistema e datas no idioma escolhido.

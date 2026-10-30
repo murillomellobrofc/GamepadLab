@@ -165,7 +165,13 @@ export function SettingsDialog() {
           </button>
           {update?.state === 'disabled' && (
             <span className={ui.faint}>
-              {t(info?.packageManaged ? 'settings.updaterPackaged' : 'settings.updaterOff')}
+              {t(
+                info?.portable
+                  ? 'settings.updaterPortable'
+                  : info?.packageManaged
+                    ? 'settings.updaterPackaged'
+                    : 'settings.updaterOff',
+              )}
             </span>
           )}
           {update?.state === 'none' && <span className={ui.muted}>{t('settings.upToDate')}</span>}

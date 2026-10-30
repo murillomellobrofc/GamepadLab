@@ -432,6 +432,8 @@ export interface AppInfo {
   updaterConfigured: boolean;
   /** Linux package install (apt/dnf/pacman/Flatpak): updates come from the package manager. */
   packageManaged: boolean;
+  /** Windows portable .zip: data lives next to the .exe; updating means a new .zip. */
+  portable: boolean;
   dataDir: string;
 }
 

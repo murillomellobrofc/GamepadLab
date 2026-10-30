@@ -18,6 +18,8 @@ pub struct AppInfo {
     pub updater_configured: bool,
     /// Installed from apt/dnf/pacman/Flatpak: the package manager owns updates.
     pub package_managed: bool,
+    /// Running from the portable .zip: updates mean downloading a new .zip.
+    pub portable: bool,
     pub data_dir: String,
 }
 
@@ -26,6 +28,23 @@ pub struct AppInfo {
 pub struct PlatformWarning {
     pub code: &'static str,
     pub message: String,
+}
+
+/// Marker shipped in the Windows portable .zip. When it sits next to the program, everything
+/// the app writes (data, logs, the WebView2 profile) goes to `GamepadLab-data` beside it.
+pub const PORTABLE_MARKER: &str = "PORTABLE.txt";
+
+/// The portable data folder for this executable, if the marker is next to it.
+pub fn portable_data_dir(exe: &std::path::Path) -> Option<std::path::PathBuf> {
+    let dir = exe.parent()?;
+    dir.join(PORTABLE_MARKER)
+        .is_file()
+        .then(|| dir.join("GamepadLab-data"))
+}
+
+/// Set by `run()` when portable mode is on.
+pub fn is_portable() -> bool {
+    std::env::var_os("GAMEPADLAB_PORTABLE").is_some()
 }
 
 /// On Linux the built-in updater can only replace an AppImage. Anything else (.deb, .rpm,
@@ -48,6 +67,7 @@ pub fn app_info(state: &AppState, version: String, updater_configured: bool) -> 
         backends: state.input.backend_names(),
         updater_configured,
         package_managed: package_managed(),
+        portable: is_portable(),
         data_dir: state.data_dir.display().to_string(),
     }
 }
@@ -98,6 +118,9 @@ pub fn diagnostics(state: &AppState, version: String, ui_level: &str) -> String 
     let info = app_info(state, version, false);
     s.push_str("GamepadLab diagnostics\n======================\n");
     s.push_str(&format!("version: {}\n", info.version));
+    if info.portable {
+        s.push_str("install: portable (data next to the .exe)\n");
+    }
     s.push_str(&format!(
         "os: {} {} ({})\n",
         info.os, info.os_version, info.arch
@@ -162,4 +185,20 @@ pub fn diagnostics(state: &AppState, version: String, ui_level: &str) -> String 
     }
     s.push_str("\nNo telemetry: this report is only copied to your clipboard.\n");
     s
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn portable_only_with_the_marker_next_to_the_exe() {
+        let dir = std::env::temp_dir().join(format!("gamepadlab-portable-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let exe = dir.join("GamepadLab.exe");
+        assert_eq!(portable_data_dir(&exe), None);
+        std::fs::write(dir.join(PORTABLE_MARKER), "").unwrap();
+        assert_eq!(portable_data_dir(&exe), Some(dir.join("GamepadLab-data")));
+        std::fs::remove_dir_all(&dir).unwrap();
+    }
 }

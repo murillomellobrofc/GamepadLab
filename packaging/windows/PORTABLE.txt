@@ -1,0 +1,24 @@
+GamepadLab - versão portátil / portable version / versión portátil
+
+PT-BR
+Este arquivo liga o modo portátil. Enquanto ele estiver na mesma pasta do GamepadLab.exe,
+tudo o que o app guarda (configurações, perfis, histórico, relatórios e logs) fica na pasta
+GamepadLab-data, ao lado do programa. Dá para levar num pendrive. Se apagar este arquivo,
+o app passa a usar a pasta normal do usuário no Windows.
+Para atualizar: baixe o .zip novo em https://github.com/murillomellobrofc/GamepadLab/releases
+e substitua o GamepadLab.exe. Precisa do WebView2, que já vem no Windows 10 e 11.
+
+EN
+This file turns on portable mode. While it sits next to GamepadLab.exe, everything the app
+stores (settings, profiles, history, reports and logs) goes to the GamepadLab-data folder beside
+the program, so it can live on a USB stick. Delete this file to use the normal Windows user folder.
+To update: download the new .zip from https://github.com/murillomellobrofc/GamepadLab/releases
+and replace GamepadLab.exe. Requires WebView2, included with Windows 10 and 11.
+
+ES
+Este archivo activa el modo portátil. Mientras esté junto a GamepadLab.exe, todo lo que guarda
+la app (ajustes, perfiles, historial, informes y logs) queda en la carpeta GamepadLab-data, al
+lado del programa, así que puede ir en un pendrive. Si borras este archivo, la app usa la carpeta
+normal del usuario de Windows.
+Para actualizar: descarga el .zip nuevo en https://github.com/murillomellobrofc/GamepadLab/releases
+y reemplaza GamepadLab.exe. Necesita WebView2, que ya viene con Windows 10 y 11.

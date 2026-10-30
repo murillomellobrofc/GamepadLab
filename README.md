@@ -81,6 +81,7 @@ Baixe o instalador na página de [**Releases**](https://github.com/murillomellob
 | macOS (Apple Silicon / Intel) | `GamepadLab_x.y.z_aarch64.dmg` / `GamepadLab_x.y.z_x64.dmg` | pelo app |
 | Windows (instalador) | `GamepadLab_x.y.z_x64-setup.exe` | pelo app |
 | Windows (MSI, para empresas) | `GamepadLab_x.y.z_x64_pt-BR.msi` (também `en-US` e `es-ES`) | pelo app |
+| Windows portátil (sem instalar) | `GamepadLab_x.y.z_x64-portable.zip`: descompacte e abra o `GamepadLab.exe` | baixando o `.zip` novo |
 | Linux (qualquer distro) | `GamepadLab_x.y.z_amd64.AppImage` | pelo app |
 | Debian, Ubuntu, Mint | `GamepadLab_x.y.z_amd64.deb` (`sudo apt install ./arquivo.deb`) | pelo apt |
 | Fedora, openSUSE | `GamepadLab-x.y.z-1.x86_64.rpm` (`sudo dnf install ./arquivo.rpm`) | pelo dnf/zypper |
@@ -91,6 +92,9 @@ O `.deb`, o `.rpm` e o pacote do Arch já instalam a regra udev que libera giros
 No AppImage e no Flatpak, instale a regra uma vez no sistema:
 `sudo cp packaging/linux/70-gamepadlab.rules /etc/udev/rules.d/ && sudo udevadm control --reload-rules`.
 O Flatpak precisa do runtime GNOME (o `flatpak install` baixa sozinho do Flathub).
+
+A versão portátil do Windows guarda tudo na pasta `GamepadLab-data`, ao lado do `.exe` (dá para levar num pendrive):
+veja [docs/platforms/windows.md](docs/platforms/windows.md#versão-portátil). No Linux, o AppImage já roda sem instalar.
 
 Depois de instalar, veja as **permissões** do seu sistema:
 [macOS](docs/platforms/macos.md) · [Linux](docs/platforms/linux.md) · [Windows](docs/platforms/windows.md).
@@ -217,5 +221,5 @@ raw data with min/max, guided button test, rumble patterns, DualSense adaptive t
 touchpad, real polling rate and jitter, ghosting, up to 8 controllers, a stream overlay, a 5-step calibration
 wizard with circularity/drift/spike analysis, live-preview deadzones and curves, versioned profiles, local
 SQLite history and PNG/PDF/JSON reports. Interface in Portuguese, English and Spanish. Installers: `.dmg`,
-`.exe`/`.msi`, AppImage, `.deb`, `.rpm`, Flatpak and an Arch package. No telemetry. Build with
+`.exe`/`.msi`, a portable Windows `.zip`, AppImage, `.deb`, `.rpm`, Flatpak and an Arch package. No telemetry. Build with
 `npm install && npm run tauri dev`.

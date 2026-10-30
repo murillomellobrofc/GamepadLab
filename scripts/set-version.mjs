@@ -26,6 +26,13 @@ if (next === cargo && !cargo.includes(`version = "${version}"`)) {
 }
 writeFileSync('Cargo.toml', next);
 
+// The Arch PKGBUILD names the .deb by version (the release workflow also patches its copy).
+const pkgbuild = 'packaging/arch/PKGBUILD';
+writeFileSync(
+  pkgbuild,
+  readFileSync(pkgbuild, 'utf8').replace(/^pkgver=.*$/m, `pkgver=${version}`),
+);
+
 // Keep the lockfiles in step (npm workspaces record their own version; Cargo.lock records the crates').
 execSync('npm install --package-lock-only --ignore-scripts', { stdio: 'inherit' });
 execSync('cargo update --workspace', { stdio: 'inherit' });

@@ -26,6 +26,7 @@
   "checkNow": "Check now",
   "updaterOff": "The updater is not configured in this build.",
   "updaterPackaged": "This install is updated by your system's package manager (apt, dnf, pacman or Flatpak).",
+  "updaterPortable": "Portable version: to update, download the new .zip from the GitHub Releases page and replace GamepadLab.exe. Your data stays in the GamepadLab-data folder.",
   "upToDate": "You are on the latest version.",
   "updateAvailable": "Version {version} available",
   "installUpdate": "Download and install",

@@ -137,6 +137,7 @@ pub fn configure<R: Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
 }
 
 pub fn run() {
+    enable_portable_mode();
     logging::init(log::LevelFilter::Info);
 
     let app = configure(
@@ -154,4 +155,25 @@ pub fn run() {
             log::logger().flush();
         }
     });
+}
+
+/// Windows portable .zip: with PORTABLE.txt next to the .exe, keep app data, logs and the
+/// WebView2 profile (settings such as language and theme) in `GamepadLab-data` beside it.
+/// Runs before Tauri starts so every webview picks up the folder.
+fn enable_portable_mode() {
+    if !cfg!(windows) {
+        return;
+    }
+    let Some(dir) = std::env::current_exe()
+        .ok()
+        .and_then(|exe| platform::portable_data_dir(&exe))
+    else {
+        return;
+    };
+    if std::env::var_os("GAMEPADLAB_DATA_DIR").is_none() {
+        std::env::set_var("GAMEPADLAB_DATA_DIR", &dir);
+    }
+    // WebView2 honours this over the folder Tauri would pass.
+    std::env::set_var("WEBVIEW2_USER_DATA_FOLDER", dir.join("webview"));
+    std::env::set_var("GAMEPADLAB_PORTABLE", "1");
 }

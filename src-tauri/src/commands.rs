@@ -20,6 +20,7 @@ pub fn updater_configured<R: Runtime>(app: &AppHandle<R>) -> bool {
         .and_then(|k| k.as_str())
         .is_some_and(|k| !k.is_empty() && !k.starts_with("REPLACE_"))
         && !platform::package_managed()
+        && !platform::is_portable()
 }
 
 #[tauri::command]

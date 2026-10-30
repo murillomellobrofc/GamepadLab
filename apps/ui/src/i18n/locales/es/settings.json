@@ -26,6 +26,7 @@
   "checkNow": "Buscar ahora",
   "updaterOff": "El actualizador no está configurado en esta versión.",
   "updaterPackaged": "Esta instalación se actualiza con el gestor de paquetes del sistema (apt, dnf, pacman o Flatpak).",
+  "updaterPortable": "Versión portátil: para actualizar, descarga el .zip nuevo de la página de Releases de GitHub y reemplaza GamepadLab.exe. Tus datos se quedan en la carpeta GamepadLab-data.",
   "upToDate": "Tienes la versión más reciente.",
   "updateAvailable": "Versión {version} disponible",
   "installUpdate": "Descargar e instalar",

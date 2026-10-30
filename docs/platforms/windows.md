@@ -12,9 +12,17 @@
 - **Steam Input** remapeia e pode duplicar ou esconder controles: o app avisa quando o Steam está aberto.
 - **DS4Windows / HidHide** podem esconder o controle físico e mostrar um virtual (ViGEm). Desative-os para testar.
 
+## Versão portátil
+O `GamepadLab_x.y.z_x64-portable.zip` traz só o `GamepadLab.exe` e o `PORTABLE.txt`. Enquanto o `PORTABLE.txt`
+estiver ao lado do `.exe`, tudo o que o app grava (dados, logs e o perfil do WebView2, onde ficam idioma e tema)
+vai para a pasta `GamepadLab-data` ali mesmo, e nada vai para `%APPDATA%` ou `%LOCALAPPDATA%`. Apagar o
+`PORTABLE.txt` volta para as pastas normais do usuário. A versão portátil não se atualiza sozinha: baixe o `.zip`
+novo e troque o `.exe`. Precisa do WebView2 Runtime (já vem no Windows 10 atualizado e no 11).
+
 ## Compilar
-Visual Studio Build Tools (C++), Rust MSVC e WebView2 (já incluso no Windows 11). `npm run tauri build` gera o MSI
-(WiX é baixado automaticamente) em `target/release/bundle/msi/`, um para pt-BR e outro para en-US.
+Visual Studio Build Tools (C++), Rust MSVC e WebView2 (já incluso no Windows 11). `npm run tauri build` gera o
+instalador `.exe` em `target/release/bundle/nsis/` e os MSI (WiX é baixado automaticamente) em
+`target/release/bundle/msi/`, um para cada idioma (pt-BR, en-US, es-ES).
 
 ## SmartScreen e assinatura
 Instaladores sem assinatura disparam o aviso do SmartScreen ("Mais informações → Executar assim mesmo"). Para
