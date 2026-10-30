@@ -1,0 +1,29 @@
+{
+  "title": "Historial de pruebas",
+  "empty": "Aún no hay sesiones guardadas. Usa \"Guardar en el historial\" después de una prueba, una medición de latencia o una calibración.",
+  "filter": "Filtrar",
+  "all": "Todas",
+  "kinds": {
+    "test": "Prueba",
+    "buttons": "Botones",
+    "calibration": "Calibración",
+    "latency": "Latencia",
+    "ghosting": "Ghosting",
+    "vibration": "Vibración",
+    "firmware": "Firmware"
+  },
+  "date": "Fecha",
+  "controller": "Control",
+  "kind": "Tipo",
+  "score": "Nota",
+  "summary": "Resumen",
+  "delete": "Eliminar",
+  "clear": "Borrar todo",
+  "confirmClear": "¿Borrar todo el historial? Esto no se puede deshacer.",
+  "select": "Seleccionar la sesión {id}",
+  "selected": "{n} seleccionadas",
+  "report": "Exportar informe",
+  "local": "El historial se queda solo en este equipo (SQLite en la carpeta de datos de la app).",
+  "saved": "Sesión guardada en el historial",
+  "details": "Detalles"
+}

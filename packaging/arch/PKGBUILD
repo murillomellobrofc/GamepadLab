@@ -1,0 +1,24 @@
+# Maintainer: Murillo Mello <187886760+murillomellobrofc@users.noreply.github.com>
+# Repackages the official .deb from the GitHub release. The release workflow builds this
+# PKGBUILD in an Arch container and attaches the .pkg.tar.zst; the same file can go to the AUR.
+pkgname=gamepadlab-bin
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Test and calibrate game controllers (Xbox, DualShock 4, DualSense, Switch Pro)"
+arch=('x86_64')
+url="https://github.com/murillomellobrofc/GamepadLab"
+license=('MIT')
+depends=('webkit2gtk-4.1' 'gtk3' 'systemd-libs' 'hicolor-icon-theme')
+provides=('gamepadlab')
+conflicts=('gamepadlab')
+source=("GamepadLab_${pkgver}_amd64.deb::${url}/releases/download/v${pkgver}/GamepadLab_${pkgver}_amd64.deb"
+        "LICENSE-${pkgver}::https://raw.githubusercontent.com/murillomellobrofc/GamepadLab/v${pkgver}/LICENSE")
+sha256sums=('SKIP'
+            'SKIP')
+noextract=("GamepadLab_${pkgver}_amd64.deb")
+
+package() {
+  bsdtar -xf "GamepadLab_${pkgver}_amd64.deb" data.tar.gz
+  bsdtar -xf data.tar.gz -C "$pkgdir"
+  install -Dm644 "LICENSE-${pkgver}" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

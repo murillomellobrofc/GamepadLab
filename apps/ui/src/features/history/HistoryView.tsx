@@ -4,7 +4,7 @@ import type { HistorySession, SessionKind } from '@/api/types';
 import { errorToast } from '@/app/bootstrap';
 import { ConfirmDialog } from '@/app/ConfirmDialog';
 import { Icon } from '@/app/icons';
-import { useT, type TKey } from '@/i18n';
+import { formatDateTime, useT, type TKey } from '@/i18n';
 import { useApp } from '@/state/app';
 import ui from '@/styles/ui.module.css';
 import { ReportDialog } from '../report/ReportDialog';
@@ -114,7 +114,7 @@ export function HistoryView() {
                       aria-label={t('history.select', { id: s.id })}
                     />
                   </td>
-                  <td>{new Date(s.createdAt).toLocaleString()}</td>
+                  <td>{formatDateTime(s.createdAt)}</td>
                   <td className={css.ui}>{t(`history.kinds.${s.kind}` as TKey)}</td>
                   <td className={css.ui}>{s.controllerName}</td>
                   <td>{s.score ?? '—'}</td>

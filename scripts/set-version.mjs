@@ -1,5 +1,6 @@
 // Sets the app version everywhere it lives: npm run version:set -- 0.2.0
 // The updater compares this number with latest.json, so all four must agree with the git tag.
+import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const version = process.argv[2];
@@ -24,5 +25,9 @@ if (next === cargo && !cargo.includes(`version = "${version}"`)) {
   process.exit(1);
 }
 writeFileSync('Cargo.toml', next);
+
+// Keep the lockfiles in step (npm workspaces record their own version; Cargo.lock records the crates').
+execSync('npm install --package-lock-only --ignore-scripts', { stdio: 'inherit' });
+execSync('cargo update --workspace', { stdio: 'inherit' });
 
 console.log(`version set to ${version}; next: git commit, git tag v${version}, git push --tags`);

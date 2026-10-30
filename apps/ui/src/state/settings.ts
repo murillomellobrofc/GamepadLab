@@ -19,7 +19,7 @@ export interface OverlaySettings {
 export interface Settings {
   theme: ThemePref;
   highContrast: boolean;
-  locale: 'pt-BR' | 'en';
+  locale: 'pt-BR' | 'en' | 'es';
   textScale: number;
   motion: MotionPref;
   uiRate: 60 | 120;
@@ -34,7 +34,10 @@ export interface Settings {
 
 function detectLocale(): Settings['locale'] {
   try {
-    return navigator.language?.toLowerCase().startsWith('pt') ? 'pt-BR' : 'en';
+    const lang = navigator.language?.toLowerCase() ?? '';
+    if (lang.startsWith('pt')) return 'pt-BR';
+    if (lang.startsWith('es')) return 'es';
+    return 'en';
   } catch {
     return 'pt-BR';
   }

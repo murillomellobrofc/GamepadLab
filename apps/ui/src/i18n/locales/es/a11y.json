@@ -1,0 +1,5 @@
+{
+  "gamepadNavOn": "Navegación con el control activada",
+  "gamepadNavPaused": "Navegación con el control pausada durante la prueba",
+  "gamepadNavHint": "Cruceta/stick mueven el foco · A confirma · B vuelve · LB/RB cambian de pestaña"
+}

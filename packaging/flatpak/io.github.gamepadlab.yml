@@ -1,0 +1,38 @@
+# Flatpak bundle built from the release .deb (see .github/workflows/release.yml).
+# Local build: put the .deb here as gamepadlab.deb, then
+#   flatpak-builder --user --install --force-clean build io.github.gamepadlab.yml
+id: io.github.gamepadlab
+runtime: org.gnome.Platform
+runtime-version: '50'
+sdk: org.gnome.Sdk
+command: gamepadlab
+finish-args:
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+  # Controllers: /dev/input/event* and /dev/hidraw*. The udev rule that lets the
+  # user open hidraw still has to be installed on the host (README, Linux section).
+  - --device=all
+  - --env=GAMEPADLAB_FLATPAK=1
+modules:
+  - name: gamepadlab
+    buildsystem: simple
+    sources:
+      - type: file
+        path: gamepadlab.deb
+      - type: file
+        path: io.github.gamepadlab.metainfo.xml
+    build-commands:
+      # The Tauri binary links WebKitGTK 4.1; fail early if the runtime stops shipping it.
+      - pkg-config --exists webkit2gtk-4.1
+      - ar -x gamepadlab.deb
+      - tar -xf data.tar.gz
+      - install -Dm755 usr/bin/gamepadlab /app/bin/gamepadlab
+      - install -Dm644 usr/share/applications/*.desktop /app/share/applications/io.github.gamepadlab.desktop
+      - desktop-file-edit --set-icon=io.github.gamepadlab /app/share/applications/io.github.gamepadlab.desktop
+      - |
+        for f in usr/share/icons/hicolor/*/apps/gamepadlab.png; do
+          size=$(basename "$(dirname "$(dirname "$f")")")
+          install -Dm644 "$f" "/app/share/icons/hicolor/$size/apps/io.github.gamepadlab.png"
+        done
+      - install -Dm644 io.github.gamepadlab.metainfo.xml /app/share/metainfo/io.github.gamepadlab.metainfo.xml

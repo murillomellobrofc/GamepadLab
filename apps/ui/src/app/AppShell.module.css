@@ -260,6 +260,16 @@
     display: none;
   }
 }
+/* Mid widths keep the full sidebar, so the tab row is tightest here: drop the tab icons
+   (labels stay) so longer languages still fit. Below 1020px the sidebar collapses instead. */
+@media (min-width: 1021px) and (max-width: 1280px) {
+  .tab {
+    padding: 0 9px;
+  }
+  .tab > svg {
+    display: none;
+  }
+}
 @media (max-width: 1180px) {
   .shell[data-raw='open'] {
     grid-template-columns: var(--sidebar-w) minmax(0, 1fr) 0;

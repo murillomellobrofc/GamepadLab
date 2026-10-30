@@ -160,6 +160,7 @@ export function createMockTransport(): Transport {
     arch: 'web',
     backends: ['mock'],
     updaterConfigured: false,
+    packageManaged: false,
     dataDir: '(navegador, somente memória)',
   };
   const handlers: Record<string, (a: Record<string, unknown>) => unknown> = {

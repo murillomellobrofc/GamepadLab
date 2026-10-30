@@ -85,8 +85,10 @@ fn full_flow_over_ipc() {
     let ipc = Ipc(webview);
 
     let info = ipc.ok("app_info", json!({}));
-    assert_eq!(info["version"], env!("CARGO_PKG_VERSION"));
+    // The bundle version (what the updater compares), not the crate's.
+    assert_eq!(info["version"], app.package_info().version.to_string());
     assert_eq!(info["updaterConfigured"], false);
+    assert_eq!(info["packageManaged"], cfg!(target_os = "linux"));
     assert_eq!(ipc.ok("list_controllers", json!({})), json!([]));
 
     // Validation errors come back as { code, message }.

@@ -16,6 +16,8 @@ pub struct AppInfo {
     pub arch: String,
     pub backends: Vec<String>,
     pub updater_configured: bool,
+    /// Installed from apt/dnf/pacman/Flatpak: the package manager owns updates.
+    pub package_managed: bool,
     pub data_dir: String,
 }
 
@@ -24,6 +26,12 @@ pub struct AppInfo {
 pub struct PlatformWarning {
     pub code: &'static str,
     pub message: String,
+}
+
+/// On Linux the built-in updater can only replace an AppImage. Anything else (.deb, .rpm,
+/// Arch package, Flatpak) is updated by the system package manager instead.
+pub fn package_managed() -> bool {
+    cfg!(target_os = "linux") && std::env::var_os("APPIMAGE").is_none()
 }
 
 pub fn os_version() -> String {
@@ -39,6 +47,7 @@ pub fn app_info(state: &AppState, version: String, updater_configured: bool) -> 
         arch: std::env::consts::ARCH.to_string(),
         backends: state.input.backend_names(),
         updater_configured,
+        package_managed: package_managed(),
         data_dir: state.data_dir.display().to_string(),
     }
 }

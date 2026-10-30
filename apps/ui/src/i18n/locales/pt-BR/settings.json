@@ -25,6 +25,7 @@
   "autoUpdate": "Procurar atualizações ao abrir",
   "checkNow": "Procurar agora",
   "updaterOff": "O updater não está configurado nesta build.",
+  "updaterPackaged": "Esta instalação é atualizada pelo gerenciador de pacotes do sistema (apt, dnf, pacman ou Flatpak).",
   "upToDate": "Você está na versão mais recente.",
   "updateAvailable": "Versão {version} disponível",
   "installUpdate": "Baixar e instalar",

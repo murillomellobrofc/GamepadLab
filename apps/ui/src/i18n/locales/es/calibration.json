@@ -1,0 +1,371 @@
+{
+  "tabs": {
+    "label": "Calibración",
+    "wizard": "Asistente",
+    "adjust": "Ajustes",
+    "profiles": "Perfiles"
+  },
+  "activeProfile": "Perfil activo",
+  "wizard": {
+    "title": "Asistente de calibración",
+    "intro": "Medimos un stick a la vez: reposo, rotación, 8 direcciones y gatillos. Tarda alrededor de un minuto. No se escribe nada en el control: la calibración queda en un perfil de la app.",
+    "chooseStick": "¿Qué stick?",
+    "left": "Izquierdo",
+    "right": "Derecho",
+    "includeTriggers": "Incluir los gatillos (paso 4)",
+    "start": "Empezar",
+    "stepOf": "Paso {n} de {total}",
+    "steps": {
+      "rest": "Reposo",
+      "rotation": "Rotación",
+      "directions": "8 direcciones",
+      "triggers": "Gatillos",
+      "result": "Resultado"
+    },
+    "rest": {
+      "title": "Suelta los sticks",
+      "body": "Deja el control quieto sobre una mesa y no toques nada. Medimos el centro durante 2 segundos.",
+      "measure": "Medir ahora",
+      "measuring": "Midiendo… {s} s",
+      "done": "Centro medido con {n} muestras."
+    },
+    "rotation": {
+      "title": "Gira el stick {stick} por el borde",
+      "body": "Empuja el stick contra el borde y gira despacio dos vueltas, luego rápido dos vueltas. Si puedes, hazlo en los dos sentidos. Sin prisa.",
+      "start": "Empezar a grabar",
+      "coverage": "Cobertura del círculo: {pct}",
+      "finish": "Terminar la rotación",
+      "lowCoverage": "Aún faltan partes del círculo. Gira un poco más o termina de todos modos."
+    },
+    "directions": {
+      "title": "Empuja en 8 direcciones",
+      "body": "Empuja el stick {stick} hasta el fondo y mantén medio segundo en cada dirección. La flecha se ilumina cuando se registra la dirección.",
+      "start": "Empezar",
+      "finish": "Terminar direcciones",
+      "progress": "{n} de 8 direcciones",
+      "names": {
+        "right": "Derecha",
+        "upRight": "Arriba-derecha",
+        "up": "Arriba",
+        "upLeft": "Arriba-izquierda",
+        "left": "Izquierda",
+        "downLeft": "Abajo-izquierda",
+        "down": "Abajo",
+        "downRight": "Abajo-derecha"
+      }
+    },
+    "triggers": {
+      "title": "Gatillos",
+      "releaseBody": "Suelta los dos gatillos. Medimos dónde reposa cada uno.",
+      "measureRest": "Medir reposo",
+      "press": "Pulsa {trigger} hasta el fondo y mantén",
+      "holdHint": "Mantén alrededor de un segundo y luego pulsa Listo.",
+      "done": "Listo",
+      "skip": "Omitir gatillos",
+      "value": "Ahora: {pct}"
+    },
+    "analyzing": "Analizando las mediciones…",
+    "retry": "Repetir este paso",
+    "next": "Continuar",
+    "cancel": "Cancelar",
+    "otherStick": "Calibrar el otro stick",
+    "restart": "Empezar de nuevo",
+    "demoNote": "En el modo demo, el control simulado hace todos los movimientos solo.",
+    "navPaused": "Durante el asistente, el control no navega por la app. Usa el ratón o el teclado."
+  },
+  "report": {
+    "title": "Informe del stick {stick}",
+    "score": "Nota de calidad",
+    "of100": "de 100",
+    "issues": {
+      "drift": "Descentrado (drift)",
+      "noise": "Centro con ruido",
+      "wandering": "El centro se desplaza con el tiempo",
+      "lowCoverage": "Rotación incompleta",
+      "incompleteTravel": "No llega al recorrido completo en algunas direcciones",
+      "weakSectors": "Sectores débiles en el círculo",
+      "aim": "Direcciones torcidas",
+      "spikes": "Picos de lectura",
+      "jumps": "Saltos de lectura"
+    },
+    "noIssues": "No se encontraron problemas.",
+    "rest": {
+      "title": "Reposo y drift",
+      "offset": "Desvío del centro",
+      "offsetXY": "X {x} · Y {y}",
+      "noise": "Ruido (desviación estándar)",
+      "maxDev": "Desviación máxima",
+      "rate": "Drift a lo largo del tiempo",
+      "grade": "Clasificación",
+      "suggestedDz": "Zona muerta sugerida",
+      "grades": {
+        "excellent": "Excelente",
+        "acceptable": "Aceptable",
+        "poor": "Malo",
+        "defective": "Defectuoso"
+      }
+    },
+    "circ": {
+      "title": "Circularidad",
+      "roundness": "Redondez",
+      "error": "Error medio (RMS)",
+      "radii": "Radio mín. / medio / máx.",
+      "coverage": "Cobertura",
+      "failing": "Sectores con problema",
+      "none": "ninguno",
+      "incomplete": "El stick no llega al recorrido completo en todas las direcciones. La calibración sugerida ya incluye un reescalado.",
+      "legendIdeal": "círculo ideal",
+      "legendReach": "alcance medido",
+      "legendPoints": "puntos grabados",
+      "legendFail": "sector con problema",
+      "legendAfter": "después de calibrar"
+    },
+    "dirs": {
+      "title": "8 direcciones",
+      "reach": "Alcance",
+      "aim": "Error de puntería",
+      "gate": "Forma del límite",
+      "ratio": "Diagonal / eje"
+    },
+    "gates": {
+      "none": "Sin límite",
+      "circle": "Circular",
+      "octagon": "Octogonal",
+      "square": "Cuadrado"
+    },
+    "spikes": {
+      "title": "Picos y ruido",
+      "count": "Picos",
+      "jumps": "Saltos",
+      "noise": "Ruido RMS",
+      "verdicts": {
+        "clean": "Limpio",
+        "noisy": "Con ruido",
+        "faulty": "Defectuoso"
+      }
+    },
+    "triggers": {
+      "title": "Gatillos",
+      "rest": "Reposo",
+      "max": "Máximo alcanzado",
+      "full": "Recorrido completo",
+      "incomplete": "No llega al 100 %: límite máximo sugerido {pct}",
+      "suggested": "Zona muerta sugerida"
+    },
+    "suggestion": {
+      "title": "Calibración sugerida",
+      "body": "Centro, zona muerta y escala calculados a partir de las mediciones. Se conservan tus ajustes de curva y sensibilidad.",
+      "apply": "Aplicar al perfil activo",
+      "applied": "Calibración aplicada al perfil \"{name}\"."
+    },
+    "compare": {
+      "title": "Antes y después",
+      "metric": "Medida",
+      "before": "Antes",
+      "after": "Después"
+    },
+    "hardwareNote": "La calibración por software no corrige el desgaste mecánico. Si el drift es grande o crece con el tiempo, hay que cambiar el módulo del stick.",
+    "save": "Guardar en el historial"
+  },
+  "adjust": {
+    "title": "Ajustes manuales",
+    "stick": "Stick",
+    "left": "Izquierdo",
+    "right": "Derecho",
+    "trigger": "Gatillos",
+    "innerDz": "Zona muerta interna",
+    "outerDz": "Zona muerta externa",
+    "mode": "Tipo de zona muerta",
+    "radial": "Radial",
+    "axial": "Axial",
+    "curve": "Curva de respuesta",
+    "curves": {
+      "linear": "Lineal",
+      "smooth": "Suave",
+      "aggressive": "Agresiva",
+      "sCurve": "Curva en S",
+      "custom": "Personalizada"
+    },
+    "sensX": "Sensibilidad X",
+    "sensY": "Sensibilidad Y",
+    "invertX": "Invertir X",
+    "invertY": "Invertir Y",
+    "swap": "Intercambiar X e Y",
+    "antiDz": "Anti zona muerta",
+    "antiDzHint": "Compensa la zona muerta del propio juego: el movimiento más pequeño ya entrega este valor.",
+    "gate": "Limitador de forma",
+    "gates": {
+      "none": "Ninguno",
+      "circle": "Círculo",
+      "octagon": "Octógono",
+      "square": "Cuadrado"
+    },
+    "center": "Centro corregido",
+    "ranges": "Escala por dirección",
+    "resetStick": "Restablecer este stick",
+    "trig": {
+      "left": "Gatillo izquierdo",
+      "right": "Gatillo derecho",
+      "deadzone": "Zona muerta inicial",
+      "max": "Límite máximo",
+      "activation": "Punto de activación",
+      "digital": "Modo digital (sí/no)"
+    },
+    "preview": "Vista previa en vivo",
+    "rawDot": "crudo",
+    "calDot": "calibrado",
+    "saved": "Guardado",
+    "saving": "Guardando…",
+    "curveEditor": "Editor de curva",
+    "curveHelp": "Arrastra los puntos. Haz doble clic en un espacio vacío para añadir uno; selecciona un punto y pulsa Supr para quitarlo. Teclado: Tab selecciona, las flechas mueven (Shift mueve más).",
+    "point": "Punto {n}: entrada {x}, salida {y}",
+    "addPoint": "Añadir punto",
+    "input": "entrada",
+    "output": "salida",
+    "liveNote": "El resultado se aplica en todas las pantallas: usa Crudo/Calibrado arriba para comparar."
+  },
+  "profiles": {
+    "title": "Perfiles de {device}",
+    "key": "Identificación",
+    "active": "Activo",
+    "activate": "Activar",
+    "new": "Nuevo perfil",
+    "newName": "Nuevo perfil",
+    "rename": "Renombrar",
+    "duplicate": "Duplicar",
+    "export": "Exportar JSON",
+    "import": "Importar JSON",
+    "delete": "Eliminar",
+    "reset": "Volver a los valores de fábrica",
+    "confirmDelete": "¿Eliminar el perfil \"{name}\"? Esto no se puede deshacer.",
+    "confirmReset": "¿Volver \"{name}\" a los valores de fábrica? Se perderán los ajustes actuales.",
+    "imported": "Perfil \"{name}\" importado.",
+    "exported": "Perfil exportado.",
+    "updated": "Actualizado el {date}",
+    "measured": "Medido por el asistente el {date}",
+    "hint": "Cada control tiene sus propios perfiles, identificados por VID:PID y el número de serie cuando está disponible. Cambia de perfil con un clic.",
+    "renamePrompt": "Nuevo nombre",
+    "save": "Guardar nombre"
+  },
+  "firmware": {
+    "tab": "En el control (firmware)",
+    "title": "Calibración guardada en el control",
+    "intro": "Escribe la calibración en el propio control, así funciona en todas partes: PS4/PS5, Switch, PC y cualquier juego. Es distinta de la calibración por software de las otras pestañas, que solo se aplica dentro de GamepadLab.",
+    "simulated": "Simulado en el control demo: no se escribe nada en un control real.",
+    "notSupported": "Este control no acepta calibración por firmware.",
+    "whyNot": {
+      "xbox": "Los controles Xbox no tienen un comando de calibración público: el protocolo es cerrado y el firmware está firmado. Usa la calibración por software (pestañas Asistente y Ajustes).",
+      "generic": "Solo DualShock 4, DualSense y Switch Pro tienen calibración por firmware conocida. Usa la calibración por software (pestañas Asistente y Ajustes)."
+    },
+    "risks": {
+      "title": "Antes de empezar",
+      "wear": "No corrige el drift causado por desgaste mecánico: en ese caso hay que cambiar el módulo del stick.",
+      "battery": "Mantén la batería por encima del 30 % y el cable conectado. Si el control se apaga en medio de una escritura permanente, puede quedar inutilizable.",
+      "noUndo": "Una escritura permanente en DualShock 4/DualSense no puede volver a la calibración de fábrica: solo puedes escribir otra encima.",
+      "tempFirst": "Por eso GamepadLab siempre calibra primero en modo temporal (desaparece cuando el control se apaga). Revisas el resultado y solo entonces decides hacerlo permanente.",
+      "credits": "Comandos de Sony portados del proyecto de código abierto DualShock Calibration GUI (MIT, the_al), el mismo que usa el calibrador de PG Custom."
+    },
+    "status": {
+      "title": "Estado del control",
+      "model": "Modelo",
+      "genuine": "Original",
+      "firmware": "Firmware",
+      "connection": "Conexión",
+      "battery": "Batería",
+      "memory": "Memoria",
+      "changes": "Cambios",
+      "yes": "Sí",
+      "no": "No (clon)",
+      "unknown": "Desconocido",
+      "nv": {
+        "locked": "Temporal (seguro)",
+        "unlocked": "Permanente",
+        "pendingReboot": "Esperando reinicio",
+        "unknown": "Desconocido",
+        "notApplicable": "—"
+      },
+      "unsaved": "Calibración temporal activa, aún sin guardar",
+      "clean": "Sin cambios pendientes",
+      "refresh": "Actualizar"
+    },
+    "blockers": {
+      "bluetooth": "Conecta con un cable USB. La calibración de Sony no se puede hacer por Bluetooth.",
+      "clone": "Parece un control clon o no original: los comandos de fábrica no funcionan en él.",
+      "outdatedFirmware": "El firmware del DualSense está desactualizado (2020/2021). Actualízalo desde la consola o la app oficial de Sony e inténtalo de nuevo.",
+      "edgeNeedsHardwareMod": "El DualSense Edge necesita una modificación de hardware para guardar la calibración del módulo. GamepadLab no hace eso.",
+      "lowBattery": "Batería por debajo del 30 %. Carga el control antes de calibrar.",
+      "batteryUnknown": "No se pudo leer la batería. Mueve el control unos segundos o vuelve a conectarlo.",
+      "pendingReboot": "El control está esperando un reinicio. Reinícialo e inténtalo de nuevo."
+    },
+    "center": {
+      "title": "1. Centro",
+      "fourStep": "En 4 pasos (recomendado)",
+      "quick": "Rápido",
+      "quickBody": "Suelta los dos sticks y no toques el control. La app toma 5 muestras del centro.",
+      "start": "Empezar calibración del centro",
+      "running": "Calibrando el centro: no cierres la app ni desconectes el control.",
+      "corner": {
+        "0": "Lleva los dos sticks a la esquina superior izquierda y suéltalos.",
+        "1": "Lleva los dos sticks a la esquina superior derecha y suéltalos.",
+        "2": "Lleva los dos sticks a la esquina inferior izquierda y suéltalos.",
+        "3": "Lleva los dos sticks a la esquina inferior derecha y suéltalos."
+      },
+      "whenCentered": "Cuando los sticks vuelvan al centro, pulsa Continuar.",
+      "continue": "Continuar",
+      "done": "Centro calibrado (temporal)."
+    },
+    "range": {
+      "title": "2. Recorrido",
+      "body": "Gira los dos sticks despacio contra el borde: al menos 2 vueltas en un sentido y 2 en el otro. Sigue girando aunque la cobertura suba despacio.",
+      "start": "Empezar calibración del recorrido",
+      "coverage": "Cobertura: izquierdo {left} · derecho {right}",
+      "finish": "Terminar",
+      "wait": "Terminar (se habilita en {s} s)",
+      "done": "Recorrido calibrado (temporal)."
+    },
+    "check": {
+      "title": "3. Comprobar",
+      "body": "Mueve los sticks y comprueba: suelto, el punto debe quedar en el centro; girando, debe tocar el círculo. Para ver números, usa la pestaña Asistente. Los controles de Sony salen de fábrica con un error medio de circularidad de 7 a 9 %, y eso es lo que esperan los juegos."
+    },
+    "decide": {
+      "title": "4. Decidir",
+      "body": "La calibración solo está activa hasta que el control se apague. Elige qué hacer:",
+      "keep": "Mantener hasta apagar",
+      "discard": "Descartar (reiniciar el control)",
+      "save": "Guardar de forma permanente",
+      "ack": "Entiendo que un guardado permanente no puede volver a la calibración de fábrica.",
+      "confirmTitle": "¿Guardar en el control?",
+      "confirmBody": "La calibración actual se escribirá en la memoria del control y funcionará en cualquier consola o PC. No desconectes el cable mientras se guarda.",
+      "saved": "Calibración guardada en el control.",
+      "discarded": "Control reiniciado: se descartó la calibración temporal."
+    },
+    "switch": {
+      "untested": "Experimental: la escritura de calibración del Switch Pro solo se ha probado en simulación, todavía no en un control real.",
+      "enable": "Activar modo completo (HID)",
+      "enableHint": "El Switch Pro debe estar en modo completo para que la app lea y escriba su memoria. Si deja de responder en otras apps, desconéctalo y vuelve a conectarlo.",
+      "read": "Leer la calibración del control",
+      "factory": "Fábrica",
+      "user": "Usuario",
+      "noUser": "sin calibración de usuario",
+      "left": "Stick izquierdo",
+      "right": "Stick derecho",
+      "center": "Centro X/Y",
+      "ranges": "Recorrido X−/X+ · Y−/Y+",
+      "measureTitle": "Medir",
+      "measureBody": "Para cada stick: mide el reposo (suelto) y la rotación (girando contra el borde).",
+      "rest": "Reposo",
+      "rotation": "Rotación",
+      "measured": "medido",
+      "propose": "Calcular nueva calibración",
+      "proposal": "Propuesta",
+      "raised": "Algunos recorridos estaban por debajo del mínimo que acepta la consola y se aumentaron: puede que el stick no llegue al 100 % en la consola.",
+      "write": "Escribir en la memoria del control",
+      "writeConfirm": "Se reemplazará la calibración de usuario (la misma que escribe la consola en Calibrar palancas). Antes se guarda una copia del valor actual. La calibración de fábrica nunca se toca.",
+      "written": "Calibración escrita y verificada. Copia en {path}",
+      "clear": "Borrar calibración de usuario (volver a fábrica)",
+      "clearConfirm": "El control volverá a su calibración de fábrica. Antes se guarda una copia.",
+      "cleared": "Calibración de usuario borrada. Copia en {path}",
+      "ack": "Entiendo los riesgos de escribir en la memoria del control."
+    }
+  }
+}

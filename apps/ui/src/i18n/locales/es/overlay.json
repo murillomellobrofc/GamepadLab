@@ -1,0 +1,25 @@
+{
+  "title": "Overlay para streaming",
+  "intro": "Una ventana pequeña, sin bordes y siempre visible, que muestra el control en vivo. Captúrala en OBS o en cualquier app de streaming.",
+  "controller": "Control mostrado",
+  "background": "Fondo",
+  "backgrounds": {
+    "transparent": "Transparente",
+    "green": "Verde chroma",
+    "blue": "Azul chroma",
+    "magenta": "Magenta chroma"
+  },
+  "scale": "Escala",
+  "showSticks": "Mostrar sticks",
+  "showTriggers": "Mostrar gatillos",
+  "showTrail": "Rastro del stick",
+  "calibrated": "Mostrar valores calibrados",
+  "alwaysOnTop": "Siempre visible",
+  "open": "Abrir overlay",
+  "close": "Cerrar overlay",
+  "preview": "Vista previa",
+  "obsTip": "En OBS: usa \"Captura de ventana\" y elige \"GamepadLab Overlay\". Con fondo chroma, añade un filtro Chroma Key con el mismo color.",
+  "drag": "Arrastra aquí para mover",
+  "noController": "Ningún control conectado",
+  "browserNote": "En el modo navegador, el overlay se abre en una ventana emergente."
+}

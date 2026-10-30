@@ -430,6 +430,8 @@ export interface AppInfo {
   arch: string;
   backends: string[];
   updaterConfigured: boolean;
+  /** Linux package install (apt/dnf/pacman/Flatpak): updates come from the package manager. */
+  packageManaged: boolean;
   dataDir: string;
 }
 

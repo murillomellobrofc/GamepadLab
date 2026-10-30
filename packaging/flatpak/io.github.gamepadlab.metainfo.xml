@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.gamepadlab</id>
+  <name>GamepadLab</name>
+  <summary>Test and calibrate game controllers</summary>
+  <summary xml:lang="pt-BR">Teste e calibração de controles</summary>
+  <summary xml:lang="es">Prueba y calibración de controles</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <developer id="io.github.murillomellobrofc">
+    <name>Murillo Mello</name>
+  </developer>
+  <description>
+    <p>
+      Tests and calibrates Xbox, DualShock 4, DualSense, Switch Pro and generic controllers:
+      buttons, sticks, triggers, rumble, gyroscope, touchpad, latency, circularity, deadzones
+      and response curves. Everything runs locally, with no telemetry.
+    </p>
+    <p xml:lang="pt-BR">
+      Testa e calibra controles Xbox, DualShock 4, DualSense, Switch Pro e genéricos: botões,
+      analógicos, gatilhos, vibração, giroscópio, touchpad, latência, circularidade, deadzone e
+      curvas. Tudo roda no seu computador, sem telemetria.
+    </p>
+    <p xml:lang="es">
+      Prueba y calibra controles Xbox, DualShock 4, DualSense, Switch Pro y genéricos: botones,
+      sticks, gatillos, vibración, giroscopio, touchpad, latencia, circularidad, zonas muertas y
+      curvas. Todo funciona en tu equipo, sin telemetría.
+    </p>
+  </description>
+  <launchable type="desktop-id">io.github.gamepadlab.desktop</launchable>
+  <url type="homepage">https://github.com/murillomellobrofc/GamepadLab</url>
+  <url type="bugtracker">https://github.com/murillomellobrofc/GamepadLab/issues</url>
+  <categories>
+    <category>Utility</category>
+  </categories>
+  <content_rating type="oars-1.1" />
+  <supports>
+    <control>gamepad</control>
+  </supports>
+  <releases>
+    <release version="0.2.0" date="2026-10-30">
+      <description>
+        <p>Spanish translation; Windows .exe, RPM, Flatpak and Arch packages.</p>
+      </description>
+    </release>
+    <release version="0.1.0" date="2026-10-29" />
+  </releases>
+</component>

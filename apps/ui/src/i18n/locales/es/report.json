@@ -1,0 +1,21 @@
+{
+  "title": "Informe",
+  "dialogTitle": "Exportar informe",
+  "format": "Formato",
+  "png": "Imagen PNG",
+  "pdf": "Documento PDF",
+  "json": "Datos JSON",
+  "generate": "Generar y guardar",
+  "generating": "Generando…",
+  "saved": "Informe guardado",
+  "heading": "Informe de GamepadLab",
+  "generated": "Generado el {date}",
+  "device": "Control",
+  "sessions": "Sesiones",
+  "buttons": "Lista de botones",
+  "calibration": "Calibración",
+  "latency": "Latencia",
+  "ghosting": "Ghosting",
+  "noTelemetry": "Generado localmente por GamepadLab. No se envió ningún dato a internet.",
+  "contents": "El informe incluye los gráficos de circularidad, drift y latencia y la lista de botones de las sesiones elegidas."
+}

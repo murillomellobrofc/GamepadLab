@@ -1,0 +1,57 @@
+{
+  "disconnected": {
+    "title": "Control desconectado",
+    "action": "Vuelve a conectar el cable o enciende el control manteniendo pulsado el botón central."
+  },
+  "permissionDenied": {
+    "title": "Sin permiso para leer el control",
+    "action": "macOS: permítelo en Privacidad y seguridad > Monitorización de entrada. Linux: instala la regla udev de GamepadLab. Windows: cierra las apps que retienen el control (DS4Windows, Steam)."
+  },
+  "driverMissing": {
+    "title": "No se encontró el driver del control",
+    "action": "Actualiza el sistema y vuelve a conectar. En Windows, los controles Xbox antiguos necesitan el driver oficial."
+  },
+  "backendUnavailable": {
+    "title": "Lectura de controles no disponible",
+    "action": "Reinicia la app. En Linux, comprueba que udev esté activo y que tu usuario esté en el grupo input."
+  },
+  "rumbleUnsupported": {
+    "title": "Este control no acepta ese comando",
+    "action": "La vibración, las luces o los gatillos adaptativos no están disponibles en este control o en esta conexión."
+  },
+  "hidAccess": {
+    "title": "No se pudo comunicar con el control",
+    "action": "Desconéctalo y vuelve a conectarlo. Si usas Bluetooth, prueba con un cable USB."
+  },
+  "io": {
+    "title": "No se pudo leer o guardar el archivo",
+    "action": "Revisa la carpeta elegida, los permisos y el espacio libre en disco."
+  },
+  "invalidInput": {
+    "title": "Datos no válidos",
+    "action": "Revisa el archivo o los valores e inténtalo de nuevo."
+  },
+  "notFound": {
+    "title": "Elemento no encontrado",
+    "action": "Puede que se haya eliminado. Actualiza la lista."
+  },
+  "internal": {
+    "title": "Error inesperado",
+    "action": "Copia el diagnóstico desde Ajustes y abre un issue en el GitHub del proyecto."
+  },
+  "warnings": {
+    "steamRunning": "Steam está abierto. Steam Input puede reasignar, ocultar o duplicar controles: cierra Steam o desactiva Steam Input para probar el control real.",
+    "inputMonitoring": "macOS está bloqueando la Monitorización de entrada. Algunos controles solo aparecen después de permitir GamepadLab.",
+    "hidrawPermission": "Sin permiso de hidraw: giroscopio, touchpad, barra de luz y gatillos no estarán disponibles hasta que instales la regla udev de GamepadLab.",
+    "virtualDevice": "Hay un control virtual conectado (Steam Input, ViGEm…). Refleja uno real y puede aparecer como copia.",
+    "openSettings": "Abrir ajustes"
+  },
+  "firmwareBlocked": {
+    "title": "Se bloqueó la escritura en el control",
+    "action": "Una comprobación de seguridad detuvo la operación. Revisa los avisos en la pestaña Firmware y corrígelos antes de intentarlo de nuevo."
+  },
+  "firmwareProtocol": {
+    "title": "El control respondió de forma inesperada",
+    "action": "No se guardó nada de forma permanente. Reinicia el control (desconecta y vuelve a conectar) e inténtalo de nuevo por USB."
+  }
+}

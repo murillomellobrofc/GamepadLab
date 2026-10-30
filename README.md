@@ -63,7 +63,7 @@ latência real, giroscópio, touchpad, ghosting, perfis, histórico, relatórios
 
 **Extras**
 - Temas escuro, claro e automático, alto contraste, tamanho de texto, animações reduzidas.
-- PT-BR e inglês (arquivos de tradução separados, com teste de paridade).
+- Português (Brasil), inglês e espanhol (arquivos de tradução separados, com teste de paridade).
 - Acessibilidade: navegação 100 % por teclado, leitor de tela (regiões ao vivo e rótulos), retorno visual
   para toda vibração, nenhum passo depende de áudio ou de tempo apertado, e dá para **navegar pelo app com o
   próprio controle** (PS/Xbox/Home ou Select+Start liga e desliga).
@@ -76,11 +76,21 @@ latência real, giroscópio, touchpad, ghosting, perfis, histórico, relatórios
 
 Baixe o instalador na página de [**Releases**](https://github.com/murillomellobrofc/GamepadLab/releases):
 
-| Sistema | Arquivo |
-|---|---|
-| macOS (Apple Silicon / Intel) | `GamepadLab_x.y.z_aarch64.dmg` / `GamepadLab_x.y.z_x64.dmg` |
-| Linux | `GamepadLab_x.y.z_amd64.AppImage` ou `.deb` |
-| Windows | `GamepadLab_x.y.z_x64_pt-BR.msi` |
+| Sistema | Arquivo | Atualização |
+|---|---|---|
+| macOS (Apple Silicon / Intel) | `GamepadLab_x.y.z_aarch64.dmg` / `GamepadLab_x.y.z_x64.dmg` | pelo app |
+| Windows (instalador) | `GamepadLab_x.y.z_x64-setup.exe` | pelo app |
+| Windows (MSI, para empresas) | `GamepadLab_x.y.z_x64_pt-BR.msi` (também `en-US` e `es-ES`) | pelo app |
+| Linux (qualquer distro) | `GamepadLab_x.y.z_amd64.AppImage` | pelo app |
+| Debian, Ubuntu, Mint | `GamepadLab_x.y.z_amd64.deb` (`sudo apt install ./arquivo.deb`) | pelo apt |
+| Fedora, openSUSE | `GamepadLab-x.y.z-1.x86_64.rpm` (`sudo dnf install ./arquivo.rpm`) | pelo dnf/zypper |
+| Arch, Manjaro, EndeavourOS | `gamepadlab-bin-x.y.z-1-x86_64.pkg.tar.zst` (`sudo pacman -U arquivo`) | pelo pacman |
+| Flatpak | `GamepadLab_x.y.z_x86_64.flatpak` (`flatpak install --user arquivo.flatpak`) | pelo Flatpak |
+
+O `.deb`, o `.rpm` e o pacote do Arch já instalam a regra udev que libera giroscópio, touchpad, luz e gatilhos.
+No AppImage e no Flatpak, instale a regra uma vez no sistema:
+`sudo cp packaging/linux/70-gamepadlab.rules /etc/udev/rules.d/ && sudo udevadm control --reload-rules`.
+O Flatpak precisa do runtime GNOME (o `flatpak install` baixa sozinho do Flathub).
 
 Depois de instalar, veja as **permissões** do seu sistema:
 [macOS](docs/platforms/macos.md) · [Linux](docs/platforms/linux.md) · [Windows](docs/platforms/windows.md).
@@ -107,8 +117,9 @@ Gerar o instalador do seu sistema:
 npm run tauri build
 ```
 
-Os arquivos ficam em `target/release/bundle/` (`macos/` e `dmg/` no macOS, `deb/` e `appimage/` no Linux,
-`msi/` no Windows). Para Intel no Mac com Apple Silicon: `npm run tauri build -- --target x86_64-apple-darwin`
+Os arquivos ficam em `target/release/bundle/` (`macos/` e `dmg/` no macOS, `deb/`, `rpm/` e `appimage/` no
+Linux, `msi/` e `nsis/` no Windows). O Flatpak e o pacote do Arch saem do `.deb`: veja `packaging/flatpak/` e
+`packaging/arch/` (o `PKGBUILD` serve também para publicar no AUR). Para Intel no Mac com Apple Silicon: `npm run tauri build -- --target x86_64-apple-darwin`
 (depois de `rustup target add x86_64-apple-darwin`).
 
 Para mexer só na interface no navegador (dados simulados): `npm run dev` e abra <http://localhost:1420>.
@@ -205,4 +216,6 @@ GamepadLab tests and calibrates game controllers on macOS, Linux and Windows: li
 raw data with min/max, guided button test, rumble patterns, DualSense adaptive triggers and lights, gyro,
 touchpad, real polling rate and jitter, ghosting, up to 8 controllers, a stream overlay, a 5-step calibration
 wizard with circularity/drift/spike analysis, live-preview deadzones and curves, versioned profiles, local
-SQLite history and PNG/PDF/JSON reports. No telemetry. Build with `npm install && npm run tauri dev`.
+SQLite history and PNG/PDF/JSON reports. Interface in Portuguese, English and Spanish. Installers: `.dmg`,
+`.exe`/`.msi`, AppImage, `.deb`, `.rpm`, Flatpak and an Arch package. No telemetry. Build with
+`npm install && npm run tauri dev`.

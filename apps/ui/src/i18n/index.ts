@@ -1,13 +1,15 @@
 import { useCallback } from 'react';
 import ptBR from './locales/pt-BR';
 import en from './locales/en';
+import es from './locales/es';
 import { useSettings } from '@/state/settings';
 
-export const LOCALES = { 'pt-BR': ptBR, en } as const;
+export const LOCALES = { 'pt-BR': ptBR, en, es } as const;
 export type Locale = keyof typeof LOCALES;
 export const LOCALE_NAMES: Record<Locale, string> = {
   'pt-BR': 'Português (Brasil)',
   en: 'English',
+  es: 'Español',
 };
 
 type Leaves<T, P extends string = ''> = {
@@ -19,9 +21,11 @@ export type TKey = Leaves<typeof ptBR>;
 export type TVars = Record<string, string | number>;
 export type TFn = (key: TKey, vars?: TVars) => string;
 
-// Compile-time guard: the English file must provide every PT-BR key.
+// Compile-time guard: every language must provide every PT-BR key.
 const _enMatchesShape: typeof ptBR = en;
+const _esMatchesShape: typeof ptBR = es;
 void _enMatchesShape;
+void _esMatchesShape;
 
 function lookup(dict: unknown, key: string): string | undefined {
   let node: unknown = dict;
@@ -53,4 +57,11 @@ export function flattenKeys(dict: object, prefix = ''): string[] {
   return Object.entries(dict).flatMap(([k, v]) =>
     typeof v === 'string' ? [`${prefix}${k}`] : flattenKeys(v as object, `${prefix}${k}.`),
   );
+}
+
+/** Date and time in the language picked in the app, not the system's. */
+export function formatDateTime(value: Date | string | number): string {
+  const d = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(d.getTime())) return String(value);
+  return d.toLocaleString(useSettings.getState().locale);
 }

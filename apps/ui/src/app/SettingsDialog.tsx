@@ -164,7 +164,9 @@ export function SettingsDialog() {
             <Icon name="refresh" size={16} /> {t('settings.checkNow')}
           </button>
           {update?.state === 'disabled' && (
-            <span className={ui.faint}>{t('settings.updaterOff')}</span>
+            <span className={ui.faint}>
+              {t(info?.packageManaged ? 'settings.updaterPackaged' : 'settings.updaterOff')}
+            </span>
           )}
           {update?.state === 'none' && <span className={ui.muted}>{t('settings.upToDate')}</span>}
           {update?.state === 'error' && (

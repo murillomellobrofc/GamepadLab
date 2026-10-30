@@ -1,0 +1,15 @@
+{
+  "axes": "Ejes",
+  "buttons": "Botones",
+  "name": "Nombre",
+  "value": "Valor",
+  "rawCol": "Crudo",
+  "min": "Mín",
+  "max": "Máx",
+  "presses": "Veces",
+  "seq": "Reporte",
+  "timestamp": "Tiempo",
+  "rate": "Frecuencia",
+  "reset": "Restablecer",
+  "resetDone": "Mínimos y máximos borrados"
+}

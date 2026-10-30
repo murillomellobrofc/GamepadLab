@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import type { CaptureSample, HistorySession, StickReport, TriggerAnalysis } from '@/api/types';
-import { useT, type TKey } from '@/i18n';
+import { formatDateTime, useT, type TKey } from '@/i18n';
 import { PAPER } from './paper';
 import { CoverageChart } from '../calibration/CoverageChart';
 import { compareRows } from '../calibration/report';
@@ -210,7 +210,7 @@ export const ReportSheet = forwardRef<
   { sessions: HistorySession[]; version: string }
 >(function ReportSheet({ sessions, version }, ref) {
   const t = useT();
-  const now = new Date().toLocaleString();
+  const now = formatDateTime(new Date());
   return (
     <div ref={ref} className={css.sheet} data-testid="report-sheet">
       <header className={css.head}>
@@ -228,7 +228,7 @@ export const ReportSheet = forwardRef<
           <section key={s.id} className={css.section}>
             <h2>
               {t(`history.kinds.${s.kind}` as TKey)} · {s.controllerName}
-              <span>{new Date(s.createdAt).toLocaleString()}</span>
+              <span>{formatDateTime(s.createdAt)}</span>
             </h2>
             <p className={css.summary}>{s.summary}</p>
             {s.kind === 'buttons' && <Buttons p={p} />}

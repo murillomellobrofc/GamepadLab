@@ -4,7 +4,7 @@ import type { ControllerInfo, Profile } from '@/api/types';
 import { errorToast } from '@/app/bootstrap';
 import { ConfirmDialog } from '@/app/ConfirmDialog';
 import { Icon } from '@/app/icons';
-import { useT } from '@/i18n';
+import { formatDateTime, useT } from '@/i18n';
 import { openText, saveText, stamp } from '@/lib/files';
 import { useApp } from '@/state/app';
 import { useProfiles } from '@/state/profiles';
@@ -36,10 +36,7 @@ export function ProfilesPanel({ c }: { c: ControllerInfo }) {
     }
   };
 
-  const fmt = (iso: string) => {
-    const d = new Date(iso);
-    return Number.isNaN(d.getTime()) ? iso : d.toLocaleString();
-  };
+  const fmt = (iso: string) => formatDateTime(iso);
 
   return (
     <section className={ui.panel} aria-labelledby="profiles-title">

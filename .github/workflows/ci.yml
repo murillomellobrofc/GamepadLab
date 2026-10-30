@@ -91,11 +91,11 @@ jobs:
           - name: Linux x64
             os: ubuntu-22.04
             target: x86_64-unknown-linux-gnu
-            args: --bundles deb,appimage
+            args: --bundles deb,rpm,appimage
           - name: Windows x64
             os: windows-latest
             target: x86_64-pc-windows-msvc
-            args: --bundles msi
+            args: --bundles msi,nsis
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4

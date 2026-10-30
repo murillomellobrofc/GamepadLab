@@ -120,6 +120,10 @@ test('language and theme switch, keyboard tab navigation', async ({ page }) => {
   await page.getByRole('button', { name: 'Settings' }).click();
   await page.getByRole('combobox', { name: 'Language' }).selectOption('pt-BR');
   await expect(page.getByRole('heading', { name: 'Configurações' })).toBeVisible();
+  await page.getByRole('combobox', { name: 'Idioma' }).selectOption('es');
+  await expect(page.getByRole('heading', { name: 'Ajustes' })).toBeVisible();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+  await page.getByRole('combobox', { name: 'Idioma' }).selectOption('pt-BR');
   await page.getByRole('radio', { name: 'Claro' }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await page.keyboard.press('Escape');

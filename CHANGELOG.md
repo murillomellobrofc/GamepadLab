@@ -2,6 +2,15 @@
 
 ## Não lançado
 
+## 0.2.0
+
+- Espanhol: interface inteira traduzida, detecção automática pelo idioma do sistema e datas no idioma escolhido.
+- Novos instaladores: Windows `.exe` (além do `.msi`, agora também em espanhol), `.rpm` (Fedora/openSUSE),
+  Flatpak e pacote do Arch (`gamepadlab-bin`, pronto para o AUR). O `.rpm` também instala a regra udev.
+- Atualização pelo app só onde ela funciona: no Linux, instalações por apt, dnf, pacman ou Flatpak são
+  atualizadas pelo gerenciador de pacotes, e as Configurações explicam isso.
+- Abas do topo cabem inteiras em janelas de largura média em todos os idiomas.
+- CI no Windows: os testes de integração ganharam o manifesto de controles comuns que faltava.
 - Atualização automática ativada: chave de assinatura gerada, progresso do download, mensagens claras quando não
   há versão publicada ou falta internet, `npm run version:set` e checagem de tag no `release.yml`.
 - Correções do primeiro teste com controle real: botão Create do DualSense agora se chama Share, contador do
