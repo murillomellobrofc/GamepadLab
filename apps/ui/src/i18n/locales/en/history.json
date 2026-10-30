@@ -6,6 +6,7 @@
   "kinds": {
     "test": "Test",
     "buttons": "Buttons",
+    "buttonHealth": "Button health",
     "calibration": "Calibration",
     "latency": "Latency",
     "ghosting": "Ghosting",

@@ -6,6 +6,7 @@
   "kinds": {
     "test": "Teste",
     "buttons": "Botões",
+    "buttonHealth": "Saúde dos botões",
     "calibration": "Calibração",
     "latency": "Latência",
     "ghosting": "Ghosting",

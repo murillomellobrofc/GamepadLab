@@ -2,6 +2,7 @@ import { transport } from './transport';
 import type {
   AppErrorEvent,
   AppInfo,
+  ButtonPlan,
   CalibrationProfile,
   CaptureKind,
   CaptureResult,
@@ -12,6 +13,8 @@ import type {
   FirmwareOp,
   FirmwareResult,
   SwitchProposals,
+  HealthProgress,
+  HealthReport,
   HistorySession,
   PlatformWarning,
   Profile,
@@ -62,6 +65,10 @@ export const api = {
     call<void>('capture_start', { id, kind, target }),
   captureStop: () => call<CaptureResult>('capture_stop'),
   captureClear: () => call<void>('capture_clear'),
+  buttonHealthStart: (id: string) => call<void>('button_health_start', { id }),
+  buttonHealthProgress: () => call<HealthProgress>('button_health_progress'),
+  buttonHealthStop: (plans: ButtonPlan[]) => call<HealthReport>('button_health_stop', { plans }),
+  buttonHealthCancel: () => call<void>('button_health_cancel'),
   analyzeStick: (stick: StickSide, calibration: StickCalibration | null) =>
     call<StickReport>('analyze_stick', { stick, calibration }),
   analyzeTrigger: (side: TriggerSide) =>

@@ -4,6 +4,7 @@ import { Segmented } from '@/app/controls';
 import { useT } from '@/i18n';
 import ui from '@/styles/ui.module.css';
 import { ControllerHeader } from '../common/ControllerHeader';
+import { ButtonHealthTest } from './ButtonHealthTest';
 import { ControllerDiagram } from './ControllerDiagram';
 import { GhostingTest } from './GhostingTest';
 import { GuidedButtonTest } from './GuidedButtonTest';
@@ -12,7 +13,7 @@ import { TriggerBar } from './TriggerBar';
 import css from './TestView.module.css';
 import { VibrationPanel } from './VibrationPanel';
 
-type Sub = 'overview' | 'guided' | 'vibration' | 'ghosting';
+type Sub = 'overview' | 'guided' | 'health' | 'vibration' | 'ghosting';
 
 export function LiveOverview({ c }: { c: ControllerInfo }) {
   const t = useT();
@@ -54,6 +55,8 @@ export function LiveOverview({ c }: { c: ControllerInfo }) {
 export function TestView({ c }: { c: ControllerInfo }) {
   const t = useT();
   const [sub, setSub] = useState<Sub>('overview');
+  // Buttons the guided test flagged, handed to the health check.
+  const [suspects, setSuspects] = useState<number[]>([]);
   return (
     <>
       <ControllerHeader c={c} />
@@ -65,13 +68,23 @@ export function TestView({ c }: { c: ControllerInfo }) {
           options={[
             { value: 'overview', label: t('test.tabs.overview') },
             { value: 'guided', label: t('test.tabs.guided') },
+            { value: 'health', label: t('test.tabs.health') },
             { value: 'vibration', label: t('test.tabs.vibration') },
             { value: 'ghosting', label: t('test.tabs.ghosting') },
           ]}
         />
       </div>
       {sub === 'overview' && <LiveOverview c={c} />}
-      {sub === 'guided' && <GuidedButtonTest c={c} />}
+      {sub === 'guided' && (
+        <GuidedButtonTest
+          c={c}
+          onCheckHealth={(buttons) => {
+            setSuspects(buttons);
+            setSub('health');
+          }}
+        />
+      )}
+      {sub === 'health' && <ButtonHealthTest key={suspects.join()} c={c} initial={suspects} />}
       {sub === 'vibration' && <VibrationPanel c={c} />}
       {sub === 'ghosting' && <GhostingTest c={c} />}
     </>

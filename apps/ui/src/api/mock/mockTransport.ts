@@ -57,6 +57,13 @@ export class MockBackend {
     samples: { t: number; x: number; y: number }[];
     start: number;
   } | null = null;
+  /** Button-health recording: every edge of the demo pad, like the Rust service. */
+  health: {
+    start: number;
+    last: number;
+    prev: boolean[];
+    events: { button: number; pressed: boolean; tUs: number }[];
+  } | null = null;
 
   now(): number {
     return Math.round((performance.now() - this.clockStart) * 1000);
@@ -110,6 +117,21 @@ export class MockBackend {
             : s.right;
         if (this.capture.start < 0) this.capture.start = t;
         this.capture.samples.push({ t: t - this.capture.start, x, y });
+      }
+      if (this.health) {
+        const h = this.health;
+        const down = this.sim.sample(t).pressed;
+        if (h.start < 0) {
+          h.start = t;
+          h.prev = Array.from({ length: 19 }, (_, i) => down.includes(i));
+        } else {
+          for (let i = 0; i < 19; i++) {
+            const now = down.includes(i);
+            if (now !== h.prev[i]) h.events.push({ button: i, pressed: now, tUs: t - h.start });
+            h.prev[i] = now;
+          }
+        }
+        h.last = t;
       }
     }
     this.lastT = t;

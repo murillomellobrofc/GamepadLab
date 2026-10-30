@@ -1,4 +1,9 @@
 import type {
+  ButtonPlan,
+  HealthGrade,
+  HealthProgress,
+  HealthReport,
+  LiveButton,
   CalibratedView,
   CalibrationProfile,
   FirmwareOp,
@@ -12,9 +17,41 @@ import { envelope } from '@/lib/haptics';
 import reportLeft from './fixtures/report-left.json';
 import reportRight from './fixtures/report-right.json';
 import triggers from './fixtures/triggers.json';
+import buttonHealth from './fixtures/button-health.json';
 import { MockFirmware } from './mockFirmware';
 import { MockProfiles } from './mockProfiles';
 import type { MockBackend } from './mockTransport';
+
+/** Live press counts for the browser mock (same 25 ms merge as the Rust analysis). */
+function liveStatus(
+  events: { button: number; pressed: boolean; tUs: number }[],
+  nowUs: number,
+): LiveButton[] {
+  const by = new Map<number, { start: number; end: number | null }[]>();
+  for (const e of events) {
+    const list = by.get(e.button) ?? [];
+    by.set(e.button, list);
+    const last = list[list.length - 1];
+    if (e.pressed) {
+      if (last && last.end !== null && e.tUs - last.end < 25_000) last.end = null;
+      else if (!last || last.end !== null) list.push({ start: e.tUs, end: null });
+    } else if (last && last.end === null) {
+      last.end = e.tUs;
+    }
+  }
+  return [...by.entries()]
+    .sort((x, y) => x[0] - y[0])
+    .map(([button, list]) => {
+      const open = list[list.length - 1]?.end === null ? list[list.length - 1] : null;
+      return {
+        button,
+        presses: list.length,
+        taps: list.filter((p) => p.end !== null && p.end - p.start < 1_500_000).length,
+        held: open !== null,
+        heldForUs: open ? nowUs - open.start : 0,
+      };
+    });
+}
 
 /** Plays a rumble program in the browser mock and emits gp://rumble frames. */
 function playRumble(b: MockBackend, id: string, program: RumbleRequest[]) {
@@ -105,6 +142,38 @@ export const mockExtras = {
       set_lightbar: () => undefined,
       set_player_leds: () => undefined,
 
+      // Button health: live counts from the simulated edges; the final report is
+      // the one the Rust analysis produced for the demo (fixtures/button-health.json).
+      button_health_start: () => {
+        b.health = { start: -1, last: 0, prev: [], events: [] };
+      },
+      button_health_progress: (): HealthProgress => {
+        const h = b.health;
+        if (!h) throw { code: 'invalidInput', message: 'no button health session running' };
+        const elapsed = Math.max(0, h.last - Math.max(h.start, 0));
+        return {
+          controller: 'demo:dualsense',
+          precision: { kind: 'report', intervalUs: 4000 },
+          elapsedMs: elapsed / 1000,
+          buttons: liveStatus(h.events, elapsed),
+        };
+      },
+      button_health_stop: (a): HealthReport => {
+        if (!b.health) throw { code: 'invalidInput', message: 'no button health session running' };
+        b.health = null;
+        const plans = a.plans as ButtonPlan[];
+        const report = buttonHealth as unknown as HealthReport;
+        const buttons = plans.flatMap((p) => report.buttons.filter((x) => x.button === p.button));
+        const rank: Record<HealthGrade, number> = { good: 0, warning: 1, bad: 2 };
+        const overall = buttons.reduce<HealthGrade>(
+          (w, x) => (rank[x.grade] > rank[w] ? x.grade : w),
+          'good',
+        );
+        return { ...report, buttons, overall };
+      },
+      button_health_cancel: () => {
+        b.health = null;
+      },
       capture_start: (a) => {
         pending = { kind: String(a.kind), target: String(a.target) };
         const isTrigger = pending.kind.startsWith('trigger');

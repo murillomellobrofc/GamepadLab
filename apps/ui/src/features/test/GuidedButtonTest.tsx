@@ -17,9 +17,12 @@ import { buttonsFor } from './layouts';
 export function GuidedButtonTest({
   c,
   onFinished,
+  onCheckHealth,
 }: {
   c: ControllerInfo;
   onFinished?: (results: ButtonResult[]) => void;
+  /** Opens the button health check for the buttons that failed or were skipped. */
+  onCheckHealth?: (buttons: number[]) => void;
 }) {
   const t = useT();
   const announce = useApp((s) => s.announce);
@@ -218,6 +221,23 @@ export function GuidedButtonTest({
             <button type="button" className={`${ui.btn} ${ui.primary}`} onClick={start}>
               <Icon name="refresh" size={16} /> {t('test.guided.restart')}
             </button>
+            {onCheckHealth && s.fail + s.skip > 0 && (
+              <button
+                type="button"
+                className={ui.btn}
+                title={t('test.health.checkHealthHint')}
+                onClick={() =>
+                  onCheckHealth(
+                    results
+                      .filter((r) => r.status === 'fail' || r.status === 'skip')
+                      .map((r) => r.button),
+                  )
+                }
+                data-testid="guided-check-health"
+              >
+                <Icon name="activity" size={16} /> {t('test.health.checkHealth')}
+              </button>
+            )}
             <SaveToHistory
               label={t('test.guided.save')}
               onSave={() =>

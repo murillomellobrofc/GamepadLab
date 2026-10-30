@@ -408,7 +408,14 @@ export interface RumbleFrame {
 /* -------------------------------------------------------------------- history */
 
 export type SessionKind =
-  'test' | 'buttons' | 'calibration' | 'latency' | 'ghosting' | 'vibration' | 'firmware';
+  | 'test'
+  | 'buttons'
+  | 'buttonHealth'
+  | 'calibration'
+  | 'latency'
+  | 'ghosting'
+  | 'vibration'
+  | 'firmware';
 
 export interface HistorySession {
   id: number;
@@ -455,7 +462,78 @@ export type DemoScenario =
   | 'buttons'
   | 'manual'
   | { pressButton: number }
-  | { chord: number[] };
+  | { chord: number[] }
+  | { healthTaps: { button: number; presses: number } }
+  | { healthHold: number };
+
+/* -------------------------------------------------------------- button health */
+
+/** Mirrors crates/calibration/src/button_health.rs. */
+export type HealthGrade = 'good' | 'warning' | 'bad';
+export type HealthReasonCode =
+  | 'chatter'
+  | 'releaseBounce'
+  | 'missedPresses'
+  | 'noPresses'
+  | 'slowRelease'
+  | 'stuckPress'
+  | 'neverReleased'
+  | 'selfRelease';
+export type HealthAdvice = 'clean' | 'replaceCap' | 'replaceSwitch';
+export type HealthPrecision = { kind: 'report'; intervalUs: number } | { kind: 'event' };
+
+export interface ButtonPlan {
+  button: number;
+  requested: number;
+  reportedSelfReleases: number;
+}
+
+export interface ButtonHealthMetrics {
+  presses: number;
+  taps: number;
+  rawPresses: number;
+  requested: number;
+  missed: number;
+  registrationRate: number | null;
+  chatter: number;
+  releaseBounces: number;
+  selfReleases: number;
+  slowReleases: number;
+  stuckPresses: number;
+  neverReleased: boolean;
+  medianTapMs: number | null;
+  longestPressMs: number | null;
+}
+
+export interface ButtonHealth {
+  button: number;
+  grade: HealthGrade;
+  metrics: ButtonHealthMetrics;
+  reasons: { code: HealthReasonCode; grade: HealthGrade; count: number }[];
+  advice: HealthAdvice[];
+}
+
+export interface HealthReport {
+  precision: HealthPrecision;
+  durationMs: number;
+  overall: HealthGrade;
+  buttons: ButtonHealth[];
+}
+
+export interface LiveButton {
+  button: number;
+  presses: number;
+  taps: number;
+  held: boolean;
+  heldForUs: number;
+}
+
+export interface HealthProgress {
+  controller: string;
+  precision: HealthPrecision;
+  elapsedMs: number;
+  buttons: LiveButton[];
+}
 
 /* ------------------------------------------------------------------- firmware */
 

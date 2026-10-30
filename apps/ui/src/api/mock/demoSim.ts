@@ -98,6 +98,32 @@ export interface ManualState {
   buttons: boolean[];
 }
 
+/* Button health, mirroring crates/input/src/demo.rs: the demo R1 (5) is going
+   bad, so some taps never arrive, some chatter or bounce, and it lets go while held. */
+const HEALTH_FAULTY = 5;
+const HEALTH_MISSED = [3, 9, 15];
+const HEALTH_CHATTER = [1, 6, 11, 17];
+const HEALTH_BOUNCE = [4, 13];
+
+function healthTapDown(button: number, presses: number, secs: number): boolean {
+  const t = secs - 0.4;
+  if (t < 0) return false;
+  const k = Math.floor(t / 0.26);
+  if (k >= presses) return false;
+  const w = t - k * 0.26;
+  if (button !== HEALTH_FAULTY) return w < 0.1;
+  if (HEALTH_MISSED.includes(k)) return false;
+  if (HEALTH_CHATTER.includes(k)) return w < 0.008 || (w >= 0.016 && w < 0.1);
+  if (HEALTH_BOUNCE.includes(k)) return w < 0.1 || (w >= 0.108 && w < 0.116);
+  return w < 0.1;
+}
+
+function healthHoldDown(button: number, secs: number): boolean {
+  const dropped =
+    button === HEALTH_FAULTY && ((secs >= 1.4 && secs < 1.412) || (secs >= 2.2 && secs < 2.208));
+  return secs >= 0.3 && secs < 2.6 && !dropped;
+}
+
 export class DemoSim {
   scenario: DemoScenario = 'showcase';
   scenarioStart = 0;
@@ -199,6 +225,19 @@ export class DemoSim {
         pressed.push(sc.pressButton);
         if (sc.pressButton === 6) lt = 1;
         if (sc.pressButton === 7) rt = 1;
+      }
+    } else if (typeof sc === 'object' && 'healthTaps' in sc) {
+      const { button, presses } = sc.healthTaps;
+      if (healthTapDown(button, presses, secs)) {
+        pressed.push(button);
+        if (button === 6) lt = 1;
+        if (button === 7) rt = 1;
+      }
+    } else if (typeof sc === 'object' && 'healthHold' in sc) {
+      if (healthHoldDown(sc.healthHold, secs)) {
+        pressed.push(sc.healthHold);
+        if (sc.healthHold === 6) lt = 1;
+        if (sc.healthHold === 7) rt = 1;
       }
     } else if (typeof sc === 'object' && 'chord' in sc) {
       if (secs >= 0.3 && secs < 1.8) {
