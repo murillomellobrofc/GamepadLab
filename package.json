@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "tauri": "tauri",
+    "version:set": "node scripts/set-version.mjs",
     "dev": "npm run dev -w @gamepadlab/ui",
     "build:ui": "npm run build -w @gamepadlab/ui",
     "test": "npm run test:rust && npm run test:ui",

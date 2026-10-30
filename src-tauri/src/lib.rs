@@ -41,7 +41,7 @@ pub fn configure<R: Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
             }
             log::info!(
                 "GamepadLab {} starting on {} {} ({})",
-                env!("CARGO_PKG_VERSION"),
+                handle.package_info().version,
                 std::env::consts::OS,
                 platform::os_version(),
                 std::env::consts::ARCH

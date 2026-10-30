@@ -50,6 +50,16 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # The updater compares versions, so a tag that disagrees with the app would ship a broken update.
+      - name: Tag matches app version
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: |
+          have=$(node -p "require('./src-tauri/tauri.conf.json').version")
+          if [ "v$have" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match app version $have (npm run version:set -- ${GITHUB_REF_NAME#v})"
+            exit 1
+          fi
       # Updater artifacts are only produced when the signing key secret exists.
       - name: Release config
         shell: bash

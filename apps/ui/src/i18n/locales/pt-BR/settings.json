@@ -28,6 +28,10 @@
   "upToDate": "Você está na versão mais recente.",
   "updateAvailable": "Versão {version} disponível",
   "installUpdate": "Baixar e instalar",
+  "update_noRelease": "Ainda não há nenhuma versão publicada para baixar.",
+  "update_offline": "Não deu para falar com o servidor de atualizações. Confira a internet e tente de novo.",
+  "updateFailed": "A atualização falhou: {message}",
+  "downloading": "Baixando a atualização… {pct} O app reinicia sozinho no fim.",
   "keyboard": "Atalhos de teclado",
   "shortcuts": "Ctrl/⌘ + 1…6 trocam de aba · Ctrl/⌘ + . abre as configurações · Ctrl/⌘ + D mostra os dados crus"
 }

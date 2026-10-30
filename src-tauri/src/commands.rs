@@ -23,7 +23,8 @@ pub fn updater_configured<R: Runtime>(app: &AppHandle<R>) -> bool {
 
 #[tauri::command]
 pub fn app_info<R: Runtime>(app: AppHandle<R>, state: St) -> AppInfo {
-    platform::app_info(&state, updater_configured(&app))
+    let version = app.package_info().version.to_string();
+    platform::app_info(&state, version, updater_configured(&app))
 }
 
 #[tauri::command]
@@ -73,8 +74,9 @@ pub fn enable_sensors(state: St, id: String) -> CmdResult<bool> {
 }
 
 #[tauri::command]
-pub fn diagnostics(state: St) -> String {
-    platform::diagnostics(&state, &log::max_level().to_string())
+pub fn diagnostics<R: Runtime>(app: AppHandle<R>, state: St) -> String {
+    let version = app.package_info().version.to_string();
+    platform::diagnostics(&state, version, &log::max_level().to_string())
 }
 
 #[tauri::command]

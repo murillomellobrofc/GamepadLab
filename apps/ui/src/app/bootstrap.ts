@@ -95,10 +95,24 @@ export async function bootstrap(): Promise<void> {
     const { checkForUpdate } = await import('@/lib/updater');
     const res = await checkForUpdate(true);
     if (res.state === 'available') {
-      useApp.getState().toast({
+      const { toast } = useApp.getState();
+      toast({
         tone: 'info',
         title: tt('settings.updateAvailable', { version: res.version }),
-        action: { label: tt('settings.installUpdate'), run: () => void res.install() },
+        action: {
+          label: tt('settings.installUpdate'),
+          run: () => {
+            toast({ tone: 'info', title: tt('settings.downloading', { pct: '' }) });
+            res.install().catch((e: unknown) =>
+              toast({
+                tone: 'bad',
+                title: tt('settings.updateFailed', {
+                  message: e instanceof Error ? e.message : String(e),
+                }),
+              }),
+            );
+          },
+        },
       });
     }
   }

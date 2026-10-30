@@ -8,3 +8,5 @@ apps/ui/playwright-report/
 *.log
 .env
 *.key
+*.tsbuildinfo
+.claude/

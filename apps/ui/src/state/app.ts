@@ -104,7 +104,8 @@ export const useApp = create<AppState>()((set, get) => ({
   toast: (t) => {
     const id = toastSeq++;
     set((s) => ({ toasts: [...s.toasts.slice(-4), { ...t, id }] }));
-    window.setTimeout(() => get().dismissToast(id), t.tone === 'bad' ? 9000 : 5000);
+    // Toasts with a button stay until closed, so nobody has to race the timer to act.
+    if (!t.action) window.setTimeout(() => get().dismissToast(id), t.tone === 'bad' ? 9000 : 5000);
   },
   dismissToast: (id) => set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) })),
   setWarnings: (warnings) => set({ warnings }),

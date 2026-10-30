@@ -19,6 +19,8 @@ export function SettingsDialog() {
   const s = useSettings();
   const [update, setUpdate] = useState<UpdateStatus | null>(null);
   const [checking, setChecking] = useState(false);
+  // undefined = not installing, null = downloading with unknown size, 0…1 = progress
+  const [progress, setProgress] = useState<number | null | undefined>(undefined);
 
   const copyDiagnostics = async () => {
     try {
@@ -166,14 +168,42 @@ export function SettingsDialog() {
           )}
           {update?.state === 'none' && <span className={ui.muted}>{t('settings.upToDate')}</span>}
           {update?.state === 'error' && (
-            <span style={{ color: 'var(--bad)' }}>{update.message}</span>
+            <span style={{ color: 'var(--bad)' }} title={update.message}>
+              {update.reason === 'other'
+                ? t('settings.updateFailed', { message: update.message })
+                : t(`settings.update_${update.reason}`)}
+            </span>
           )}
           {update?.state === 'available' && (
             <>
               <span>{t('settings.updateAvailable', { version: update.version })}</span>
-              <button type="button" className={`${ui.btn} ${ui.primary}`} onClick={update.install}>
-                {t('settings.installUpdate')}
-              </button>
+              {progress === undefined ? (
+                <button
+                  type="button"
+                  className={`${ui.btn} ${ui.primary}`}
+                  onClick={async () => {
+                    setProgress(null);
+                    try {
+                      await update.install(setProgress);
+                    } catch (e) {
+                      setProgress(undefined);
+                      setUpdate({
+                        state: 'error',
+                        reason: 'other',
+                        message: e instanceof Error ? e.message : String(e),
+                      });
+                    }
+                  }}
+                >
+                  {t('settings.installUpdate')}
+                </button>
+              ) : (
+                <span className={ui.muted} role="status">
+                  {t('settings.downloading', {
+                    pct: progress === null ? '' : `${Math.round(progress * 100)}%`,
+                  })}
+                </span>
+              )}
             </>
           )}
         </div>

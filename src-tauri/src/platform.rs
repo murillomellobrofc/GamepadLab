@@ -30,9 +30,10 @@ pub fn os_version() -> String {
     System::long_os_version().unwrap_or_default()
 }
 
-pub fn app_info(state: &AppState, updater_configured: bool) -> AppInfo {
+/// `version` is the bundle version the updater compares against (tauri.conf.json), not the crate's.
+pub fn app_info(state: &AppState, version: String, updater_configured: bool) -> AppInfo {
     AppInfo {
-        version: env!("CARGO_PKG_VERSION").to_string(),
+        version,
         os: std::env::consts::OS.to_string(),
         os_version: os_version(),
         arch: std::env::consts::ARCH.to_string(),
@@ -83,9 +84,9 @@ pub fn warnings(state: &AppState) -> Vec<PlatformWarning> {
     out
 }
 
-pub fn diagnostics(state: &AppState, ui_level: &str) -> String {
+pub fn diagnostics(state: &AppState, version: String, ui_level: &str) -> String {
     let mut s = String::new();
-    let info = app_info(state, false);
+    let info = app_info(state, version, false);
     s.push_str("GamepadLab diagnostics\n======================\n");
     s.push_str(&format!("version: {}\n", info.version));
     s.push_str(&format!(

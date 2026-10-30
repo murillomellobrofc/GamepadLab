@@ -6,7 +6,7 @@ members = ["crates/input", "crates/calibration", "crates/profiles", "crates/hapt
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
-repository = "https://github.com/murillomello/gamepadlab"
+repository = "https://github.com/murillomellobrofc/GamepadLab"
 rust-version = "1.80"
 
 [workspace.dependencies]

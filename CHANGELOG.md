@@ -2,6 +2,10 @@
 
 ## Não lançado
 
+- Atualização automática ativada: chave de assinatura gerada, progresso do download, mensagens claras quando não
+  há versão publicada ou falta internet, `npm run version:set` e checagem de tag no `release.yml`.
+- Correções do primeiro teste com controle real: botão Create do DualSense agora se chama Share, contador do
+  teste guiado mostra o botão atual, nomes longos cabem no círculo, anel de cobertura e bússola com tamanho fixo.
 - Calibração gravada no controle: DualShock 4 e DualSense (centro e alcance com os comandos de fábrica, modo
   temporário primeiro, gravação permanente com confirmação, descartar reiniciando) e Switch Pro experimental
   (calibração do usuário na memória SPI, com backup e verificação). Travas de USB, clone, firmware, bateria e

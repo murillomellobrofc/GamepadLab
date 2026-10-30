@@ -28,6 +28,10 @@
   "upToDate": "You are on the latest version.",
   "updateAvailable": "Version {version} available",
   "installUpdate": "Download and install",
+  "update_noRelease": "No release has been published yet.",
+  "update_offline": "Couldn't reach the update server. Check your internet connection and try again.",
+  "updateFailed": "The update failed: {message}",
+  "downloading": "Downloading the update… {pct} The app restarts by itself when done.",
   "keyboard": "Keyboard shortcuts",
   "shortcuts": "Ctrl/⌘ + 1…6 switch tabs · Ctrl/⌘ + . opens settings · Ctrl/⌘ + D toggles raw data"
 }

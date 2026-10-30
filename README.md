@@ -74,7 +74,7 @@ latência real, giroscópio, touchpad, ghosting, perfis, histórico, relatórios
 
 ## Instalar
 
-Baixe o instalador na página de **Releases**:
+Baixe o instalador na página de [**Releases**](https://github.com/murillomellobrofc/GamepadLab/releases):
 
 | Sistema | Arquivo |
 |---|---|
@@ -141,13 +141,23 @@ Detalhes em [docs/architecture.md](docs/architecture.md) e a pesquisa inicial em
 
 ## Atualizações automáticas
 
-O updater do Tauri está configurado, mas vem desligado nesta build porque precisa das suas chaves:
+O app procura versões novas ao abrir (dá para desligar em Configurações) e em **Configurações → Procurar
+agora**. É a única conexão de rede que ele faz. O pacote baixado precisa estar assinado pela chave do projeto;
+sem isso o app recusa a instalação.
 
-1. Gere as chaves: `npm run tauri signer generate -- -w ~/.tauri/gamepadlab.key`.
-2. Coloque a chave pública em `src-tauri/tauri.conf.json` → `plugins.updater.pubkey` e ajuste `endpoints`
-   para o seu repositório.
-3. No GitHub, crie os segredos `TAURI_SIGNING_PRIVATE_KEY` e `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`.
-4. Publique uma tag `v*`: o workflow `release.yml` gera os instaladores, os artefatos assinados e o `latest.json`.
+- Chave pública: em `src-tauri/tauri.conf.json` → `plugins.updater.pubkey`.
+- Chave privada: `~/.tauri/gamepadlab.key`, fora do repositório e sem senha. **Guarde um backup**: sem ela, quem
+  já instalou o app não recebe mais atualizações.
+- Endereço consultado: `plugins.updater.endpoints` (o `latest.json` da última release do GitHub).
+
+Para publicar uma versão:
+
+1. Uma vez só: no repositório do GitHub, crie o segredo `TAURI_SIGNING_PRIVATE_KEY` com o conteúdo de
+   `~/.tauri/gamepadlab.key`.
+2. `npm run version:set -- 0.2.0`, faça o commit, depois `git tag v0.2.0` e `git push --follow-tags`.
+3. O workflow `release.yml` confere se a tag bate com a versão, gera os instaladores, os pacotes assinados e o
+   `latest.json` num rascunho de release.
+4. Publique o rascunho no GitHub. Só a partir daí os apps instalados enxergam a versão nova.
 
 Assinatura e notarização no macOS: [docs/platforms/macos.md](docs/platforms/macos.md).
 
