@@ -2,6 +2,8 @@
 
 ## Não lançado
 
+## 0.2.4
+
 - Novo ícone do GamepadLab (um analógico na mira), em versão escura e clara. Em Configurações → Aparência, a opção
   **Ícone do app** escolhe entre Automático (segue o tema), Escuro e Claro: muda o ícone do Dock no Mac e o da janela
   e da barra de tarefas no Windows e no Linux, além do logotipo dentro do app. O ícone instalado é o escuro.

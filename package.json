@@ -1,7 +1,7 @@
 {
   "name": "gamepadlab",
   "private": true,
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "GamepadLab: test and calibrate game controllers on macOS, Linux and Windows",
   "license": "MIT",
   "workspaces": [

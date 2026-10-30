@@ -38,6 +38,11 @@
     <control>gamepad</control>
   </supports>
   <releases>
+    <release version="0.2.4" date="2026-10-30">
+      <description>
+        <p>New app icon in dark and light, with a setting to pick it.</p>
+      </description>
+    </release>
     <release version="0.2.3" date="2026-10-30">
       <description>
         <p>New controller drawings (DualSense, Xbox Series, Switch Pro and generic) that follow the app theme.</p>
