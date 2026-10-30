@@ -10,7 +10,9 @@
 //! * [`trigger`]: rest/full travel of analog triggers
 //! * [`report`]: quality score, suggested calibration, before/after
 //! * [`pipeline`]: applying a calibration (deadzones, curves, gates…)
+//! * [`button_health`]: chatter, missed presses, stuck buttons and release bounce
 
+pub mod button_health;
 pub mod circularity;
 pub mod curve;
 pub mod directions;

@@ -1,6 +1,6 @@
 [package]
 name = "gamepadlab-calibration"
-description = "Stick and trigger calibration math for GamepadLab (no UI, fully testable)"
+description = "Stick, trigger and button-health analysis for GamepadLab (no UI, fully testable)"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

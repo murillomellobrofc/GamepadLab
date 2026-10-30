@@ -1,0 +1,236 @@
+{
+  "description": "O mesmo R1 saudável lido pelo sistema (gilrs): a análise é a mesma, só a precisão muda.",
+  "session": {
+    "precision": {
+      "kind": "event"
+    },
+    "durationUs": 10272000,
+    "plans": [
+      {
+        "button": 5,
+        "requested": 20,
+        "reportedSelfReleases": 0
+      }
+    ],
+    "events": [
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 400000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 480000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 664000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 752000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 1004000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 1096000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 1336000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 1436000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 1752000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 1848000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 2168000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 2248000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 2560000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 2684000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 2888000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 2996000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 3260000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 3384000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 3680000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 3784000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 4088000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 4196000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 4488000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 4584000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 4752000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 4836000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 5092000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 5200000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 5444000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 5552000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 5820000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 5936000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 6140000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 6256000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 6460000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 6556000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 6776000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 6860000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 7064000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 7168000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 7372000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 9672000
+      }
+    ]
+  },
+  "expect": [
+    {
+      "button": 5,
+      "grade": "good",
+      "reasons": [],
+      "advice": []
+    }
+  ]
+}

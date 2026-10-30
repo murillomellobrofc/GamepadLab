@@ -1,0 +1,243 @@
+{
+  "description": "R1 saudável: 20 toques de 80–130 ms e um aperto segurado por 2,3 s, sem nenhum glitch.",
+  "session": {
+    "precision": {
+      "kind": "report",
+      "intervalUs": 4000
+    },
+    "durationUs": 10036000,
+    "plans": [
+      {
+        "button": 5,
+        "requested": 20,
+        "reportedSelfReleases": 0
+      }
+    ],
+    "events": [
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 400000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 488000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 796000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 880000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 1108000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 1196000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 1484000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 1616000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 1892000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 2004000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 2264000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 2356000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 2540000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 2652000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 2820000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 2928000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 3200000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 3320000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 3480000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 3604000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 3884000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 3980000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 4200000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 4320000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 4504000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 4608000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 4776000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 4856000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 5024000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 5144000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 5448000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 5528000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 5788000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 5912000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 6128000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 6236000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 6404000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 6520000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 6736000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 6844000
+      },
+      {
+        "button": 5,
+        "pressed": true,
+        "tUs": 7136000
+      },
+      {
+        "button": 5,
+        "pressed": false,
+        "tUs": 9436000
+      }
+    ]
+  },
+  "expect": [
+    {
+      "button": 5,
+      "grade": "good",
+      "reasons": [],
+      "advice": [],
+      "metrics": {
+        "taps": 20,
+        "presses": 21,
+        "missed": 0,
+        "chatter": 0
+      }
+    }
+  ]
+}

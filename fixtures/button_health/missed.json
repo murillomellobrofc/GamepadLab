@@ -1,0 +1,397 @@
+{
+  "description": "Falha de registro: 20 toques pedidos; no □ chegaram 16 (ruim), no △ chegaram 19 (atenção).",
+  "session": {
+    "precision": {
+      "kind": "report",
+      "intervalUs": 4000
+    },
+    "durationUs": 14096000,
+    "plans": [
+      {
+        "button": 2,
+        "requested": 20,
+        "reportedSelfReleases": 0
+      },
+      {
+        "button": 3,
+        "requested": 20,
+        "reportedSelfReleases": 0
+      }
+    ],
+    "events": [
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 400000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 492000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 732000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 820000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 1084000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 1196000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 1660000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 1740000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 2004000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 2120000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 2356000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 2440000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 2660000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 2772000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 3412000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 3500000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 3688000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 3788000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 4004000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 4084000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 4312000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 4412000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 4952000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 5052000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 5308000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 5396000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 5716000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 5816000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 6416000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 6508000
+      },
+      {
+        "button": 2,
+        "pressed": true,
+        "tUs": 6732000
+      },
+      {
+        "button": 2,
+        "pressed": false,
+        "tUs": 6844000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 7076000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 7164000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 7468000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 7568000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 7728000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 7828000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 8136000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 8264000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 8504000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 8620000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 8832000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 8936000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 9208000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 9328000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 9564000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 9672000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 9948000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 10040000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 10260000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 10360000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 10852000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 10936000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 11216000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 11340000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 11572000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 11688000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 11988000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 12108000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 12392000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 12520000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 12768000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 12856000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 13068000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 13152000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 13420000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 13516000
+      },
+      {
+        "button": 3,
+        "pressed": true,
+        "tUs": 13792000
+      },
+      {
+        "button": 3,
+        "pressed": false,
+        "tUs": 13888000
+      }
+    ]
+  },
+  "expect": [
+    {
+      "button": 2,
+      "grade": "bad",
+      "reasons": ["missedPresses"],
+      "advice": ["replaceSwitch", "replaceCap"],
+      "metrics": {
+        "taps": 16,
+        "missed": 4,
+        "registrationRate": 0.8
+      }
+    },
+    {
+      "button": 3,
+      "grade": "warning",
+      "reasons": ["missedPresses"],
+      "advice": ["replaceCap", "clean"],
+      "metrics": {
+        "taps": 19,
+        "missed": 1
+      }
+    }
+  ]
+}

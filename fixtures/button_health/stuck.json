@@ -1,0 +1,324 @@
+{
+  "description": "Botão preso: o L1 demora quase 1 s para soltar em 3 toques (tampa agarrando); o L3 fica 9,2 s apertado; o R3 termina a sessão apertado.",
+  "session": {
+    "precision": {
+      "kind": "report",
+      "intervalUs": 4000
+    },
+    "durationUs": 24096000,
+    "plans": [
+      {
+        "button": 4,
+        "requested": 20,
+        "reportedSelfReleases": 0
+      },
+      {
+        "button": 10,
+        "requested": 0,
+        "reportedSelfReleases": 0
+      },
+      {
+        "button": 11,
+        "requested": 0,
+        "reportedSelfReleases": 0
+      }
+    ],
+    "events": [
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 400000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 520000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 744000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 876000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 1128000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 1252000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 1552000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 1636000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 1916000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 2936000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 3112000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 3200000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 3392000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 3496000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 3776000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 3872000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 4132000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 4248000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 4436000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 5352000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 5516000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 5644000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 5860000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 5968000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 6200000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 6292000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 6552000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 6644000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 6824000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 7836000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 8112000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 8200000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 8396000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 8476000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 8636000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 8728000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 8948000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 9036000
+      },
+      {
+        "button": 4,
+        "pressed": true,
+        "tUs": 9240000
+      },
+      {
+        "button": 4,
+        "pressed": false,
+        "tUs": 9340000
+      },
+      {
+        "button": 10,
+        "pressed": true,
+        "tUs": 9580000
+      },
+      {
+        "button": 10,
+        "pressed": false,
+        "tUs": 18780000
+      },
+      {
+        "button": 11,
+        "pressed": true,
+        "tUs": 19380000
+      },
+      {
+        "button": 11,
+        "pressed": false,
+        "tUs": 19476000
+      },
+      {
+        "button": 11,
+        "pressed": true,
+        "tUs": 19776000
+      },
+      {
+        "button": 11,
+        "pressed": false,
+        "tUs": 19900000
+      },
+      {
+        "button": 11,
+        "pressed": true,
+        "tUs": 20116000
+      },
+      {
+        "button": 11,
+        "pressed": false,
+        "tUs": 20208000
+      },
+      {
+        "button": 11,
+        "pressed": true,
+        "tUs": 20416000
+      },
+      {
+        "button": 11,
+        "pressed": false,
+        "tUs": 20524000
+      },
+      {
+        "button": 11,
+        "pressed": true,
+        "tUs": 20760000
+      },
+      {
+        "button": 11,
+        "pressed": false,
+        "tUs": 20844000
+      },
+      {
+        "button": 11,
+        "pressed": true,
+        "tUs": 21096000
+      }
+    ]
+  },
+  "expect": [
+    {
+      "button": 4,
+      "grade": "bad",
+      "reasons": ["slowRelease"],
+      "advice": ["replaceCap", "clean"],
+      "metrics": {
+        "slowReleases": 3,
+        "taps": 20
+      }
+    },
+    {
+      "button": 10,
+      "grade": "bad",
+      "reasons": ["stuckPress"],
+      "advice": ["replaceCap", "clean"],
+      "metrics": {
+        "stuckPresses": 1
+      }
+    },
+    {
+      "button": 11,
+      "grade": "bad",
+      "reasons": ["neverReleased"],
+      "advice": ["replaceCap", "clean"],
+      "metrics": {
+        "neverReleased": true
+      }
+    }
+  ]
+}
