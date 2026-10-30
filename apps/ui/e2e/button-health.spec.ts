@@ -1,3 +1,4 @@
+import { readFile, stat } from 'node:fs/promises';
 import { expect, test, type Page } from '@playwright/test';
 
 async function startDemo(page: Page) {
@@ -30,8 +31,35 @@ test('button health flags the demo R1 and keeps L1 healthy', async ({ page }) =>
   await expect(r1).toContainText('Replace the switch');
 
   await page.getByTestId('save-history').click();
-  await page.getByRole('tab', { name: 'History' }).click();
-  await expect(page.getByRole('main')).toContainText('Button health');
+  await expect(page.getByText('Session saved to history')).toBeVisible();
+
+  // History and the three report formats.
+  await page.getByTestId('tab-history').click();
+  await expect(page.getByTestId('history-table')).toContainText('Button health');
+  await page.getByRole('checkbox', { name: /Select session/ }).check();
+  for (const [label, ext] of [
+    ['JSON data', 'json'],
+    ['PNG image', 'png'],
+    ['PDF document', 'pdf'],
+  ] as const) {
+    await page.getByTestId('history-report').click();
+    await page.getByRole('radio', { name: label }).click();
+    const download = page.waitForEvent('download');
+    await page.getByTestId('report-generate').click();
+    const file = await download;
+    expect(file.suggestedFilename()).toMatch(new RegExp(`\\.${ext}$`));
+    const path = await file.path();
+    if (ext === 'json') {
+      const json = JSON.parse(await readFile(path, 'utf8'));
+      const session = json.sessions[0];
+      expect(session.kind).toBe('buttonHealth');
+      const r1 = session.payload.report.buttons.find((b: { button: number }) => b.button === 5);
+      expect(r1.grade).toBe('bad');
+      expect(r1.advice[0]).toBe('replaceSwitch');
+    } else {
+      expect((await stat(path)).size).toBeGreaterThan(10_000);
+    }
+  }
 });
 
 test('the guided test hands skipped buttons to the health check', async ({ page }) => {

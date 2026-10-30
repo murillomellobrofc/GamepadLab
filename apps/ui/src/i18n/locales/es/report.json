@@ -13,9 +13,11 @@
   "device": "Control",
   "sessions": "Sesiones",
   "buttons": "Lista de botones",
+  "button": "Botón",
+  "grade": "Nota",
   "calibration": "Calibración",
   "latency": "Latencia",
   "ghosting": "Ghosting",
   "noTelemetry": "Generado localmente por GamepadLab. No se envió ningún dato a internet.",
-  "contents": "El informe incluye los gráficos de circularidad, drift y latencia y la lista de botones de las sesiones elegidas."
+  "contents": "El informe incluye los gráficos de circularidad, drift y latencia, la lista de botones y la salud de los botones de las sesiones elegidas."
 }

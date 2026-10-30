@@ -1,6 +1,14 @@
 import { forwardRef } from 'react';
-import type { CaptureSample, HistorySession, StickReport, TriggerAnalysis } from '@/api/types';
+import type {
+  CaptureSample,
+  ControllerInfo,
+  HealthReport,
+  HistorySession,
+  StickReport,
+  TriggerAnalysis,
+} from '@/api/types';
 import { formatDateTime, useT, type TKey } from '@/i18n';
+import { buttonName } from '@/lib/buttonNames';
 import { PAPER } from './paper';
 import { CoverageChart } from '../calibration/CoverageChart';
 import { compareRows } from '../calibration/report';
@@ -29,6 +37,64 @@ function Buttons({ p }: { p: Payload }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+function Health({ p }: { p: Payload }) {
+  const t = useT();
+  const report = p.report as HealthReport | undefined;
+  const kind = (p.controller as ControllerInfo | undefined)?.kind ?? 'generic';
+  if (!report) return null;
+  const precision =
+    report.precision.kind === 'report'
+      ? t('test.health.precisionReport', {
+          ms: Math.max(1, Math.round(report.precision.intervalUs / 1000)),
+        })
+      : t('test.health.precisionEvent');
+  return (
+    <div className={css.health}>
+      <p className={css.note}>{precision}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>{t('report.button')}</th>
+            <th>{t('report.grade')}</th>
+            <th>{t('test.health.metrics.taps')}</th>
+            <th>{t('test.health.metrics.chatter')}</th>
+            <th>{t('test.health.metrics.releaseBounces')}</th>
+            <th>{t('test.health.metrics.selfReleases')}</th>
+            <th>{t('test.health.metrics.slowReleases')}</th>
+            <th>{t('test.health.adviceTitle')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {report.buttons.map((b) => (
+            <tr key={b.button} data-grade={b.grade}>
+              <td>
+                <b>{buttonName(kind, b.button)}</b>
+              </td>
+              <td className={css.gradeCell}>{t(`test.health.grades.${b.grade}`)}</td>
+              <td>
+                {b.metrics.requested ? `${b.metrics.taps}/${b.metrics.requested}` : b.metrics.taps}
+              </td>
+              <td>{b.metrics.chatter}</td>
+              <td>{b.metrics.releaseBounces}</td>
+              <td>{b.metrics.selfReleases}</td>
+              <td>{b.metrics.slowReleases}</td>
+              <td className={css.advice}>
+                {b.reasons.map((r) => (
+                  <span key={r.code}>{t(`test.health.reasons.${r.code}`, { count: r.count })}</span>
+                ))}
+                {b.advice.map((a) => (
+                  <em key={a}>{t(`test.health.advice.${a}`)}</em>
+                ))}
+                {!b.reasons.length && t('test.health.noIssues')}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -232,6 +298,7 @@ export const ReportSheet = forwardRef<
             </h2>
             <p className={css.summary}>{s.summary}</p>
             {s.kind === 'buttons' && <Buttons p={p} />}
+            {s.kind === 'buttonHealth' && <Health p={p} />}
             {s.kind === 'calibration' && <Calibration p={p} />}
             {s.kind === 'latency' && <Latency p={p} />}
             {s.kind === 'ghosting' && <Ghosting p={p} />}

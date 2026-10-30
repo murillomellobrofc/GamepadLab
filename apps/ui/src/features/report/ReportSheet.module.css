@@ -146,3 +146,44 @@
   font-size: 11px;
   text-align: center;
 }
+
+.health table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.health th,
+.health td {
+  border-bottom: 1px solid #d9d5cb;
+  padding: 4px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+.health th {
+  color: #5c6370;
+  font-weight: 600;
+}
+.health .note {
+  color: #5c6370;
+  margin: 0 0 6px;
+}
+.health tr[data-grade='good'] .gradeCell {
+  color: #0a8a60;
+  font-weight: 700;
+}
+.health tr[data-grade='warning'] .gradeCell {
+  color: #a66300;
+  font-weight: 700;
+}
+.health tr[data-grade='bad'] .gradeCell {
+  color: #c41f3d;
+  font-weight: 700;
+}
+.health .advice {
+  display: grid;
+  gap: 2px;
+  max-width: 320px;
+}
+.health .advice em {
+  color: #3d4250;
+}

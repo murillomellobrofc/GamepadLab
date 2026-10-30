@@ -13,9 +13,11 @@
   "device": "Controller",
   "sessions": "Sessions",
   "buttons": "Button checklist",
+  "button": "Button",
+  "grade": "Grade",
   "calibration": "Calibration",
   "latency": "Latency",
   "ghosting": "Ghosting",
   "noTelemetry": "Generated locally by GamepadLab. No data was sent to the internet.",
-  "contents": "The report includes circularity, drift and latency charts and the button checklist of the chosen sessions."
+  "contents": "The report includes circularity, drift and latency charts, the button checklist and button health of the chosen sessions."
 }
