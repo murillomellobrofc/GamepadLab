@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Generic controller for GamepadLab: original drawing by GamepadLab contributors,
+  licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+  Drawn to match the line style of the other controller drawings; it does not copy
+  any of them. See ASSETS_LICENSE.md.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="1130 360 1836 1360" data-art="generic" stroke-miterlimit="10">
+  <g id="trigger-l2" class="gl-trigger">
+    <rect class="gl-part" x="1310" y="388" width="280" height="64" rx="32" stroke-width="7"/>
+    <rect id="trigger-l2-fill" class="gl-gauge-fill" x="1320" y="398" width="260" height="44" rx="22"/>
+    <text class="gl-label" x="1450" y="420" font-size="34" text-anchor="middle" dominant-baseline="central">L2 <tspan id="trigger-l2-value">0%</tspan></text>
+  </g>
+  <g id="trigger-r2" class="gl-trigger">
+    <rect class="gl-part" x="2506" y="388" width="280" height="64" rx="32" stroke-width="7"/>
+    <rect id="trigger-r2-fill" class="gl-gauge-fill" x="2516" y="398" width="260" height="44" rx="22"/>
+    <text class="gl-label" x="2646" y="420" font-size="34" text-anchor="middle" dominant-baseline="central">R2 <tspan id="trigger-r2-value">0%</tspan></text>
+  </g>
+  <g id="body">
+    <path class="gl-body" d="M2048 540C1840 538 1600 528 1440 560C1280 592 1215 660 1190 780C1160 930 1150 1250 1185 1480C1205 1610 1330 1665 1410 1600C1490 1535 1545 1370 1640 1320C1740 1268 1880 1262 2048 1262C2216 1262 2356 1268 2456 1320C2551 1370 2606 1535 2686 1600C2766 1665 2891 1610 2911 1480C2946 1250 2936 930 2906 780C2881 660 2816 592 2656 560C2496 528 2256 538 2048 540Z" stroke-width="7"/>
+  </g>
+  <g id="btn-l1">
+    <path class="gl-part" d="M1236 640C1286 576 1410 532 1600 522C1622 521 1634 536 1628 556L1622 572C1470 578 1360 604 1270 662C1250 675 1222 660 1236 640Z" stroke-width="7"/>
+  </g>
+  <g id="btn-r1">
+    <path class="gl-part" d="M2860.0 640C2810.0 576 2686.0 532 2496.0 522C2474.0 521 2462.0 536 2468.0 556L2474.0 572C2626.0 578 2736.0 604 2826.0 662C2846.0 675 2874.0 660 2860.0 640Z" stroke-width="7"/>
+  </g>
+  <g id="dpad">
+    <circle class="gl-base" cx="1560" cy="840" r="150" stroke-width="7"/>
+  </g>
+  <g id="dpad-up">
+    <rect class="gl-part" x="1522" y="708" width="76" height="92" rx="18" stroke-width="7"/>
+    <polygon class="gl-glyph-fill" points="1560,736 1542,765 1578,765"/>
+  </g>
+  <g id="dpad-down">
+    <rect class="gl-part" x="1522" y="880" width="76" height="92" rx="18" stroke-width="7"/>
+    <polygon class="gl-glyph-fill" points="1560,944 1542,915 1578,915"/>
+  </g>
+  <g id="dpad-left">
+    <rect class="gl-part" x="1428" y="802" width="92" height="76" rx="18" stroke-width="7"/>
+    <polygon class="gl-glyph-fill" points="1456,840 1485,822 1485,858"/>
+  </g>
+  <g id="dpad-right">
+    <rect class="gl-part" x="1600" y="802" width="92" height="76" rx="18" stroke-width="7"/>
+    <polygon class="gl-glyph-fill" points="1664,840 1635,822 1635,858"/>
+  </g>
+  <g id="btn-north">
+    <circle class="gl-part" cx="2536" cy="735" r="56" stroke-width="7"/>
+    <circle class="gl-glyph-fill" cx="2536" cy="709" r="11"/>
+  </g>
+  <g id="btn-east">
+    <circle class="gl-part" cx="2641" cy="840" r="56" stroke-width="7"/>
+    <circle class="gl-glyph-fill" cx="2667" cy="840" r="11"/>
+  </g>
+  <g id="btn-south">
+    <circle class="gl-part" cx="2536" cy="945" r="56" stroke-width="7"/>
+    <circle class="gl-glyph-fill" cx="2536" cy="971" r="11"/>
+  </g>
+  <g id="btn-west">
+    <circle class="gl-part" cx="2431" cy="840" r="56" stroke-width="7"/>
+    <circle class="gl-glyph-fill" cx="2405" cy="840" r="11"/>
+  </g>
+  <g id="btn-select">
+    <rect class="gl-part" x="1838" y="722" width="84" height="36" rx="18" stroke-width="7"/>
+    <rect class="gl-glyph" x="1868" y="732" width="24" height="16" rx="3" stroke-width="4"/>
+  </g>
+  <g id="btn-start">
+    <rect class="gl-part" x="2174" y="722" width="84" height="36" rx="18" stroke-width="7"/>
+    <polygon class="gl-glyph-fill" points="2208,730 2208,750 2226,740"/>
+  </g>
+  <g id="btn-home">
+    <circle class="gl-part" cx="2048" cy="900" r="50" stroke-width="7"/>
+    <circle class="gl-glyph" cx="2048" cy="900" r="24" stroke-width="5"/>
+  </g>
+  <g id="stick-left-base">
+    <circle class="gl-base" cx="1800" cy="1110" r="110" stroke-width="7"/>
+  </g>
+  <g id="stick-left">
+    <circle class="gl-part" cx="1800" cy="1110" r="72" stroke-width="7"/>
+    <circle class="gl-glyph" cx="1800" cy="1110" r="44" stroke-width="5"/>
+  </g>
+  <g id="stick-right-base">
+    <circle class="gl-base" cx="2296" cy="1110" r="110" stroke-width="7"/>
+  </g>
+  <g id="stick-right">
+    <circle class="gl-part" cx="2296" cy="1110" r="72" stroke-width="7"/>
+    <circle class="gl-glyph" cx="2296" cy="1110" r="44" stroke-width="5"/>
+  </g>
+</svg>
