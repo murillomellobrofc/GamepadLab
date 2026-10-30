@@ -1,157 +1,150 @@
 import type { ControllerInfo } from '@/api/types';
 
-/** Shapes of one controller diagram, in a 600×400 viewBox. */
-export type Shape =
-  | { kind: 'circle'; btn: number; x: number; y: number; r: number; label?: string; title: string }
-  | {
-      kind: 'rect';
-      btn: number;
-      x: number;
-      y: number;
-      w: number;
-      h: number;
-      rx?: number;
-      label?: string;
-      title: string;
-      back?: boolean;
-    }
-  | { kind: 'dpad'; x: number; y: number; size: number }
-  | { kind: 'stick'; side: 'left' | 'right'; x: number; y: number; r: number }
-  | {
-      kind: 'trigger';
-      side: 'left' | 'right';
-      x: number;
-      y: number;
-      w: number;
-      h: number;
-      label: string;
-    }
-  | { kind: 'touchpad'; x: number; y: number; w: number; h: number };
+/**
+ * Which drawing each controller family uses and the ID of every part in it.
+ * The drawings are static files in public/controllers (licences in
+ * ASSETS_LICENSE.md); the frontend only knows them by these IDs:
+ *
+ * - `btn-*`, `dpad-*`, `touchpad`: lit while pressed (`data-on`);
+ * - `stick-left` / `stick-right`: moved by the stick, lit on L3/R3; their
+ *   `*-base` holds the ring the cap travels in (radius from its circle);
+ * - `trigger-*`: lit past the threshold; `*-fill` (a rect) grows with the
+ *   value and `*-value` shows the percentage;
+ * - `touch-0` / `touch-1`: placed inside `touchpad` for each finger.
+ */
+export type ArtFamily = 'dualsense' | 'xbox' | 'switchPro' | 'generic';
 
-export interface LayoutSpec {
-  id: 'xbox' | 'dualsense' | 'dualshock4' | 'switchPro';
-  body: string;
-  shapes: Shape[];
+export interface ArtSpec {
+  family: ArtFamily;
+  url: string;
+  /** Canonical button index → part ID. */
+  ids: Readonly<Record<number, string>>;
 }
 
-const XBOX_BODY =
-  'M150 70C200 55 400 55 450 70C510 85 545 120 560 175C580 245 600 320 575 360C555 392 505 392 480 360C455 330 430 300 400 295L200 295C170 300 145 330 120 360C95 392 45 392 25 360C0 320 20 245 40 175C55 120 90 85 150 70Z';
-const PS_BODY =
-  'M130 80C190 62 410 62 470 80C525 96 555 130 568 185C585 255 598 330 572 372C550 400 500 398 478 368C455 336 432 310 400 306L200 306C168 310 145 336 122 368C100 398 50 400 28 372C2 330 15 255 32 185C45 130 75 96 130 80Z';
-
-const shoulders = (lb: string, rb: string, lt: string, rt: string, top = 6): Shape[] => [
-  { kind: 'trigger', side: 'left', x: 118, y: top, w: 94, h: 30, label: lt },
-  { kind: 'trigger', side: 'right', x: 388, y: top, w: 94, h: 30, label: rt },
-  { kind: 'rect', btn: 4, x: 108, y: top + 38, w: 114, h: 18, rx: 9, label: lb, title: lb },
-  { kind: 'rect', btn: 5, x: 378, y: top + 38, w: 114, h: 18, rx: 9, label: rb, title: rb },
-];
-
-export const XBOX: LayoutSpec = {
-  id: 'xbox',
-  body: XBOX_BODY,
-  shapes: [
-    ...shoulders('LB', 'RB', 'LT', 'RT'),
-    { kind: 'stick', side: 'left', x: 180, y: 150, r: 34 },
-    { kind: 'dpad', x: 238, y: 232, size: 66 },
-    { kind: 'stick', side: 'right', x: 362, y: 232, r: 34 },
-    { kind: 'circle', btn: 3, x: 432, y: 112, r: 17, label: 'Y', title: 'Y' },
-    { kind: 'circle', btn: 1, x: 468, y: 148, r: 17, label: 'B', title: 'B' },
-    { kind: 'circle', btn: 0, x: 432, y: 184, r: 17, label: 'A', title: 'A' },
-    { kind: 'circle', btn: 2, x: 396, y: 148, r: 17, label: 'X', title: 'X' },
-    { kind: 'rect', btn: 8, x: 248, y: 141, w: 26, h: 14, rx: 7, title: 'View' },
-    { kind: 'rect', btn: 9, x: 326, y: 141, w: 26, h: 14, rx: 7, title: 'Menu' },
-    { kind: 'circle', btn: 16, x: 300, y: 100, r: 19, label: 'X', title: 'Guide' },
-    { kind: 'rect', btn: 18, x: 290, y: 168, w: 20, h: 10, rx: 5, title: 'Share' },
-    { kind: 'rect', btn: 19, x: 150, y: 330, w: 40, h: 12, rx: 6, title: 'P1', back: true },
-    { kind: 'rect', btn: 20, x: 410, y: 330, w: 40, h: 12, rx: 6, title: 'P2', back: true },
-  ],
+const STICKS_AND_DPAD = {
+  10: 'stick-left',
+  11: 'stick-right',
+  12: 'dpad-up',
+  13: 'dpad-down',
+  14: 'dpad-left',
+  15: 'dpad-right',
 };
 
-const psCommon = (select: string, start: string): Shape[] => [
-  ...shoulders('L1', 'R1', 'L2', 'R2', 8),
-  { kind: 'touchpad', x: 222, y: 74, w: 156, h: 84 },
-  { kind: 'dpad', x: 165, y: 172, size: 64 },
-  { kind: 'circle', btn: 3, x: 435, y: 132, r: 16, label: '△', title: 'Triangle' },
-  { kind: 'circle', btn: 1, x: 471, y: 168, r: 16, label: '○', title: 'Circle' },
-  { kind: 'circle', btn: 0, x: 435, y: 204, r: 16, label: '✕', title: 'Cross' },
-  { kind: 'circle', btn: 2, x: 399, y: 168, r: 16, label: '□', title: 'Square' },
-  { kind: 'rect', btn: 8, x: 200, y: 88, w: 10, h: 24, rx: 5, title: select },
-  { kind: 'rect', btn: 9, x: 390, y: 88, w: 10, h: 24, rx: 5, title: start },
-  { kind: 'stick', side: 'left', x: 230, y: 250, r: 33 },
-  { kind: 'stick', side: 'right', x: 370, y: 250, r: 33 },
-  { kind: 'circle', btn: 16, x: 300, y: 262, r: 13, label: 'PS', title: 'PS' },
-];
-
-export const DUALSENSE: LayoutSpec = {
-  id: 'dualsense',
-  body: PS_BODY,
-  shapes: [
-    ...psCommon('Share', 'Options'),
-    { kind: 'rect', btn: 18, x: 287, y: 284, w: 26, h: 9, rx: 4.5, title: 'Mute' },
-    { kind: 'rect', btn: 19, x: 238, y: 296, w: 22, h: 10, rx: 5, title: 'Fn L' },
-    { kind: 'rect', btn: 20, x: 340, y: 296, w: 22, h: 10, rx: 5, title: 'Fn R' },
-    { kind: 'rect', btn: 21, x: 60, y: 334, w: 44, h: 13, rx: 6, title: 'Back L', back: true },
-    { kind: 'rect', btn: 22, x: 496, y: 334, w: 44, h: 13, rx: 6, title: 'Back R', back: true },
-  ],
+const DUALSENSE: ArtSpec = {
+  family: 'dualsense',
+  url: '/controllers/ps5/dualsense.svg',
+  ids: {
+    0: 'btn-cross',
+    1: 'btn-circle',
+    2: 'btn-square',
+    3: 'btn-triangle',
+    4: 'btn-l1',
+    5: 'btn-r1',
+    6: 'trigger-l2',
+    7: 'trigger-r2',
+    8: 'btn-share',
+    9: 'btn-options',
+    ...STICKS_AND_DPAD,
+    16: 'btn-ps',
+    17: 'touchpad',
+    18: 'btn-mute',
+    19: 'btn-fn-left',
+    20: 'btn-fn-right',
+    21: 'btn-back-left',
+    22: 'btn-back-right',
+  },
 };
 
-export const DUALSHOCK4: LayoutSpec = {
-  id: 'dualshock4',
-  body: PS_BODY,
-  shapes: psCommon('Share', 'Options'),
+const XBOX: ArtSpec = {
+  family: 'xbox',
+  url: '/controllers/xbox/xbox.svg',
+  ids: {
+    0: 'btn-a',
+    1: 'btn-b',
+    2: 'btn-x',
+    3: 'btn-y',
+    4: 'btn-lb',
+    5: 'btn-rb',
+    6: 'trigger-lt',
+    7: 'trigger-rt',
+    8: 'btn-view',
+    9: 'btn-menu',
+    ...STICKS_AND_DPAD,
+    16: 'btn-guide',
+    18: 'btn-share',
+    19: 'btn-p1',
+    20: 'btn-p2',
+  },
 };
 
-export const SWITCH_PRO: LayoutSpec = {
-  id: 'switchPro',
-  body: XBOX_BODY,
-  shapes: [
-    ...shoulders('L', 'R', 'ZL', 'ZR'),
-    { kind: 'stick', side: 'left', x: 180, y: 150, r: 34 },
-    { kind: 'dpad', x: 238, y: 232, size: 66 },
-    { kind: 'stick', side: 'right', x: 362, y: 232, r: 34 },
-    { kind: 'circle', btn: 3, x: 432, y: 112, r: 17, label: 'X', title: 'X' },
-    { kind: 'circle', btn: 1, x: 468, y: 148, r: 17, label: 'A', title: 'A' },
-    { kind: 'circle', btn: 0, x: 432, y: 184, r: 17, label: 'B', title: 'B' },
-    { kind: 'circle', btn: 2, x: 396, y: 148, r: 17, label: 'Y', title: 'Y' },
-    { kind: 'circle', btn: 8, x: 255, y: 110, r: 10, label: '−', title: 'Minus' },
-    { kind: 'circle', btn: 9, x: 345, y: 110, r: 10, label: '+', title: 'Plus' },
-    { kind: 'rect', btn: 18, x: 258, y: 142, w: 18, h: 18, rx: 4, title: 'Capture' },
-    { kind: 'circle', btn: 16, x: 333, y: 151, r: 11, title: 'Home' },
-  ],
+// Positional, like the input layer: South is B and East is A on Nintendo pads.
+const SWITCH_PRO: ArtSpec = {
+  family: 'switchPro',
+  url: '/controllers/switch/switch-pro.svg',
+  ids: {
+    0: 'btn-b',
+    1: 'btn-a',
+    2: 'btn-y',
+    3: 'btn-x',
+    4: 'btn-l',
+    5: 'btn-r',
+    6: 'trigger-zl',
+    7: 'trigger-zr',
+    8: 'btn-minus',
+    9: 'btn-plus',
+    ...STICKS_AND_DPAD,
+    16: 'btn-home',
+    18: 'btn-capture',
+  },
 };
 
-/** Picks a drawn layout for known families; null means "auto (generic)". */
-export function layoutFor(c: ControllerInfo): LayoutSpec | null {
+const GENERIC: ArtSpec = {
+  family: 'generic',
+  url: '/controllers/gamepadlab/generic.svg',
+  ids: {
+    0: 'btn-south',
+    1: 'btn-east',
+    2: 'btn-west',
+    3: 'btn-north',
+    4: 'btn-l1',
+    5: 'btn-r1',
+    6: 'trigger-l2',
+    7: 'trigger-r2',
+    8: 'btn-select',
+    9: 'btn-start',
+    ...STICKS_AND_DPAD,
+    16: 'btn-home',
+  },
+};
+
+export const ART_SPECS: readonly ArtSpec[] = [DUALSENSE, XBOX, SWITCH_PRO, GENERIC];
+
+/** The drawing for a controller. The DualShock 4 uses the DualSense drawing. */
+export function artFor(c: Pick<ControllerInfo, 'kind'>): ArtSpec {
   switch (c.kind) {
+    case 'ps5':
+    case 'ps4':
+      return DUALSENSE;
     case 'xbox':
       return XBOX;
-    case 'ps5':
-      return DUALSENSE;
-    case 'ps4':
-      return DUALSHOCK4;
     case 'switchPro':
       return SWITCH_PRO;
     default:
-      return null;
+      return GENERIC;
   }
 }
 
-/** Buttons that exist on a family (used by the guided test checklist). */
+/** Buttons that exist on this controller (the guided test checklist; the rest are hidden in the drawing). */
 export function buttonsFor(c: ControllerInfo): number[] {
-  const spec = layoutFor(c);
-  if (!spec) {
-    return Array.from({ length: Math.min(17, Math.max(c.buttonCount, 4)) }, (_, i) => i);
+  const all = Object.keys(artFor(c).ids).map(Number);
+  const missing = new Set<number>();
+  if (c.kind === 'generic') {
+    all.filter((b) => b >= Math.max(c.buttonCount, 4)).forEach((b) => missing.add(b));
   }
-  const set = new Set<number>();
-  for (const s of spec.shapes) {
-    if (s.kind === 'circle' || s.kind === 'rect') set.add(s.btn);
-    if (s.kind === 'dpad') [12, 13, 14, 15].forEach((b) => set.add(b));
-    if (s.kind === 'stick') set.add(s.side === 'left' ? 10 : 11);
-    if (s.kind === 'trigger') set.add(s.side === 'left' ? 6 : 7);
-    if (s.kind === 'touchpad') set.add(17);
-  }
-  // Paddles only on controllers that report them.
-  const extras = c.buttonCount >= 23 ? [] : [19, 20, 21, 22];
-  if (spec.id === 'xbox' && !c.name.toLowerCase().includes('elite')) extras.push(19, 20);
-  return [...set].filter((b) => !extras.includes(b)).sort((a, b) => a - b);
+  if (c.kind === 'ps4') [18, 19, 20, 21, 22].forEach((b) => missing.add(b));
+  // DualSense Edge paddles only when the controller reports them.
+  if (c.kind === 'ps5' && c.buttonCount < 23) [19, 20, 21, 22].forEach((b) => missing.add(b));
+  if (c.kind === 'xbox' && !c.name.toLowerCase().includes('elite'))
+    [19, 20].forEach((b) => missing.add(b));
+  return all.filter((b) => !missing.has(b)).sort((a, b) => a - b);
 }

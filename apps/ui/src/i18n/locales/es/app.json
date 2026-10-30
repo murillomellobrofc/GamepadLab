@@ -82,6 +82,7 @@
     "privacy": "Sin telemetría. Ningún dato sale de tu equipo. Perfiles, historial e informes se guardan localmente.",
     "network": "La única conexión de red es la búsqueda opcional de actualizaciones, que puedes desactivar en los ajustes.",
     "credits": "Inspirado en hardwaretester.com y en el calibrador de PG Custom. Comandos de calibración de Sony portados de DualShock Calibration GUI (MIT, the_al); mapa de memoria del Switch documentado por Nintendo_Switch_Reverse_Engineering.",
+    "artCredits": "Dibujos de los controles DualSense, Xbox Series y Switch Pro basados en \"Button Icons and Controls\" de Zacksly, licencia CC BY 3.0 (zacksly.itch.io), modificados por GamepadLab. Control genérico: dibujo original de GamepadLab, CC BY 4.0. Detalles en ASSETS_LICENSE.md.",
     "license": "Licencia MIT",
     "dataDir": "Carpeta de datos",
     "backends": "Backends de entrada",

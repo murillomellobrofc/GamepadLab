@@ -1,3 +1,13 @@
+/* The drawings (public/controllers) carry geometry only: every colour comes
+   from the theme through these gl-* classes. */
+.art {
+  width: 100%;
+  min-height: 120px;
+}
+.art[data-failed] {
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+}
 .svg {
   width: 100%;
   height: auto;
@@ -5,109 +15,109 @@
   display: block;
   overflow: visible;
 }
-.body {
+.svg :global(.gl-body) {
   fill: var(--pad-body);
   stroke: var(--pad-body-line);
-  stroke-width: 2;
 }
-.btn circle,
-.btn rect {
+.svg :global(.gl-seam) {
+  fill: none;
+  stroke: var(--line-strong);
+}
+.svg :global(.gl-part) {
   fill: var(--pad-btn);
   stroke: var(--pad-body-line);
-  stroke-width: 1.5;
-  transition: fill 60ms linear;
+  transition:
+    fill 60ms linear,
+    stroke 60ms linear;
 }
-.btn[data-on='true'] > circle,
-.btn[data-on='true'] > rect,
-.btn[data-on='true'] .cap {
-  fill: var(--accent);
-  stroke: var(--accent);
-  filter: drop-shadow(0 0 6px var(--accent));
+.svg :global(.gl-base) {
+  fill: var(--surface-3);
+  stroke: var(--line-strong);
 }
-.btn[data-back] rect {
-  stroke-dasharray: 4 3;
+.svg :global(.gl-glyph) {
+  fill: none;
+  stroke: var(--text);
+}
+.svg :global(.gl-glyph-fill) {
+  fill: var(--text);
+  stroke: none;
+}
+.svg :global(.gl-detail) {
+  fill: none;
+  stroke: var(--text-faint);
+}
+.svg :global(.gl-hit) {
+  fill: transparent;
+  stroke: none;
+}
+.svg :global(.gl-back) {
+  stroke-dasharray: 14 10;
   fill-opacity: 0.6;
 }
-.glyph,
-.glyphSmall {
-  fill: var(--text-muted);
-  font-family: var(--font-ui);
-  font-weight: 700;
-  text-anchor: middle;
-  dominant-baseline: central;
+.svg :global(.gl-label) {
+  fill: var(--text);
+  font-family: var(--font-mono);
   pointer-events: none;
 }
-.glyphSmall {
-  font-size: 10px;
+.svg :global(.gl-gauge-fill) {
+  fill: var(--accent);
+  opacity: 0.55;
 }
-.btn[data-on='true'] .glyph,
-.btn[data-on='true'] .glyphSmall {
-  fill: var(--accent-ink);
-}
-.dpadHub {
-  fill: var(--pad-btn);
-}
-.well {
-  fill: var(--surface-3);
-  stroke: var(--pad-body-line);
-  stroke-width: 1.5;
-}
-.cap {
-  fill: var(--pad-btn) !important;
-}
-.capInner {
-  fill: none !important;
-  stroke: var(--text-faint) !important;
-  stroke-dasharray: 2 3;
-}
-.triggerFrame {
-  fill: var(--pad-btn) !important;
-}
-.triggerFill {
-  fill: var(--accent) !important;
-  stroke: none !important;
-  opacity: 0.85;
-}
-.btn[data-on='true'] > .triggerFrame {
-  fill: var(--pad-btn) !important;
-  filter: none;
-}
-.triggerPct {
-  font-family: var(--font-mono);
-  font-weight: 500;
-}
-.touchpad {
-  fill: var(--surface-3) !important;
-}
-.touchDot {
-  fill: var(--sig-alt) !important;
-  stroke: none !important;
+.svg :global(.gl-touch) {
+  fill: var(--sig-alt);
   opacity: 0;
 }
-.touchDot[data-active='true'] {
+.svg :global(.gl-touch[data-active='true']) {
   opacity: 0.9;
 }
+.svg :global([data-absent]) {
+  display: none;
+}
+
+/* Pressed: the part, its glyph and one-piece D-pad arms light up. */
+.svg :global([data-on='true'] > .gl-part),
+.svg :global(.gl-part[data-on='true']) {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+  filter: drop-shadow(0 0 24px var(--accent));
+}
+.svg :global([data-on='true'] > .gl-glyph) {
+  stroke: var(--accent);
+}
+.svg :global([data-on='true'] > .gl-glyph-fill) {
+  fill: var(--accent);
+}
+.svg :global(.gl-hit[data-on='true']) {
+  fill: var(--accent);
+  opacity: 0.45;
+}
+/* The gauge frame stays calm: the fill already shows the trigger. */
+.svg :global(.gl-trigger[data-on='true'] > .gl-part) {
+  filter: none;
+  fill: var(--pad-btn);
+}
+
 .ring {
   fill: none;
   stroke: var(--warn);
-  stroke-width: 3;
-  stroke-dasharray: 6 5;
+  stroke-width: 9;
+  stroke-dasharray: 22 16;
   animation: ring 1.2s linear infinite;
 }
 @keyframes ring {
   to {
-    stroke-dashoffset: -22;
+    stroke-dashoffset: -76;
   }
 }
 
 /* Visual stand-in for vibration (also for deaf users): the pad shakes, or
    with reduced motion its outline pulses. */
-.svg[data-vibrating] {
+.art[data-vibrating] .svg {
   animation: shake 70ms linear infinite;
 }
-.svg[data-vibrating] .body {
+.art[data-vibrating] :global(.gl-body) {
   stroke: var(--warn);
-  stroke-width: calc(2px + var(--rumble) * 4px);
+  stroke-width: calc(7px + var(--rumble) * 14px);
 }
 @keyframes shake {
   0% {
@@ -120,6 +130,6 @@
     transform: translate(0, calc(var(--rumble) * -1px));
   }
 }
-:global(:root[data-motion='reduced']) .svg[data-vibrating] {
+:global(:root[data-motion='reduced']) .art[data-vibrating] .svg {
   animation: none;
 }

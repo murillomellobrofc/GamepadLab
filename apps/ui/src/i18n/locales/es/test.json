@@ -1,7 +1,7 @@
 {
   "waiting": "Esperando datos del control… pulsa un botón.",
   "diagram": "Control",
-  "genericLayout": "Disposición automática creada a partir de los botones y ejes detectados",
+  "drawingUnavailable": "Dibujo del control no disponible.",
   "sticks": "Sticks",
   "triggers": "Gatillos",
   "leftStick": "Stick izquierdo",

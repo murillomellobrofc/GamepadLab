@@ -48,6 +48,13 @@ export function AboutDialog() {
       <p className={ui.faint} style={{ fontSize: 'var(--fs-xs)' }}>
         {t('app.about.credits')} · {t('app.about.license')}
       </p>
+      <p
+        className={ui.faint}
+        style={{ fontSize: 'var(--fs-xs)', userSelect: 'text' }}
+        data-testid="about-art-credits"
+      >
+        {t('app.about.artCredits')}
+      </p>
     </Dialog>
   );
 }

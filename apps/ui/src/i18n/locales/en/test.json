@@ -1,7 +1,7 @@
 {
   "waiting": "Waiting for controller data… press a button.",
   "diagram": "Controller",
-  "genericLayout": "Automatic layout built from the detected buttons and axes",
+  "drawingUnavailable": "Controller drawing unavailable.",
   "sticks": "Sticks",
   "triggers": "Triggers",
   "leftStick": "Left stick",
