@@ -656,8 +656,11 @@ fn run(
         demo.poll(&clock, &mut buf);
         tagged.extend(buf.drain(..).map(|e| (DEMO_OWNER, 0, e)));
 
-        // 3. Apply events.
-        let mut list_changed = false;
+        // 3. Apply events. The shared controller list is updated before each
+        // change is announced, so whoever reacts to an event sees the new list.
+        let publish = |registry: &Registry| {
+            *shared.controllers.write().unwrap() = registry.visible();
+        };
         for (owner, priority, ev) in tagged {
             match ev {
                 BackendEvent::Connected(info) => {
@@ -670,12 +673,14 @@ fn run(
                     );
                     owners.insert(info.id.clone(), owner);
                     let changes = registry.add(info, priority);
-                    list_changed |= !changes.is_empty();
+                    if !changes.is_empty() {
+                        publish(&registry);
+                    }
                     apply_changes(changes, &events, &shared, &mut trackers);
                 }
                 BackendEvent::Updated(info) => {
                     if let Some(visible) = registry.update(info) {
-                        list_changed = true;
+                        publish(&registry);
                         let _ = events.send(ServiceEvent::Updated(visible));
                     }
                 }
@@ -691,7 +696,9 @@ fn run(
                         });
                     }
                     let changes = registry.remove(&id);
-                    list_changed |= !changes.is_empty();
+                    if !changes.is_empty() {
+                        publish(&registry);
+                    }
                     apply_changes(changes, &events, &shared, &mut trackers);
                     trackers.remove(&id);
                 }
@@ -724,10 +731,6 @@ fn run(
                 }
             }
         }
-        if list_changed {
-            *shared.controllers.write().unwrap() = registry.visible();
-        }
-
         std::thread::sleep(config.poll_interval);
     }
 }

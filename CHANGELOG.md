@@ -17,6 +17,8 @@
 - O controle demo ganhou um R1 com defeito para mostrar a análise.
 - Correção: um clique logo ao abrir o app (antes de a conexão interna terminar de carregar) era perdido; agora
   espera. Era a causa dos testes de ponta a ponta instáveis.
+- Correção: a lista de controles agora é atualizada antes do aviso de conexão ou desconexão, então quem reage ao
+  aviso já vê a lista nova (fazia um teste do serviço falhar às vezes no Windows).
 
 ## 0.2.1
 
