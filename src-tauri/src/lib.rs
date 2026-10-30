@@ -1,6 +1,7 @@
 //! GamepadLab desktop shell: wires the input, calibration, profiles and
 //! haptics crates to the web UI through Tauri commands and events.
 
+mod app_icon;
 mod calibrate;
 mod cmd_calibration;
 mod cmd_files;
@@ -104,6 +105,7 @@ pub fn configure<R: Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
             commands::set_lightbar,
             commands::set_player_leds,
             cmd_calibration::capture_start,
+            app_icon::set_app_icon,
             cmd_health::button_health_start,
             cmd_health::button_health_progress,
             cmd_health::button_health_stop,

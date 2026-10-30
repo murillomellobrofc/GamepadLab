@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { AppShell } from '@/app/AppShell';
 import { bootstrap } from '@/app/bootstrap';
 import { EmptyState } from '@/app/EmptyState';
+import { useAppIcon } from '@/app/useAppIcon';
 import { useDocumentSettings } from '@/app/useDocumentSettings';
 import { useShortcuts } from '@/app/useShortcuts';
 import { CalibrationView } from '@/features/calibration/CalibrationView';
@@ -58,6 +59,7 @@ function MainContent() {
 
 export default function App() {
   useDocumentSettings();
+  useAppIcon();
   useShortcuts();
   useEffect(() => {
     // On narrow windows the raw panel is a drawer over the content: start closed.

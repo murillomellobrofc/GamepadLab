@@ -3,8 +3,10 @@ import { useApp } from '@/state/app';
 import ui from '@/styles/ui.module.css';
 import { Dialog } from './Dialog';
 import { Icon } from './icons';
+import { brandUrl, useIconVariant } from './useAppIcon';
 
 export function AboutDialog() {
+  const iconVariant = useIconVariant();
   const t = useT();
   const open = useApp((s) => s.dialog === 'about');
   const openDialog = useApp((s) => s.openDialog);
@@ -12,7 +14,7 @@ export function AboutDialog() {
   return (
     <Dialog open={open} title={t('app.about.title')} onClose={() => openDialog(null)}>
       <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-        <img src="/favicon.svg" alt="" width={56} height={56} />
+        <img src={brandUrl(iconVariant)} alt="" width={56} height={56} />
         <div>
           <p style={{ fontSize: 'var(--fs-xl)', fontWeight: 700 }}>GamepadLab</p>
           <p className={`${ui.muted} mono`}>

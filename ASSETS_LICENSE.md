@@ -38,6 +38,13 @@ O **código** do GamepadLab é MIT (veja [LICENSE](LICENSE)). Os **desenhos de c
   <https://creativecommons.org/licenses/by/4.0/>.
 - O controle genérico foi desenhado do zero no mesmo estilo de traço; não copia nenhum dos desenhos acima.
 
+## Ícone e logotipo do GamepadLab
+
+O símbolo do app (`assets/gamepadlab-dark.svg` e `assets/gamepadlab-light.svg`, e o que sai deles:
+`src-tauri/icons/`, `apps/ui/public/brand/` e `apps/ui/public/favicon.svg`) foi criado por Murillo Mello para o
+GamepadLab e identifica o projeto. As versões de 1024 px em `assets/` só acrescentam a margem da grade de ícones do
+macOS; o desenho é o mesmo.
+
 ## Marcas
 
 PlayStation, DualSense, DualShock, Xbox, Nintendo Switch e os respectivos logotipos são marcas dos seus donos e

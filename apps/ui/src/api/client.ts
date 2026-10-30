@@ -60,6 +60,7 @@ export const api = {
   listControllers: () => call<ControllerInfo[]>('list_controllers'),
   platformWarnings: () => call<PlatformWarning[]>('platform_warnings'),
   setUiRate: (hz: number) => call<void>('set_ui_rate', { hz }),
+  setAppIcon: (variant: 'dark' | 'light') => call<void>('set_app_icon', { variant }),
   resetMinMax: (id: string) => call<void>('reset_minmax', { id }),
 
   setDemo: (enabled: boolean) => call<void>('set_demo', { enabled }),

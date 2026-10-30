@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 export type ThemePref = 'dark' | 'light' | 'auto';
+/** App icon: the dark or light symbol, or whichever matches the theme. */
+export type AppIconPref = 'auto' | 'dark' | 'light';
 export type MotionPref = 'system' | 'reduced' | 'full';
 export type LogLevel = 'error' | 'warn' | 'info' | 'debug' | 'trace';
 export type ChromaKey = 'transparent' | 'green' | 'blue' | 'magenta';
@@ -18,6 +20,7 @@ export interface OverlaySettings {
 
 export interface Settings {
   theme: ThemePref;
+  appIcon: AppIconPref;
   highContrast: boolean;
   locale: 'pt-BR' | 'en' | 'es';
   textScale: number;
@@ -72,6 +75,7 @@ export const useSettings = create<Settings>()(
   persist(
     (set) => ({
       theme: 'dark',
+      appIcon: 'auto',
       highContrast: false,
       locale: detectLocale(),
       textScale: 1,

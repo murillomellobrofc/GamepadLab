@@ -91,6 +91,14 @@ fn full_flow_over_ipc() {
     assert_eq!(info["packageManaged"], cfg!(target_os = "linux"));
     assert_eq!(ipc.ok("list_controllers", json!({})), json!([]));
 
+    // App icon swap (dark/light symbol).
+    ipc.ok("set_app_icon", json!({ "variant": "light" }));
+    ipc.ok("set_app_icon", json!({ "variant": "dark" }));
+    let err = ipc
+        .call("set_app_icon", json!({ "variant": "purple" }))
+        .unwrap_err();
+    assert_eq!(err["code"], "invalidInput");
+
     // Validation errors come back as { code, message }.
     let err = ipc.call("set_ui_rate", json!({ "hz": 5 })).unwrap_err();
     assert_eq!(err["code"], "invalidInput");

@@ -37,6 +37,7 @@ latência real, giroscópio, touchpad, ghosting, perfis, histórico, relatórios
 - Latência e polling: Hz real, jitter, mínimo/médio/máximo, P99, gráfico ao vivo, histograma e medição de 10 s.
 - Sensores: giroscópio, acelerômetro, orientação 3D e touchpad (DS4, DualSense; Switch Pro experimental).
 - Vários controles ao mesmo tempo, com abas e visão "todos ao vivo".
+- Tema escuro, claro ou automático, alto contraste e ícone do app escuro ou claro (Configurações → Aparência).
 - Overlay para stream: janela pequena, sem bordas, sempre no topo, com fundo transparente ou chroma key.
 
 **Calibração por software** (em perfis do app, para qualquer controle)

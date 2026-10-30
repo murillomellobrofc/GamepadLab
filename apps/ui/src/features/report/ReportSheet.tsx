@@ -280,7 +280,8 @@ export const ReportSheet = forwardRef<
   return (
     <div ref={ref} className={css.sheet} data-testid="report-sheet">
       <header className={css.head}>
-        <img src="/favicon.svg" alt="" width={44} height={44} />
+        {/* Printed on white paper: always the light symbol. */}
+        <img src="/brand/gamepadlab-light.svg" alt="" width={44} height={44} />
         <div>
           <h1>{t('report.heading')}</h1>
           <p>

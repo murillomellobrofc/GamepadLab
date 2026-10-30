@@ -9,9 +9,11 @@ import ui from '@/styles/ui.module.css';
 import { Field, Section, Segmented, Slider, Switch } from './controls';
 import { Dialog } from './Dialog';
 import { Icon } from './icons';
+import { brandUrl, useIconVariant } from './useAppIcon';
 
 export function SettingsDialog() {
   const t = useT();
+  const iconVariant = useIconVariant();
   const open = useApp((s) => s.dialog === 'settings');
   const openDialog = useApp((s) => s.openDialog);
   const toast = useApp((s) => s.toast);
@@ -46,6 +48,27 @@ export function SettingsDialog() {
               { value: 'auto', label: t('settings.themeAuto') },
             ]}
           />
+        </Field>
+        <Field label={t('settings.appIcon')} hint={t('settings.appIconHint')}>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+            <Segmented
+              label={t('settings.appIcon')}
+              value={s.appIcon}
+              onChange={(appIcon) => s.set({ appIcon })}
+              options={[
+                { value: 'auto', label: t('settings.appIconAuto') },
+                { value: 'dark', label: t('settings.appIconDark') },
+                { value: 'light', label: t('settings.appIconLight') },
+              ]}
+            />
+            <img
+              src={brandUrl(iconVariant)}
+              alt={t('settings.appIconPreview')}
+              width={40}
+              height={40}
+              data-testid="app-icon-preview"
+            />
+          </div>
         </Field>
         <Switch
           label={t('settings.highContrast')}

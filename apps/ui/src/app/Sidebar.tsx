@@ -7,6 +7,7 @@ import { hex4 } from '@/lib/format';
 import ui from '@/styles/ui.module.css';
 import css from './AppShell.module.css';
 import { Icon } from './icons';
+import { brandUrl, useIconVariant } from './useAppIcon';
 
 function isActive(e: FrameEntry): boolean {
   const s = e.snapshot;
@@ -69,6 +70,7 @@ function PadItem({ c, current }: { c: ControllerInfo; current: boolean }) {
 }
 
 export function Sidebar() {
+  const iconVariant = useIconVariant();
   const t = useT();
   const controllers = useApp((s) => s.controllers);
   const selectedId = useApp((s) => s.selectedId);
@@ -88,7 +90,7 @@ export function Sidebar() {
   return (
     <nav className={css.sidebar} aria-label={t('app.sidebar.controllers')}>
       <div className={css.brand}>
-        <img src="/favicon.svg" alt="" />
+        <img src={brandUrl(iconVariant)} alt="" />
         <span className={css.brandName}>
           Gamepad<span>Lab</span>
         </span>

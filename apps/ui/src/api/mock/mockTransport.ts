@@ -195,6 +195,7 @@ export function createMockTransport(): Transport {
       if (b.demo) b.startLoop();
     },
     set_log_level: () => undefined,
+    set_app_icon: () => undefined,
     log_frontend: () => undefined,
     reset_minmax: () => b.sim.resetMinMax(),
     set_demo: (a) => b.setDemo(Boolean(a.enabled)),

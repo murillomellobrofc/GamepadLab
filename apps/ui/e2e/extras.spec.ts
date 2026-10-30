@@ -79,3 +79,25 @@ test('the controller itself can drive the app', async ({ page }) => {
   await press(page, 16);
   await expect(page.getByText(/D-pad\/stick move focus/)).toBeHidden();
 });
+
+test('the app icon follows the theme or the choice in settings', async ({ page }) => {
+  await page.goto('/');
+  const logo = page.getByRole('navigation', { name: 'Controllers' }).locator('img').first();
+  await expect(logo).toHaveAttribute('src', '/brand/gamepadlab-dark.svg');
+  await page.getByRole('button', { name: 'Settings' }).click();
+  const preview = page.getByTestId('app-icon-preview');
+  await page.getByRole('radio', { name: 'Light' }).first().click();
+  await expect(preview).toHaveAttribute('src', '/brand/gamepadlab-light.svg');
+  await page
+    .getByRole('radiogroup', { name: 'App icon' })
+    .getByRole('radio', { name: 'Dark' })
+    .click();
+  await expect(preview).toHaveAttribute('src', '/brand/gamepadlab-dark.svg');
+  await page
+    .getByRole('radiogroup', { name: 'App icon' })
+    .getByRole('radio', { name: 'Light' })
+    .click();
+  await expect(preview).toHaveAttribute('src', '/brand/gamepadlab-light.svg');
+  await page.keyboard.press('Escape');
+  await expect(logo).toHaveAttribute('src', '/brand/gamepadlab-light.svg');
+});

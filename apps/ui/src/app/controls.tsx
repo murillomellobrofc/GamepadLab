@@ -135,11 +135,20 @@ export function Slider({
   );
 }
 
-export function Field({ label, children }: { label: ReactNode; children: ReactNode }) {
+export function Field({
+  label,
+  hint,
+  children,
+}: {
+  label: ReactNode;
+  hint?: ReactNode;
+  children: ReactNode;
+}) {
   return (
     <div className={ui.field}>
       <span className={ui.fieldLabel}>{label}</span>
       {children}
+      {hint && <p className={css.hint}>{hint}</p>}
     </div>
   );
 }
